@@ -26,7 +26,10 @@ use App\Http\Controllers\HomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/',function(){
+    return view('welcome');
+});
+// Route::get('/', 'HomeController@index')->name('home');
 Route::resource('check_orders','HomeController')->except('index');
 Route::post('/discount/submit', 'HomeController@applydiscount')->name('discount.submit');
 
