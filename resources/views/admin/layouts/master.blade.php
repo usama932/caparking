@@ -3,7 +3,7 @@
 $setting = \App\Models\Setting::pluck('value','name')->toArray();
 $logo = isset($setting['logo']) ? 'uploads/'.$setting['logo'] : 'assets/media/logos/logo-light.png';
 $favicon = isset($setting['favicon']) ? 'uploads/'.$setting['favicon'] : 'assets/media/logos/favicon.ico';
-$copy_right = isset($setting['copy_right']) ? $setting['copy_right'] : 'wwww.financialdashboard.com';
+$copy_right = isset($setting['copy_right']) ? $setting['copy_right'] : '';
 ?>
 
 <!--

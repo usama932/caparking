@@ -23,7 +23,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $title          = 'Xtreme Booking';
+        $title          = config('app.name');
         $room           = Room::count();
         $bathroom       = Bathroom::count();
         $services       = ExtraService::count();
