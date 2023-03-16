@@ -16,7 +16,7 @@
 
         <!--begin::Logo-->
         <a href="{{ route('admin.dashboard') }}" class="brand-logo">
-            <h3 class="text-center text-white m-4">Xtreme Booking</h3>
+            <h3 class="text-center text-white m-4">{{ config('app.name')}}</h3>
             {{-- <img alt="Logo" class="logo mt-5" src="{{ asset($logo) }}" /> --}}
         </a>
 
