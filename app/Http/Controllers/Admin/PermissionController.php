@@ -108,7 +108,7 @@ class PermissionController extends Controller
 		$permissions = Permission::findOrFail($request->id);
 		
 		
-		return view('admin.permissions.detail', ['title' => 'Permissions Detail', 'permissions' => $permissions]);
+		return view('admin.permission.detail', ['title' => 'Permissions Detail', 'permissions' => $permissions]);
 	}
     public function create()
     {
