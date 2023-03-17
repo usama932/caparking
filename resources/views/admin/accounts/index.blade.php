@@ -133,9 +133,7 @@
                     "data": "user_id"
                 },
                 {
-                    "data": "created_at",
-                     "searchable": false,
-                    "orderable": false
+                    "data": "created_at"
                 },
                 {
                     "data": "action",

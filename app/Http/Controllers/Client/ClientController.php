@@ -16,8 +16,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-	    $title = 'Xtreme Booking';
-    
+	    $title = 'NewsWatch Client Dashboard';
 	    return view('client.dashboard.index',compact('title'));
     
     }

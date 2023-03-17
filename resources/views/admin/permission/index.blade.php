@@ -8,7 +8,7 @@
                 <span class="card-icon">
                     <i class="flaticon-users text-primary"></i>
                 </span>
-                <h3 class="card-label">Client List</h3>
+                <h3 class="card-label">Permission List</h3>
                 <div class="d-flex align-items-center ">
                     <a class="btn btn-danger font-weight-bolder" onclick="del_selected()" href="javascript:void(0)"> <i
                             class="la la-trash-o"></i>Delete All</a>
@@ -17,7 +17,7 @@
             <div class="card-toolbar">
 
                 <!--begin::Button-->
-                <a href="{{ route('clients.create') }}" class="btn btn-primary font-weight-bolder">
+                <a href="{{ route('permissions.create') }}" class="btn btn-primary font-weight-bolder">
                     <span class="svg-icon svg-icon-md">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -38,10 +38,10 @@
         <div class="card-body">
             @include('admin.partials._messages')
             <div class="table-responsive">
-                <form action="{{ route('admin.delete-selected-clients') }}" method="post" id="client_form">
+                <form action="{{ route('admin.delete-selected-permissions') }}" method="post" id="permission_form">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <!--begin: Datatable-->
-                    <table class="table table-bordered table-hover table-checkable" id="clients"
+                    <table class="table table-bordered table-hover table-checkable" id="permissions"
                         style="margin-top: 13px !important">
                         <thead>
                             <tr>
@@ -52,8 +52,6 @@
                                 </th>
 
                                 <th>Name</th>
-                                <th>Email</th>
-                                <th>Status</th>
                                 <th>Created At</th>
                                 <th>Actions</th>
                             </tr>
@@ -64,13 +62,13 @@
             </div>
         </div>
         <!-- Modal-->
-        <div class="modal fade" id="clientModel" data-backdrop="static" tabindex="-1" role="dialog"
+        <div class="modal fade" id="permissionModel" data-backdrop="static" tabindex="-1" role="dialog"
             aria-labelledby="staticBackdrop" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="myModalLabel">Client Detail</h4>
+                        <h4 class="modal-title" id="myModalLabel">Permission Detail</h4>
                     </div>
                     <div class="modal-body"></div>
                     <div class="modal-footer">
@@ -102,7 +100,7 @@
                     $(this).closest('tr').toggleClass('selected');
                 });
         });
-        var clients = $('#clients').DataTable({
+        var clients = $('#permissions').DataTable({
             "order": [
                 [1, 'asc']
             ],
@@ -111,7 +109,7 @@
             "searchDelay": 500,
             "responsive": true,
             "ajax": {
-                "url": "{{ route('admin.getClients') }}",
+                "url": "{{ route('admin.getPermissions') }}",
                 "dataType": "json",
                 "type": "POST",
                 "data": {
@@ -127,12 +125,6 @@
                     "data": "name"
                 },
                 {
-                    "data": "email"
-                },
-                {
-                    "data": "active"
-                },
-                {
                     "data": "created_at"
                 },
                 {
@@ -146,12 +138,12 @@
         function viewInfo(id) {
 
             var CSRF_TOKEN = '{{ csrf_token() }}';
-            $.post("{{ route('admin.getClient') }}", {
+            $.post("{{ route('admin.getPermission') }}", {
                 _token: CSRF_TOKEN,
                 id: id
             }).done(function(response) {
                 $('.modal-body').html(response);
-                $('#clientModel').modal('show');
+                $('#permissionModel').modal('show');
 
             });
         }
@@ -167,11 +159,11 @@
                 if (result.value) {
                     Swal.fire(
                         "Deleted!",
-                        "Your client has been deleted.",
+                        "Your role has been deleted.",
                         "success"
                     );
                     var APP_URL = {!! json_encode(url('/')) !!}
-                    window.location.href = APP_URL + "/admin/client/delete/" + id;
+                    window.location.href = APP_URL + "/admin/permission/delete/" + id;
                 }
             });
         }
@@ -187,10 +179,10 @@
                 if (result.value) {
                     Swal.fire(
                         "Deleted!",
-                        "Your clients has been deleted.",
+                        "Your roles has been deleted.",
                         "success"
                     );
-                    $("#client_form").submit();
+                    $("#permission_form").submit();
                 }
             });
         }

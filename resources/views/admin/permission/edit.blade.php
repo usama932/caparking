@@ -15,13 +15,13 @@
             <!--begin::Breadcrumb-->
             <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
               <li class="breadcrumb-item text-muted">
-                <a href="" class="text-muted">Manage Clients</a>
+                <a href="" class="text-muted">Manage Permission</a>
               </li>
               <li class="breadcrumb-item text-muted">
-                Edit Client
+                Edit Permission
               </li>
               <li class="breadcrumb-item text-muted">
-               {{ $user->name }}
+               {{ $permission->name }}
               </li>
             </ul>
             <!--end::Breadcrumb-->
@@ -40,19 +40,19 @@
         <div class="card card-custom card-sticky" id="kt_page_sticky_card">
           <div class="card-header" style="">
             <div class="card-title">
-              <h3 class="card-label">Client Edit Form
+              <h3 class="card-label">Permission Edit Form
                 <i class="mr-2"></i>
                 <small class="">try to scroll the page</small></h3>
 
             </div>
             <div class="card-toolbar">
 
-              <a href="{{ route('clients.index') }}" class="btn btn-light-primary
+              <a href="{{ route('permissions.index') }}" class="btn btn-light-primary
               font-weight-bolder mr-2">
                 <i class="ki ki-long-arrow-back icon-sm"></i>Back</a>
 
               <div class="btn-group">
-                <a href=""  onclick="event.preventDefault(); document.getElementById('client_update_form').submit();" id="kt_btn" class="btn btn-primary font-weight-bolder">
+                <a href=""  onclick="event.preventDefault(); document.getElementById('permission_update_form').submit();" id="kt_btn" class="btn btn-primary font-weight-bolder">
                   <i class="ki ki-check icon-sm"></i>update</a>
 
 
@@ -63,7 +63,7 @@
           <div class="card-body">
           @include('admin.partials._messages')
           <!--begin::Form-->
-            {{ Form::model($user, [ 'method' => 'PATCH','route' => ['clients.update', $user->id],'class'=>'form' ,"id"=>"client_update_form", 'enctype'=>'multipart/form-data'])}}
+            {{ Form::model($permission, [ 'method' => 'PATCH','route' => ['permissions.update', $permission->id],'class'=>'form' ,"id"=>"permission_update_form", 'enctype'=>'multipart/form-data'])}}
               @csrf
               <div class="row">
                 <div class="col-xl-2"></div>
@@ -77,47 +77,7 @@
                         <span class="text-danger">{{ $errors->first('name') }}</span>
                       </div>
                     </div>
-                    <div class="form-group row {{ $errors->has('email') ? 'has-error' : '' }}">
-                      <label class="col-3">Email</label>
-                      <div class="col-9">
-                        {{ Form::email('email', null, ['class' => 'form-control form-control-solid','id'=>'email','placeholder'=>'Email Address','required'=>'true']) }}
-                        <span class="text-danger">{{ $errors->first('email') }}</span>
-                      </div>
-                    </div>
-                    <div class="form-group row {{ $errors->has('roles') ? 'has-error' : '' }}">
-                        <label class="col-3">Roles</label>
-                         <div class="col-9">
-                     
-                        {!! Form::select('roles[]', $roles,$user->role, array('class' => 'form-control','multiple')) !!}
-                        </div>
-                    </div>
-                     <div class="form-group row {{ $errors->has('user_type') ? 'has-error' : '' }}">
-                        <label class="col-3">Type</label>
-                         <div class="col-9">
-                          <select class="form-control form-control-solid" name="user_type">
-                            <option class="form-control form-control-solid" name="company"> Company</option>
-                            <option class="form-control form-control-solid" name="user"> User</option>
-                          </select>
-                        </div>
-                    </div>
-                    <div class="form-group row {{ $errors->has('password') ? 'has-error' : '' }}">
-                      <label class="col-3">Password</label>
-                      <div class="col-9">
-                        {{ Form::text('password','', ['placeholder'=>"If you won't change Password then leave it blank as it as.", 'class' => 'form-control form-control-solid','id'=>'password','required'=>'true']) }}
-                        <span class="text-danger">{{ $errors->first('password') }}</span>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-3 col-form-label">Active</label>
-                      <div class="col-3">
-                         <span class="switch switch-outline switch-icon switch-success">
-                          <label><input type="checkbox" {{ ($user->active) ?'checked':'' }} name="active" value="1">
-                            <span></span>
-                          </label>
-                        </span>
-                      </div>
-                    </div>
-
+              
                   </div>
 
                 </div>

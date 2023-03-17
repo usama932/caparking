@@ -74,29 +74,22 @@
 														</div>
 													</div>
 												@endif
-												@if($column['type']=="email")
-													<div class="form-group row">
-														<label class="col-3">{{$column['label']}}</label>
-														<div class="col-9">
-															<input class="{{$column['class']}}" type="text" name="{{$column['name']}}" placeholder="{{$column['place_holder']}}" value="{{ isset($settings[$column['name']]) ? $settings[$column['name']] : ''}}" >
-														</div>
-													</div>
-												@endif
+										
 												@if($column['type']=="hidden")
 													<input type="hidden" name="{{$column['name']}}" value="{{ isset
-														($settings[$column['name']]) ? $settings[$column['name']]: ''}}">
-																			@endif
-																			
-																			@if($column['type']=="file")
-																				<div class="form-group row">
-																					<label class="col-3">{{$column['label']}}</label>
-														<?php
-														if(isset($settings[$column['name']])){
-															$settings[$column['name']] = $settings[$column['name']];
-														}else {
-															$settings[$column['name']]='abc.png';
-														}
-														?>
+	                        ($settings[$column['name']]) ? $settings[$column['name']]: ''}}">
+												@endif
+												
+												@if($column['type']=="file")
+													<div class="form-group row">
+														<label class="col-3">{{$column['label']}}</label>
+                              <?php
+                              if(isset($settings[$column['name']])){
+                                  $settings[$column['name']] = $settings[$column['name']];
+                              }else {
+                                  $settings[$column['name']]='abc.png';
+                              }
+                              ?>
 														<div class="col-9">
 															<div class="custom-file">
 															<input type="file" name="{{$column['name']}}" class="{{$column['class']}}" id="{{$column['id']}}">
@@ -123,12 +116,11 @@
 														</div>
 													</div>
 												@endif
-
 												@if($column['type']=="checkbox")
 													<div class="form-group row">
 														<label class="col-3 col-form-label">{{$column['label']}}</label>
 														<div class="col-9">
-															 <span class="form-check-input ml-4">
+															 <span class="switch switch-outline switch-icon switch-success">
 																<input name="{{$column['name']}}"
 																       class="{{$column['class']}}"
 														           type="checkbox"
@@ -136,7 +128,7 @@
 																       value="{{$column['value']}}"
 																><span></span>
 																 </label>
-                              									</span>
+                              </span>
 																
 														</div>
 													</div>

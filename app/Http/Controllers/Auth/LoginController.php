@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use App\Models\Order;
 
 class LoginController extends Controller
 {
@@ -41,7 +40,6 @@ class LoginController extends Controller
     }
     public function login(Request $request)
     {
-       
         $input = $request->all();
 
         $this->validate($request, [
@@ -53,14 +51,6 @@ class LoginController extends Controller
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
             if (auth()->user()->is_admin == 1) {
-                if($request->order == '1'){
-                    $order = Order::with('room','bathroom','discount','time_slot','extraorder','cleaningtype')->latest()->first();
-                    if(!empty($order)){
-                        return redirect()->route('order.detail',$order->id);
-                    }
-                    return redirect()->route('orders.index');
-                   
-                }
                 return redirect()->route('admin.dashboard');
             }else{
                 return redirect()->route('client.dashboard');

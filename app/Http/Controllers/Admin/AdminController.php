@@ -6,13 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use App\Models\Room;
-use App\Models\Bathroom;
-use App\Models\ExtraService;
-use App\Models\CleaningType;
-use App\Models\Order;
-use App\Models\User;
-use App\Models\Discount;
+
 
 class AdminController extends Controller
 {
@@ -23,16 +17,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $title          = config('app.name');
-        $room           = Room::count();
-        $bathroom       = Bathroom::count();
-        $services       = ExtraService::count();
-        $cleaningtype   = CleaningType::count();
-        $order          = Order::count();
-        $discount       = Discount::where('redeem','free')->count();
-        $users          = User::where('is_admin','0')->count();
-        
-        return view('admin.dashboard.index',compact('title','room','bathroom','services','cleaningtype','order','users','discount'));
+        $title = 'Financial Dashboard Admin';
+        return view('admin.dashboard.index',compact('title'));
     }
 
     /**
