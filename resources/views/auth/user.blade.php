@@ -3,9 +3,9 @@
 	<?php
 	$setting = \App\Models\Setting::pluck('value','name')->toArray();
 	$auth_logo = isset($setting['auth_logo']) ? 'uploads/'.$setting['auth_logo'] : 'assets/media/logos/logo-light.png';
-	$auth_page_heading = isset($setting['auth_page_heading']) ? $setting['auth_page_heading'] : 'www.financialdashboard.com';
+	$auth_page_heading = isset($setting['auth_page_heading']) ? $setting['auth_page_heading'] : ';
 	$auth_image = isset($setting['auth_image']) ? 'uploads/'.$setting['auth_image'] : 'assets/media/svg/illustrations/login-visual-1.svg';
-	$copy_right = isset($setting['copy_right']) ? $setting['copy_right'] : 'wwww.financialdashboard.com';
+	$copy_right = isset($setting['copy_right']) ? $setting['copy_right'] : '';
 	?>
 	<div class="d-flex flex-column flex-root">
 		<!--begin::Login-->
@@ -44,7 +44,7 @@
 							<!--begin::Title-->
 							<div class="pb-13 pt-lg-0 pt-5">
 								<h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">
-									Welcome to Financial User Portal</h3>
+									Welcome to  User Portal</h3>
 								{{--<span class="text-muted font-weight-bold font-size-h4">New Here?
 									<a href="javascript:;" id="kt_login_signup" class="text-primary font-weight-bolder">Create an Account</a></span>--}}
 								@if (Session::has('error'))

@@ -6,9 +6,10 @@
 
         <!--begin::Logo-->
         <a href="{{ route('admin.dashboard') }}" class="brand-logo">
-            <img alt="Logo" src="{{ asset($logo) }}" />
+            {{-- <img alt="Logo" src="{{ asset($logo) }}" /> --}}
+            <h3>Pay Subcription</h3>
         </a>
-
+        
         <!--end::Logo-->
 
         <!--begin::Toggle-->
