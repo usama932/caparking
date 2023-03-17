@@ -189,7 +189,7 @@ class RoleController extends Controller
     public function destroy($id)
     {
 	    $role = Role::find($id);
-	    if($role->is_admin == 0){
+	    if(!empty($role)){
 		    $role->delete();
 		    Session::flash('success_message', 'roleUser successfully deleted!');
 	    }
@@ -203,10 +203,10 @@ class RoleController extends Controller
 			'roles' => 'required',
 		
 		]);
-		foreach ($input['clients'] as $index => $id) {
+		foreach ($input['roles'] as $index => $id) {
 			
 			$role = Role::find($id);
-			if($role->is_admin == 0){
+			if(!empty($role)){
 				$role->delete();
 			}
 			

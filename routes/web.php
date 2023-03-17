@@ -78,5 +78,33 @@ Route::group([
 	Route::post('get-permission', 'PermissionController@permissionDetail')->name('admin.getPermission');
 	Route::get('permission/delete/{id}', 'PermissionController@destroy');
 	Route::post('delete-selected-permissions', 'PermissionController@deleteSelectedPermission')->name('admin.delete-selected-permissions');
+
+     //Plan
+    Route::resource('plans','PlanController');
+    Route::post('get-plans', 'PlanController@getPlans')->name('admin.getPlans');
+    Route::post('get-plan', 'PlanController@planDetail')->name('admin.getPlan');
+    Route::get('plan/delete/{id}', 'PlanController@destroy');
+    Route::post('delete-selected-permissions', 'PlanController@deleteSelectedPlan')->name('admin.delete-selected-plans');
+
+    //Order
+    Route::resource('orders','OrderController');
+    Route::post('get-orders', 'OrderController@getOrders')->name('admin.getOrders');
+    Route::post('get-order', 'OrderController@orderDetail')->name('admin.getOrder');
+    Route::get('order/delete/{id}', 'OrderController@destroy');
+    Route::post('delete-selected-orders', 'OrderController@deleteSelectedOrders')->name('admin.delete-selected-order');
+
+    //contacts
+    Route::resource('contacts','ContactController');
+    Route::post('get-contacts', 'ContactController@getContacts')->name('admin.getContacts');
+    Route::post('get-contact', 'ContactController@contactDetail')->name('admin.getContact');
+    Route::get('contact/delete/{id}', 'ContactController@destroy');
+    Route::post('delete-selected-contacts', 'ContactController@deleteSelectedOrders')->name('admin.delete-selected-contact');
+
+    //contacts_types
+    Route::resource('contact_types','ContactTypeController');
+    Route::post('get-contacttypes', 'ContactTypeController@getContacttype')->name('admin.getContactTypes');
+    Route::post('get-contacttype', 'ContactTypeController@contacttypeDetail')->name('admin.getContactType');
+    Route::get('contacttype/delete/{id}', 'ContactTypeController@destroy');
+    Route::post('delete-selected-contacttype', 'ContactTypeController@deleteSelectedcontacttype')->name('admin.delete-selected-contacttype');
 });
 

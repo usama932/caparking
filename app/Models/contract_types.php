@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class contract_types extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id', 'plan_id', 'expiry_date','subscription_date'
+        'contract_type_id', 'user_id', 'address','contract_person'
     ];
 }

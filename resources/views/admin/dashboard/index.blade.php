@@ -8,7 +8,7 @@
 			<!--begin::Dashboard-->
 			<!--begin::Row-->
 			<div class="row">
-				<div class="col-lg-6 col-xxl-4">
+				{{-- <div class="col-lg-6 col-xxl-4">
 					<!--begin::Mixed Widget 1-->
 					<div class="card card-custom bg-gray-100 card-stretch gutter-b">
 						<!--begin::Header-->
@@ -149,9 +149,9 @@
 						<!--end::Body-->
 					</div>
 					<!--end::Mixed Widget 1-->
-				</div>
+				</div> --}}
 
-				<div class="col-lg-12 col-xxl-4">
+				{{-- <div class="col-lg-12 col-xxl-4">
 					<!--begin::Stats Widget 11-->
 					<div class="card card-custom card-stretch card-stretch-half gutter-b">
 						<!--begin::Body-->
@@ -212,7 +212,7 @@
 						<!--end::Body-->
 					</div>
 					<!--end::Stats Widget 12-->
-				</div>
+				</div> --}}
 
 
 
