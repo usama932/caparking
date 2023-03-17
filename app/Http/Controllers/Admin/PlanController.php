@@ -29,11 +29,13 @@ class PlanController extends Controller
     {
         // Detect if we are running in live mode or sandbox
         if(config('paypal.settings.mode') == 'live'){
+            dd('asd');
             $this->client_id = config('paypal.live_client_id');
             $this->secret = config('paypal.live_secret');
         } else {
-            $this->client_id = config('paypal.sandbox_client_id');
-            $this->secret = config('paypal.sandbox_secret');
+            
+            $this->client_id = "AafB64h3oMPvW1Gk5p-pJwDFJtGVEYsJ9eL19BfUDFqUugaZFQZQS_MU8BY1bdGq6E3t0LwmZOizbZiV";
+            $this->secret = "EF9M9g7BlJwgJzzqBiCXtwqoV-2rEs9Y6MnTVslOiK0fARqdgobftEXj0v5ihZED-MgWecoIORfyHcj5";
         }
         
         // Set the Paypal API Context/Credentials
@@ -144,9 +146,15 @@ class PlanController extends Controller
    
     public function create()
     {
-        
-        // Create a new billing plan
-        $plan = new Plan();
+        $title = "Plan";
+		return view('admin.roles.create',compact('title'));
+    }
+
+   
+    public function store(Request $request)
+    {
+        dd('asa');
+		$plan = new Plan();
         $plan->setName('App Name Monthly Billing')
           ->setDescription('Monthly Subscription to the App Name')
           ->setType('infinite');
@@ -202,12 +210,6 @@ class PlanController extends Controller
         } catch (Exception $ex) {
             die($ex);
         } 
-    }
-
-   
-    public function store(Request $request)
-    {
-        //
     }
 
     public function show($id)
