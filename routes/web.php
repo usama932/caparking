@@ -84,7 +84,7 @@ Route::group([
     Route::post('get-plans', 'PlanController@getPlans')->name('admin.getPlans');
     Route::post('get-plan', 'PlanController@planDetail')->name('admin.getPlan');
     Route::get('plan/delete/{id}', 'PlanController@destroy');
-    Route::post('delete-selected-permissions', 'PlanController@deleteSelectedPlan')->name('admin.delete-selected-plans');
+    Route::post('delete-selected-plans', 'PlanController@deleteSelectedPlan')->name('admin.delete-selected-plans');
 
     //Order
     Route::resource('orders','OrderController');
