@@ -78,13 +78,8 @@ class PermissionController extends Controller
                                     <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View Client" href="javascript:void(0)">
                                         <i class="icon-1x text-dark-50 flaticon-eye"></i>
                                     </a>
-                                    <a title="Edit Client" class="btn btn-sm btn-clean btn-icon"
-                                       href="'.$edit_url.'">
-                                       <i class="icon-1x text-dark-50 flaticon-edit"></i>
-                                    </a>
-                                    <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();del('.$r->id.');" title="Delete Client" href="javascript:void(0)">
-                                        <i class="icon-1x text-dark-50 flaticon-delete"></i>
-                                    </a>
+                                 
+                                  
                                 </td>
                                 </div>
                             ';

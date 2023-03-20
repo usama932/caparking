@@ -43,14 +43,13 @@ Route::group([
 });
 
 Route::group([
-    'middleware'    => ['auth','is_admin'],
+    'middleware'    => ['is_admin'],
     'prefix'        => 'admin',
     'namespace'     => 'Admin'
 ], function ()
 {
     
 
-    Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::get('/dashboard', 'AdminController@index')->name('admin.dashboard');
     Route::get('/profile', 'AdminController@edit')->name('admin-profile');
@@ -66,12 +65,13 @@ Route::group([
 	Route::post('delete-selected-clients', 'ClientController@deleteSelectedClients')->name('admin.delete-selected-clients');
 
     //Roles
+    Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles','RoleController');
 	Route::post('get-roles', 'RoleController@getRoles')->name('admin.getRoles');
 	Route::post('get-role', 'RoleController@roleDetail')->name('admin.getRole');
 	Route::get('role/delete/{id}', 'RoleController@destroy');
 	Route::post('delete-selected-role', 'RoleController@deleteSelectedRoles')->name('admin.delete-selected-roles');
-
+});
     //Permissions
     Route::resource('permissions','PermissionController');
 	Route::post('get-permissions', 'PermissionController@getPermissions')->name('admin.getPermissions');
@@ -98,7 +98,7 @@ Route::group([
     Route::post('get-contacts', 'ContactController@getContacts')->name('admin.getContacts');
     Route::post('get-contact', 'ContactController@contactDetail')->name('admin.getContact');
     Route::get('contact/delete/{id}', 'ContactController@destroy');
-    Route::post('delete-selected-contacts', 'ContactController@deleteSelectedOrders')->name('admin.delete-selected-contact');
+    Route::post('delete-selected-contacts', 'ContactController@deleteSelectedcontract')->name('admin.delete-selected-contact');
 
     //contacts_types
     Route::resource('contact_types','ContactTypeController');

@@ -16,7 +16,7 @@
             </div>
             <div class="card-toolbar">
 
-                <!--begin::Button-->
+                {{-- <!--begin::Button-->
                 <a href="{{ route('permissions.create') }}" class="btn btn-primary font-weight-bolder">
                     <span class="svg-icon svg-icon-md">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
@@ -31,7 +31,8 @@
                             </g>
                         </svg>
                         <!--end::Svg Icon-->
-                    </span>New Record</a>
+                    </span>New Record
+                </a> --}}
                 <!--end::Button-->
             </div>
         </div>

@@ -4,24 +4,27 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Arr;
 use DB;
 
 class RoleController extends Controller
 {
   
-    // function __construct()
-    // {
-    //         $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
-    //         $this->middleware('permission:role-create', ['only' => ['create','store']]);
-    //         $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-    //         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
-    // }
+    function __construct()
+    {
+            $this->middleware('permission:role-list|get-role|get-roles|role-create|role-edit|role-delete', ['only' => ['index','store']]);
+            $this->middleware('permission:role-create', ['only' => ['create','store']]);
+            $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+            $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $title  = "Roles";
+
         return view('admin.roles.index',compact('title'));
     }
 

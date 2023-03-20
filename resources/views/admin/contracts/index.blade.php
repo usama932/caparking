@@ -8,16 +8,16 @@
                 <span class="card-icon">
                     <i class="flaticon-users text-primary"></i>
                 </span>
-                <h3 class="card-label">Plan List</h3>
+                <h3 class="card-label">Contract Type List</h3>
                 <div class="d-flex align-items-center ">
                     <a class="btn btn-danger font-weight-bolder" onclick="del_selected()" href="javascript:void(0)"> <i
                             class="la la-trash-o"></i>Delete All</a>
                 </div>
             </div>
-            {{-- <div class="card-toolbar">
+            <div class="card-toolbar">
 
                 <!--begin::Button-->
-                <a href="{{ route('plans.create') }}" class="btn btn-primary font-weight-bolder">
+                <a href="{{ route('contacts.create') }}" class="btn btn-primary font-weight-bolder">
                     <span class="svg-icon svg-icon-md">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -33,15 +33,15 @@
                         <!--end::Svg Icon-->
                     </span>New Record</a>
                 <!--end::Button-->
-            </div> --}}
+            </div>
         </div>
         <div class="card-body">
             @include('admin.partials._messages')
             <div class="table-responsive">
-                <form action="{{ route('admin.delete-selected-plans') }}" method="post" id="plan_form">
+                <form action="{{ route('admin.delete-selected-contact') }}" method="post" id="contract_form">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <!--begin: Datatable-->
-                    <table class="table table-bordered table-hover table-checkable" id="plans"
+                    <table class="table table-bordered table-hover table-checkable" id="contracttypes"
                         style="margin-top: 13px !important">
                         <thead>
                             <tr>
@@ -51,8 +51,9 @@
 
                                 </th>
 
-                                <th>Name</th>
-                                <th>Price</th>
+                                <th>Contract</th>
+                                <th>User</th>
+                                <th>Contract Person</th>
                                 <th>Created At</th>
                                 <th>Actions</th>
                             </tr>
@@ -63,7 +64,7 @@
             </div>
         </div>
         <!-- Modal-->
-        <div class="modal fade" id="planModel" data-backdrop="static" tabindex="-1" role="dialog"
+        <div class="modal fade" id="contracttypeModel" data-backdrop="static" tabindex="-1" role="dialog"
             aria-labelledby="staticBackdrop" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -101,7 +102,7 @@
                     $(this).closest('tr').toggleClass('selected');
                 });
         });
-        var clients = $('#plans').DataTable({
+        var clients = $('#contracttypes').DataTable({
             "order": [
                 [1, 'asc']
             ],
@@ -110,7 +111,7 @@
             "searchDelay": 500,
             "responsive": true,
             "ajax": {
-                "url": "{{ route('admin.getPlans') }}",
+                "url": "{{ route('admin.getContacts') }}",
                 "dataType": "json",
                 "type": "POST",
                 "data": {
@@ -123,10 +124,13 @@
                     "orderable": false
                 },
                 {
-                    "data": "name"
+                    "data": "contract_type_id"
                 },
-                {
-                    "data": "price"
+                   {
+                    "data": "user_id"
+                },
+                   {
+                    "data": "contract_person"
                 },
                 {
                     "data": "created_at"
@@ -142,12 +146,12 @@
         function viewInfo(id) {
 
             var CSRF_TOKEN = '{{ csrf_token() }}';
-            $.post("{{ route('admin.getPlan') }}", {
+            $.post("{{ route('admin.getContact') }}", {
                 _token: CSRF_TOKEN,
                 id: id
             }).done(function(response) {
                 $('.modal-body').html(response);
-                $('#planModel').modal('show');
+                $('#contracttypeModel').modal('show');
 
             });
         }
@@ -163,11 +167,11 @@
                 if (result.value) {
                     Swal.fire(
                         "Deleted!",
-                        "Your plan has been deleted.",
+                        "Your Contract   has been deleted.",
                         "success"
                     );
                     var APP_URL = {!! json_encode(url('/')) !!}
-                    window.location.href = APP_URL + "/admin/plan/delete/" + id;
+                    window.location.href = APP_URL + "/admin/contact/delete/" + id;
                 }
             });
         }
@@ -183,10 +187,10 @@
                 if (result.value) {
                     Swal.fire(
                         "Deleted!",
-                        "Your plans has been deleted.",
+                        "Your Contract  has been deleted.",
                         "success"
                     );
-                    $("#plan_form").submit();
+                    $("#contract_form").submit();
                 }
             });
         }

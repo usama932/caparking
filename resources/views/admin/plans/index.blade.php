@@ -14,7 +14,7 @@
                             class="la la-trash-o"></i>Delete All</a>
                 </div>
             </div>
-            {{-- <div class="card-toolbar">
+            <div class="card-toolbar">
 
                 <!--begin::Button-->
                 <a href="{{ route('plans.create') }}" class="btn btn-primary font-weight-bolder">
@@ -33,7 +33,7 @@
                         <!--end::Svg Icon-->
                     </span>New Record</a>
                 <!--end::Button-->
-            </div> --}}
+            </div>
         </div>
         <div class="card-body">
             @include('admin.partials._messages')
@@ -53,6 +53,7 @@
 
                                 <th>Name</th>
                                 <th>Price</th>
+                                
                                 <th>Created At</th>
                                 <th>Actions</th>
                             </tr>
@@ -128,6 +129,7 @@
                 {
                     "data": "price"
                 },
+                 
                 {
                     "data": "created_at"
                 },

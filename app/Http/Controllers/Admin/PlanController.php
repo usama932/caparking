@@ -13,11 +13,14 @@ use PayPal\Api\Currency;
 use PayPal\Api\MerchantPreferences;
 use PayPal\Api\PaymentDefinition;
 use PayPal\Api\Plan;
+use App\Models\Pay_Plan;
 use PayPal\Api\Patch;
 use PayPal\Api\PatchRequest;
 use PayPal\Common\PayPalModel;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Arr;
 
 class PlanController extends Controller
 {
@@ -29,18 +32,19 @@ class PlanController extends Controller
     {
         // Detect if we are running in live mode or sandbox
         if(config('paypal.settings.mode') == 'live'){
-            dd('asd');
+           
             $this->client_id = config('paypal.live_client_id');
             $this->secret = config('paypal.live_secret');
         } else {
-            
+         
             $this->client_id = "AafB64h3oMPvW1Gk5p-pJwDFJtGVEYsJ9eL19BfUDFqUugaZFQZQS_MU8BY1bdGq6E3t0LwmZOizbZiV";
             $this->secret = "EF9M9g7BlJwgJzzqBiCXtwqoV-2rEs9Y6MnTVslOiK0fARqdgobftEXj0v5ihZED-MgWecoIORfyHcj5";
         }
-        
+      
         // Set the Paypal API Context/Credentials
         $this->apiContext = new ApiContext(new OAuthTokenCredential($this->client_id, $this->secret));
-        $this->apiContext->setConfig(config('paypal.settings'));
+        
+         $this->apiContext->setConfig(config('paypal.settings'));
     }
 
     public function index()
@@ -52,35 +56,31 @@ class PlanController extends Controller
 		$columns = array(
 			0 => 'id',
 			1 => 'name',
-            2 => 'price',
+            3 => 'plan_id',
 			4 => 'created_at',
 			5 => 'action'
 		);
 		
-		$totalData = Plan::count();
+		$totalData = Pay_Plan::count();
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$order = $columns[$request->input('order.0.column')];
 		$dir = $request->input('order.0.dir');
 		
 		if(empty($request->input('search.value'))){
-			$plans = Plan::offset($start)
+			$plans = Pay_Plan::offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
-			$totalFiltered = Plan::count();
+			$totalFiltered = Pay_Plan::count();
 		}else{
 			$search = $request->input('search.value');
-			$plans = Plan::where([
-				['name', 'like', "%{$search}%"],
-			])
-                ->orWhere('price','like',"%{$search}%")        
-				->orWhere('created_at','like',"%{$search}%")
+			$plans = Pay_Plan::where('created_at','like',"%{$search}%")
 				->offset($start)
 				->limit($limit)
 				->orderBy($order, $dir)
 				->get();
-			$totalFiltered = Plan::where([
+			$totalFiltered = Pay_Plan::where([
 				
 				['name', 'like', "%{$search}%"],
 			])
@@ -99,6 +99,7 @@ class PlanController extends Controller
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="plans[]" value="'.$r->id.'"><span></span></label></td>';
 				$nestedData['name'] = $r->name;
                 $nestedData['price'] = $r->price;
+                
 				if($r->active){
 					$nestedData['active'] = '<span class="label label-success label-inline mr-2">Active</span>';
 				}else{
@@ -147,16 +148,20 @@ class PlanController extends Controller
     public function create()
     {
         $title = "Plan";
-		return view('admin.roles.create',compact('title'));
+		return view('admin.plans.create',compact('title'));
     }
 
    
     public function store(Request $request)
     {
-        dd('asa');
+        $this->validate($request, [
+		    'name' => 'required|max:255',
+		    'sub_name' => 'required',
+		    
+	    ]);
 		$plan = new Plan();
-        $plan->setName('App Name Monthly Billing')
-          ->setDescription('Monthly Subscription to the App Name')
+        $plan->setName($request->name)
+          ->setDescription($request->sub_name)
           ->setType('infinite');
 
         // Set billing plan definitions
@@ -166,7 +171,7 @@ class PlanController extends Controller
           ->setFrequency('Month')
           ->setFrequencyInterval('1')
           ->setCycles('0')
-          ->setAmount(new Currency(array('value' => 9, 'currency' => 'USD')));
+          ->setAmount(new Currency(array('value' => $request->price, 'currency' => 'USD')));
 
         // Set merchant preferences
         $merchantPreferences = new MerchantPreferences();
@@ -195,7 +200,7 @@ class PlanController extends Controller
                 $plan = Plan::get($createdPlan->getId(), $this->apiContext);
 
                 // Output plan id
-                echo 'Plan ID:' . $plan->getId();
+               
             } catch (PayPal\Exception\PayPalConnectionException $ex) {
                 echo $ex->getCode();
                 echo $ex->getData();
@@ -210,6 +215,16 @@ class PlanController extends Controller
         } catch (Exception $ex) {
             die($ex);
         } 
+        if(!empty($plan->getId())){
+            $payplan = Pay_Plan::create([
+                'name' =>   $request->name,
+                'plan_id' => $plan->getId(),
+                'price' =>  $request->price,
+            ]);
+        }
+        Session::flash('success_message', 'Plan  successfully update!');
+        return  redirect()->route('plans.index')
+                          ->with('success','Plans  created successfully');
     }
 
     public function show($id)

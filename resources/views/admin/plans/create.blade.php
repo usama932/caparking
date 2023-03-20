@@ -60,7 +60,7 @@
           <div class="card-body">
           @include('admin.partials._messages')
           <!--begin::Form-->
-            {{ Form::open([ 'route' => 'roles.store','class'=>'form' ,"id"=>"role_add_form", 'enctype'=>'multipart/form-data']) }}
+            {{ Form::open([ 'route' => 'plans.store','class'=>'form' ,"id"=>"plan_add_form", 'enctype'=>'multipart/form-data']) }}
               @csrf
               <div class="row">
                 <div class="col-xl-2"></div>
@@ -79,6 +79,13 @@
                       <div class="col-9">
                         {{ Form::text('sub_name', null, ['class' => 'form-control form-control-solid','id'=>'sub_name','placeholder'=>'Enter sub_name','required'=>'true']) }}
                         <span class="text-danger">{{ $errors->first('sub_name') }}</span>
+                      </div>
+                    </div>
+                      <div class="form-group row {{ $errors->has('price') ? 'has-error' : '' }}">
+                      <label class="col-3">Plan Price</label>
+                      <div class="col-9">
+                        {{ Form::number('price', null, ['class' => 'form-control form-control-solid','id'=>'price','placeholder'=>'Enter price','required'=>'true']) }}
+                        <span class="text-danger">{{ $errors->first('price') }}</span>
                       </div>
                     </div>
                
