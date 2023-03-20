@@ -39,14 +39,14 @@ class ContactController extends Controller
 		$dir = $request->input('order.0.dir');
 		
 		if(empty($request->input('search.value'))){
-			$contracts = Contracts::offset($start)
+			$contracts = Contracts::with('user')->offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
-			$totalFiltered = Contracts::count();
+			$totalFiltered = Contracts::with('user')->count();
 		}else{
 			$search = $request->input('search.value');
-			$contracts = Contracts::where([
+			$contracts = Contracts::with('user')->where([
 				['contract_person', 'like', "%{$search}%"],
 			])   
 				->orWhere('created_at','like',"%{$search}%")
@@ -54,7 +54,7 @@ class ContactController extends Controller
 				->limit($limit)
 				->orderBy($order, $dir)
 				->get();
-			$totalFiltered = Contracts::where([
+			$totalFiltered = Contracts::with('user')->where([
 				
 				['contract_person', 'like', "%{$search}%"],
 			])
@@ -70,8 +70,7 @@ class ContactController extends Controller
 			foreach($contracts as $r){
 				$edit_url = route('contacts.edit',$r->id);
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="contracts[]" value="'.$r->id.'"><span></span></label></td>';
-				$nestedData['contract_type_id'] = $r->contract_type_id;
-                $nestedData['user_id'] = $r->user_id;
+                $nestedData['user_id'] = $r->user->name;
                 $nestedData['contract_person'] = $r->contract_person;
 				if($r->active){
 					$nestedData['active'] = '<span class="label label-success label-inline mr-2">Active</span>';
@@ -113,8 +112,8 @@ class ContactController extends Controller
 	public function contactDetail(Request $request)
 	{
 		$title = "Contracts Details";
-        $contract = Contracts::find($request->id);
-        
+        $contract = Contracts::with('user','contract')->find($request->id);
+      
 		return view('admin.contracts.detail', compact('contract','title'));
 	}
     public function create()
@@ -153,10 +152,10 @@ class ContactController extends Controller
     public function edit($id)
     {
         $title = "Contracts Edit";
-        $contract = Contracts::find($id);
+        $contract = Contracts::with('user')->find($id);
         $contract_types = Contract_types::latest()->get();
         $users = User::where('is_admin', '0')->get();
-        
+        dd($contract->user->id);
 		return view('admin.contracts.edit', compact('contract','title','contract_types','users'));
     }
 

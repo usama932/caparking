@@ -37,8 +37,8 @@ class PlanController extends Controller
             $this->secret = config('paypal.live_secret');
         } else {
          
-            $this->client_id = "AafB64h3oMPvW1Gk5p-pJwDFJtGVEYsJ9eL19BfUDFqUugaZFQZQS_MU8BY1bdGq6E3t0LwmZOizbZiV";
-            $this->secret = "EF9M9g7BlJwgJzzqBiCXtwqoV-2rEs9Y6MnTVslOiK0fARqdgobftEXj0v5ihZED-MgWecoIORfyHcj5";
+            $this->client_id = "AQDo_4Msx6bwCWesP5Pb2bgb7LIaeFnprdpowlFt7gvfdoFP3ILaKLYJb5Ssq7xKxopoIf2eEWA7iOw-";
+            $this->secret = "EJrvtcJ5Zd5EfVno5A7i2rkAcAQld9ALwXAKeOzvMrb0BK5AimVK0WjOkV-ITk7Nt6Xs7675hyNuMxS6";
         }
       
         // Set the Paypal API Context/Credentials
@@ -183,7 +183,7 @@ class PlanController extends Controller
 
         $plan->setPaymentDefinitions(array($paymentDefinition));
         $plan->setMerchantPreferences($merchantPreferences);
-
+     
         //create the plan
         try {
             $createdPlan = $plan->create($this->apiContext);
@@ -222,6 +222,7 @@ class PlanController extends Controller
                 'price' =>  $request->price,
             ]);
         }
+       
         Session::flash('success_message', 'Plan  successfully update!');
         return  redirect()->route('plans.index')
                           ->with('success','Plans  created successfully');

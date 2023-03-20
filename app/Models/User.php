@@ -22,11 +22,7 @@ class User extends Authenticatable
         'name', 'email', 'password', 'is_admin','assign_role','user_type'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+  
     protected $hidden = [
         'password',
         'remember_token',
@@ -40,4 +36,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function plan()
+    {
+        return $this->hasOne('App\Models\Pay_PLan','user_id','id');
+    }
+    public function order()
+    {
+        return $this->hasMany('App\Models\Order','user_id','id');
+    }
+    public function contract()
+    {
+        return $this->hasOne('App\Models\Contract_types','user_id','id');
+    }
+    
 }

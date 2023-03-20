@@ -50,8 +50,6 @@
                                             type="checkbox"><span></span></label>
 
                                 </th>
-
-                                <th>Contract</th>
                                 <th>User</th>
                                 <th>Contract Person</th>
                                 <th>Created At</th>
@@ -124,9 +122,6 @@
                     "orderable": false
                 },
                 {
-                    "data": "contract_type_id"
-                },
-                   {
                     "data": "user_id"
                 },
                    {

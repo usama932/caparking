@@ -11,4 +11,8 @@ class Pay_Plan extends Model
     protected $fillable = [
         'name', 'price', 'plan_id', 'is_admin'
     ];
+    public function plan()
+    {
+        return $this->belongsTo('App\Models\User','user_id','id');
+    }
 }
