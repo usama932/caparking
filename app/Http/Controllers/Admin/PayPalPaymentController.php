@@ -60,32 +60,31 @@ class PayPalPaymentController extends Controller
     }
     public function paymentSuccess(Request $request){
         
-     
+    
         $todayDate = Carbon::now();
-        $date = $todayDate->toDateTimeString();
-        $planId = $request->plan_id;
+        $startDate = Carbon::now()->addMonth();
        
+        $planId =  $request->plan_id;
+        $plan = Plan::get($planId, $this->apiContext);
+        $plan->setId($planId);
        
-        $plan_Id = Plan::get($planId, $this->apiContext);
-      ;
-        $plan = new Plan();
-        $plan->setId($plan_Id->plan_id);
+
+     
+        $agreement = new Agreement();
+        $agreement->setName('Monthly Subscription')
+                  ->setDescription('Monthly subscription for my service')
+                  ->setStartDate($startDate->toIso8601String())
+                  ->setPlan($plan->plan_id);
         
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
-
-        $agreement = new Agreement(); 
-        $agreement->setName('Monthly Subscription')
-                  ->setDescription('Monthly subscription for premium services')
-                  ->setStartDate(date('Y-m-d\TH:i:s\Z', strtotime('+1 damonthy')))
-                  ->setPlan($plan)
-                  ->setPayer($payer);
-            
+        $agreement->setPayer($payer);
+        
         // Create the agreement on PayPal
         try {
-           
+            
             $createdAgreement = $agreement->create($this->apiContext);
-            dd($createdAgreement);
+         
             $approvalUrl = $createdAgreement->getApprovalLink();
         } catch (Exception $e) {
             dd($e);
