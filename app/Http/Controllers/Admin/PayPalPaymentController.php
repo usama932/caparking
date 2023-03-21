@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pay_Plan;
+use App\Models\Order;
 use App\Http\Requests;
 use Validator;
 use URL;
@@ -79,7 +80,7 @@ class PayPalPaymentController extends Controller
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
         $agreement->setPayer($payer);
-        
+
         // Create the agreement on PayPal
         try {
             
@@ -99,6 +100,12 @@ class PayPalPaymentController extends Controller
         $agreement->execute($agreementId, $this->apiContext);
         dd('sad');
         // Update the user's subscription details in your database
-        
+        $order = Order::create([
+            'user_id' => auth()->user()->id,
+            'plan_id' => $plan->id,
+            'expiry_date' => $startDate,
+            'subscription_date' =>  $startDate = Carbon::now(),
+        ]);
+        return redirect()->route('admin.dashboard');
     }
 }
