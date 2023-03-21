@@ -294,7 +294,7 @@
                     </a>
                 </li>
                 @endif
-                @if(auth()->user()->is_admin == 2  && auth()->user()->assign_role == 2  && auth()->user()->user_type == 'company' )
+                @if(auth()->user()->is_admin == 1  && auth()->user()->assign_role == 2  && auth()->user()->user_type == 'company' )
                 <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'dashboard') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">

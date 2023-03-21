@@ -28,7 +28,7 @@ class CreateAdminUserSeeder extends Seeder
             'name' => 'Company', 
             'email' => 'company@domain.com',
             'password' => bcrypt('123456'),
-            'is_admin' => '0',
+            'is_admin' => '1',
             'assign_role' => '2',
             'user_type' => 'company',
         ]);

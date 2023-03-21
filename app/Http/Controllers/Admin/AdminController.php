@@ -6,71 +6,68 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-
+use App\Models\Pay_Plan;
+use Carbon\Carbon;
 
 class AdminController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+{   
+   
     public function index()
     {
-        $title = 'Financial Dashboard Admin';
-        return view('admin.dashboard.index',compact('title'));
+        $title = 'Subcription Service';
+        if(auth()->user()->assign_role == 1 && auth()->user()->user_type == "admin"){
+            return view('admin.dashboard.index',compact('title'));
+        }
+        elseif(auth()->user()->assign_role == 2 && auth()->user()->user_type == "company"){
+            $now = Carbon::now();
+            $order = Auth::user()->order;
+            if(empty($order)){
+                return redirect()->route('admin.plan');
+            }
+            elseif($order->expiry_date >= $now){
+                return view('admin.dashboard.index',compact('title'));
+            }
+            else{
+                Auth::logout();
+                return redirect('/');
+            }
+        }
+        else{
+            Auth::logout();
+            return redirect('/');
+        }
+       
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function getPlan(){
+
+        $plans = Pay_Plan::latest()->get()->toArray();
+        return view('paypal.plans',compact('plans'));
+    }
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(){
         $user = Auth::user();
         return view('admin.settings.edit', ['title' => 'Edit Admin Profile','user'=>$user]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request)
     {
         $admin = Auth::user();
@@ -89,13 +86,6 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

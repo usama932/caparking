@@ -42,7 +42,7 @@ class User extends Authenticatable
     }
     public function order()
     {
-        return $this->hasMany('App\Models\Order','user_id','id');
+        return $this->hasOne('App\Models\Order','user_id','id');
     }
     public function contract()
     {

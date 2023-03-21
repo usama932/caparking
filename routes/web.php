@@ -52,10 +52,17 @@ Route::group([
 
     Route::resource('users', UserController::class);
     Route::get('/dashboard', 'AdminController@index')->name('admin.dashboard');
+    Route::get('/get_plans', 'AdminController@getPlan')->name('admin.plan');
     Route::get('/profile', 'AdminController@edit')->name('admin-profile');
     Route::post('/admin-update', 'AdminController@update')->name('admin-update');
     //Setting Routes
     Route::resource('setting','SettingController');
+    //Paypal
+    Route::get('handle-payment/{id}', 'PayPalPaymentController@handlePayment')->name('make.payment');
+    Route::get('cancel-payment', 'PayPalPaymentController@paymentCancel')->name('cancel.payment');
+
+    Route::post('payment-success', 'PayPalPaymentController@paymentSuccess')->name('success.payment');
+
 
 	//User Routes
 	Route::resource('clients','ClientController');

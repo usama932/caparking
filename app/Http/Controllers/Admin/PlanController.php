@@ -162,15 +162,15 @@ class PlanController extends Controller
 		$plan = new Plan();
         $plan->setName($request->name)
           ->setDescription($request->sub_name)
-          ->setType('infinite');
+          ->setType('fixed');
 
         // Set billing plan definitions
         $paymentDefinition = new PaymentDefinition();
-        $paymentDefinition->setName('Regular Payments')
+        $paymentDefinition->setName('Subscription')
           ->setType('REGULAR')
           ->setFrequency('Month')
           ->setFrequencyInterval('1')
-          ->setCycles('0')
+          ->setCycles('12')
           ->setAmount(new Currency(array('value' => $request->price, 'currency' => 'USD')));
 
         // Set merchant preferences
@@ -179,7 +179,7 @@ class PlanController extends Controller
           ->setCancelUrl('https://website.dev/subscribe/paypal/return')
           ->setAutoBillAmount('yes')
           ->setInitialFailAmountAction('CONTINUE')
-          ->setMaxFailAttempts('0');
+          ->setMaxFailAttempts('3');
 
         $plan->setPaymentDefinitions(array($paymentDefinition));
         $plan->setMerchantPreferences($merchantPreferences);
@@ -245,6 +245,32 @@ class PlanController extends Controller
 
     public function destroy($id)
     {
-        //
+	    $plan = Pay_Plan::find($id);
+	    if(!empty($plan)){
+		    $plan->delete();
+		    Session::flash('success_message', 'plan successfully deleted!');
+	    }
+	    return redirect()->route('plans.index');
+	   
     }
+	public function deleteSelectedPlan(Request $request)
+	{
+		$input = $request->all();
+		$this->validate($request, [
+			'plans' => 'required',
+		
+		]);
+		foreach ($input['plans'] as $index => $id) {
+			
+			$plan = Pay_Plan::find($id);
+			if(!empty($plan)){
+				$plan->delete();
+			}
+			
+		}
+		Session::flash('success_message', 'plans successfully deleted!');
+		return redirect()->back();
+		
+	}
 }
+

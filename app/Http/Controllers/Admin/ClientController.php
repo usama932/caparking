@@ -146,7 +146,7 @@ class ClientController extends Controller
 	    $user->email = $input['email'];
 		if ($request->user_type == 'company') {
 
-			$user->is_admin = '0';
+			$user->is_admin = '1';
 			$user->assign_role = '2';
 			$user->user_type = $request->user_type;
 		}
@@ -202,7 +202,7 @@ class ClientController extends Controller
 	    $user->email = $input['email'];
 		if ($request->user_type == 'company') {
 
-			$user->is_admin = '0';
+			$user->is_admin = '1';
 			$user->assign_role = '2';
 			$user->user_type = $request->user_type;
 		}
