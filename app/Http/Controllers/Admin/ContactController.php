@@ -16,7 +16,13 @@ use DB;
 
 class ContactController extends Controller
 {
-   
+	function __construct()
+    {
+            $this->middleware('permission:contract-list|get-contract|get-contracts|contract-create|contract-edit|contract-delete', ['only' => ['index','store']]);
+            $this->middleware('permission:contract-create', ['only' => ['create','store']]);
+            $this->middleware('permission:contract-edit', ['only' => ['edit','update']]);
+            $this->middleware('permission:contract-delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $title = "Contract";

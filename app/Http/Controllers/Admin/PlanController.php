@@ -24,12 +24,18 @@ use Illuminate\Support\Arr;
 
 class PlanController extends Controller
 {
+   
 	private $apiContext;
     private $mode;
     private $client_id;
     private $secret;
 	public function __construct()
     {
+        $this->middleware('permission:plan-list|get-plan|get-plans|plan-create|plan-edit|plan-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:plan-create', ['only' => ['create','store']]);
+        $this->middleware('permission:plan-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:plan-delete', ['only' => ['destroy']]);
+
         // Detect if we are running in live mode or sandbox
         if(config('paypal.settings.mode') == 'live'){
            

@@ -13,11 +13,13 @@ use Illuminate\Support\Facades\Session;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+	function __construct()
+    {
+            $this->middleware('permission:client-list|get-client|get-clients|client-create|client-edit|client-delete', ['only' => ['index','store']]);
+            $this->middleware('permission:client-create', ['only' => ['create','store']]);
+            $this->middleware('permission:client-edit', ['only' => ['edit','update']]);
+            $this->middleware('permission:client-delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
 	    $title = 'Customers';

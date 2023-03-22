@@ -7,14 +7,20 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Session;
-use App\Models\Plan;
 use App\Models\Order;
 use DB;
  
 
 class OrderController extends Controller
 {
-  
+	
+	function __construct()
+    {
+            $this->middleware('permission:order-list|get-order|get-orders|order-create|order-edit|order-delete', ['only' => ['index','store']]);
+            $this->middleware('permission:order-create', ['only' => ['create','store']]);
+            $this->middleware('permission:order-edit', ['only' => ['edit','update']]);
+            $this->middleware('permission:order-delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $title  = "Order";
@@ -31,26 +37,26 @@ class OrderController extends Controller
 			5 => 'action'
 		);
 		
-		$totalData = Order::count();
+		$totalData = Order::with('user')->count();
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$order = $columns[$request->input('order.0.column')];
 		$dir = $request->input('order.0.dir');
 		
 		if(empty($request->input('search.value'))){
-			$orders = Order::offset($start)
+			$orders = Order::with('user')->offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
-			$totalFiltered = Plan::count();
+			$totalFiltered = Order::with('user')->count();
 		}else{
 			$search = $request->input('search.value');
-			$orders = Order::orWhere('created_at','like',"%{$search}%")
+			$orders = Order::with('user')->orWhere('created_at','like',"%{$search}%")
 				->offset($start)
 				->limit($limit)
 				->orderBy($order, $dir)
 				->get();
-			$totalFiltered = Order::where('created_at','like',"%{$search}%")
+			$totalFiltered = Order::with('user')->where('created_at','like',"%{$search}%")
 				->count();
 		}
 		
@@ -61,7 +67,7 @@ class OrderController extends Controller
 			foreach($orders as $r){
 				$edit_url = route('plans.edit',$r->id);
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="orders[]" value="'.$r->id.'"><span></span></label></td>';
-				$nestedData['user_id'] = $r->user_id;
+				$nestedData['user_id'] = $r->user->name;
                 $nestedData['plan_id'] = $r->plan_id;
 				$nestedData['expiry_date'] = $r->expiry_date;
 				$nestedData['subscription_date'] = $r->subscription_date;

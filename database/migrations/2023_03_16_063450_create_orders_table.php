@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->nullable();
-            $table->integer('plan_id')->nullable();
+            $table->string('plan_id')->nullable();
             $table->date('expiry_date')->nullable();
             $table->date('subscription_date')->nullable();
             $table->timestamps();

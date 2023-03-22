@@ -26,7 +26,12 @@ use PayPal\Api\ExecutePayment;
 use PayPal\Api\PaymentExecution;
 use PayPal\Api\Transaction;
 use PayPal\Api\Agreement;
+use PayPal\Api\Subscription;
+use PayPal\Api\SubscriptionPlan;
 use PayPal\Api\AgreementStateDescriptor;
+use PayPal\Api\FundingInstrument;
+use PayPal\Api\CreditCard;
+use PayPal\Api\ShippingAddress;
 use Carbon\Carbon;
 
 class PayPalPaymentController extends Controller
@@ -44,8 +49,8 @@ class PayPalPaymentController extends Controller
             $this->secret = config('paypal.live_secret');
         } else {
          
-            $this->client_id = "AQDo_4Msx6bwCWesP5Pb2bgb7LIaeFnprdpowlFt7gvfdoFP3ILaKLYJb5Ssq7xKxopoIf2eEWA7iOw-";
-            $this->secret = "EJrvtcJ5Zd5EfVno5A7i2rkAcAQld9ALwXAKeOzvMrb0BK5AimVK0WjOkV-ITk7Nt6Xs7675hyNuMxS6";
+            $this->client_id = "AfmjY4alrGIOZiR9EnwpPmFRdx2SczcVA4CPsrInvOFsutPkIpJye47GStV24MvSrsh_uSIdmfWsSr7m";
+            $this->secret = "ELhokVQ2hhzVUWRr4pThD9mCAh6T81vOI4UTL5Ta56P_W43miZokpwsMtC7wARZ5nqjoJlMNNX8wuqbG";
         }
       
         // Set the Paypal API Context/Credentials
@@ -60,52 +65,68 @@ class PayPalPaymentController extends Controller
         return view('paypal.paywithpaypal',compact('plan'));
     }
     public function paymentSuccess(Request $request){
-        
-    
+        $currentDateTime = Carbon::now();
+        $newDateTime = Carbon::now()->addMonth();
+      
         $todayDate = Carbon::now();
-        $startDate = Carbon::now()->addMonth();
-       
-        $planId =  $request->plan_id;
-        $plan = Plan::get($planId, $this->apiContext);
-        $plan->setId($planId);
-       
-
      
-        $agreement = new Agreement();
-        $agreement->setName('Monthly Subscription')
-                  ->setDescription('Monthly subscription for my service')
-                  ->setStartDate($startDate->toIso8601String())
-                  ->setPlan($plan->plan_id);
-        
+        date_default_timezone_set("UTC");
+        $now = time() + 60 * 5;
+        $created_on = strftime("%Y-%m-%dT%H:%M:%SZ", $now);
+
+        $card = new CreditCard();
+        $card->setType('visa')    
+             ->setNumber($request->card_number)  
+             ->setExpireMonth($request->card_month)  
+             ->setExpireYear($request->card_year) 
+             ->setCvv2($request->card_cvc);  
+       
+        $fi = new FundingInstrument();
+        $fi->setCreditCard($card);
+
+        $planId =  $request->plan_id;
+        $plan = new Plan();
+        $plan->setId($planId);
+  
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
-        $agreement->setPayer($payer);
+      
+        $agreementStateDescriptor = new \PayPal\Api\AgreementStateDescriptor();
+        $agreementStateDescriptor->setNote('Activating the agreement.');
 
-        // Create the agreement on PayPal
-        try {
-            
-            $createdAgreement = $agreement->create($this->apiContext);
-         
-            $approvalUrl = $createdAgreement->getApprovalLink();
-        } catch (Exception $e) {
-            dd($e);
-        }
-        
-        // Redirect the user to PayPal to approve the agreement
-        return redirect()->away($approvalUrl);
-        
-        // After the user approves the agreement, execute the agreement
-        $agreementId = $_GET['token']; // The token returned by PayPal after approval
         $agreement = new Agreement();
-        $agreement->execute($agreementId, $this->apiContext);
-        dd('sad');
-        // Update the user's subscription details in your database
-        $order = Order::create([
-            'user_id' => auth()->user()->id,
-            'plan_id' => $plan->id,
-            'expiry_date' => $startDate,
-            'subscription_date' =>  $startDate = Carbon::now(),
-        ]);
+        $agreement->setName($request->_token)
+            ->setDescription('Monthly subscription '.$request->_token)
+            ->setStartDate($created_on)
+            ->setPlan($plan)
+            ->setPayer($payer);
+
+      
+        try
+        {
+            $agreement->create($this->apiContext);
+           
+            $order = Order::create([
+                'user_id' => auth()->user()->id,
+                'plan_id' => $plan->id,
+                'expiry_date' => $newDateTime,
+                'subscription_date' => Carbon::now(),
+            ]);
+            
+           //dd($order);
+            
+        }
+        catch(\PayPal\Exception\PayPalConnectionException $ex)
+        {
+            echo "--------------------- exception\n";
+             echo "Code: ", $ex->getCode(), "\n";
+            echo "Data: ", $ex->getData(), "\n";
+            $this->error = "Sorry. Could not create the PayPal Plan.";
+            // return $ex;
+        }
+  
+        
+       
         return redirect()->route('admin.dashboard');
     }
 }
