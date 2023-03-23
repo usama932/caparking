@@ -17,7 +17,7 @@ class Contracts extends Model
     }
     public function contract()
     {
-        return $this->belongsTo('App\Models\Contract_types','contract_type_id','id');
+        return $this->belongsTo('App\Models\ContractType','contract_type_id','id');
     }
 
 }

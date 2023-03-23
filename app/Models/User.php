@@ -46,7 +46,7 @@ class User extends Authenticatable
     }
     public function contract()
     {
-        return $this->hasOne('App\Models\Contract_types','user_id','id');
+        return $this->hasOne('App\Models\ContractType','user_id','id');
     }
     
 }

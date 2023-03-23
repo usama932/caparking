@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Contracts;
-use App\Models\Contract_types;
+use App\Models\ContractType;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -36,21 +36,21 @@ class ContactTypeController extends Controller
 			4 => 'action'
 		);
 		
-		$totalData = Contract_types::count();
+		$totalData = ContractType::count();
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$order = $columns[$request->input('order.0.column')];
 		$dir = $request->input('order.0.dir');
 		
 		if(empty($request->input('search.value'))){
-			$contracts = Contract_types::offset($start)
+			$contracts = ContractType::offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
-			$totalFiltered = Contract_types::count();
+			$totalFiltered = ContractType::count();
 		}else{
 			$search = $request->input('search.value');
-			$contracts = Contract_types::where([
+			$contracts = ContractType::where([
 				['title', 'like', "%{$search}%"],
 			])   
 				->orWhere('created_at','like',"%{$search}%")
@@ -58,7 +58,7 @@ class ContactTypeController extends Controller
 				->limit($limit)
 				->orderBy($order, $dir)
 				->get();
-			$totalFiltered = Contract_types::where([
+			$totalFiltered = ContractType::where([
 				
 				['title', 'like', "%{$search}%"],
 			])
@@ -115,7 +115,7 @@ class ContactTypeController extends Controller
 	public function contacttypeDetail(Request $request)
 	{
 		$title = "Contracts Type Details";
-        $contract = Contract_types::find($request->id);
+        $contract = ContractType::find($request->id);
         
 		return view('admin.contract_type.detail', compact('contract','title'));
 	}
@@ -131,7 +131,7 @@ class ContactTypeController extends Controller
             'title' => 'required',
            
         ]);
-        $contracttype = new Contract_types;
+        $contracttype = new ContractType;
         $contracttype->title = $request->input('title');
         $contracttype->save();
         Session::flash('success_message', 'Contract Type successfully update!');
@@ -149,7 +149,7 @@ class ContactTypeController extends Controller
     {
 
         $title = "Contracts Type Edit";
-        $contract = Contract_types::find($id);    
+        $contract = ContractType::find($id);    
 		return view('admin.contract_type.edit', compact('contract','title'));
 
     }
@@ -161,7 +161,7 @@ class ContactTypeController extends Controller
             'title' => 'required',
            
         ]);
-        $contracttype = Contract_types::find($id);
+        $contracttype = ContractType::find($id);
         $contracttype->title = $request->input('title');
         $contracttype->save();
         Session::flash('success_message', 'Contract Type successfully update!');
@@ -171,7 +171,7 @@ class ContactTypeController extends Controller
 
     public function destroy($id)
     {
-	    $contracttypes = Contract_types::find($id);
+	    $contracttypes = ContractType::find($id);
 	    if(!empty($contracttypes)){
 		    $contracttypes->delete();
 		    Session::flash('success_message', 'Contract types successfully deleted!');
@@ -188,7 +188,7 @@ class ContactTypeController extends Controller
 		]);
 		foreach ($input['contracts'] as $index => $id) {
 			
-			$contracts = Contract_types::find($id);
+			$contracts = ContractType::find($id);
 			if(!empty($contracts)){
 				$contracts->delete();
 			}

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Contracts;
-use App\Models\Contract_types;
+use App\Models\ContractType;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -125,7 +125,7 @@ class ContactController extends Controller
     public function create()
     {
         $title = "Contract Types";
-        $contract_types = Contract_types::latest()->get();
+        $contract_types = ContractType::latest()->get();
         $users = User::where('is_admin', '0')->get();
 		return view('admin.contracts.create',compact('title','contract_types','users'));
     }
@@ -159,7 +159,7 @@ class ContactController extends Controller
     {
         $title = "Contracts Edit";
         $contract = Contracts::with('user')->find($id);
-        $contract_types = Contract_types::latest()->get();
+        $contract_types = ContractType::latest()->get();
         $users = User::where('is_admin', '0')->get();
         dd($contract->user->id);
 		return view('admin.contracts.edit', compact('contract','title','contract_types','users'));
