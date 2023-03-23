@@ -45,14 +45,14 @@ class ContactController extends Controller
 		$dir = $request->input('order.0.dir');
 		
 		if(empty($request->input('search.value'))){
-			$contracts = Contracts::with('user')->offset($start)
+			$contracts = Contracts::where('added_by',auth()->user()->id)->with('user')->offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
-			$totalFiltered = Contracts::with('user')->count();
+			$totalFiltered = Contracts::where('added_by',auth()->user()->id)->with('user')->count();
 		}else{
 			$search = $request->input('search.value');
-			$contracts = Contracts::with('user')->where([
+			$contracts = Contracts::where('added_by',auth()->user()->id)->with('user')->where([
 				['contract_person', 'like', "%{$search}%"],
 			])   
 				->orWhere('created_at','like',"%{$search}%")
@@ -60,7 +60,7 @@ class ContactController extends Controller
 				->limit($limit)
 				->orderBy($order, $dir)
 				->get();
-			$totalFiltered = Contracts::with('user')->where([
+			$totalFiltered = Contracts::where('added_by',auth()->user()->id)->with('user')->where([
 				
 				['contract_person', 'like', "%{$search}%"],
 			])
@@ -144,6 +144,7 @@ class ContactController extends Controller
         $contract->user_id = $request->input('user_id');
         $contract->contract_person = $request->input('contract_person');
         $contract->address = $request->input('address');
+        $contract->added_by = auth()->user()->id;
         $contract->save();
         Session::flash('success_message', 'Contract successfully update!');
         return  redirect()->route('contacts.index')
@@ -161,7 +162,7 @@ class ContactController extends Controller
         $contract = Contracts::with('user')->find($id);
         $contract_types = ContractType::latest()->get();
         $users = User::where('is_admin', '0')->get();
-        dd($contract->user->id);
+      
 		return view('admin.contracts.edit', compact('contract','title','contract_types','users'));
     }
 

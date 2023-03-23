@@ -133,6 +133,7 @@ class ContactTypeController extends Controller
         ]);
         $contracttype = new ContractType;
         $contracttype->title = $request->input('title');
+		
         $contracttype->save();
         Session::flash('success_message', 'Contract Type successfully update!');
         return  redirect()->route('contact_types.index')
