@@ -186,7 +186,7 @@
                     </a>
                 </li>
 
-                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'contact_types') {
+                {{-- <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'contact_types') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">
                     <a href="{{ route('contact_types.index') }}" class="menu-link">
@@ -234,7 +234,7 @@
                         </span>
                         <span class="menu-text">Contracts</span>
                     </a>
-                </li>
+                </li> --}}
 
 
                 <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'orders') {
