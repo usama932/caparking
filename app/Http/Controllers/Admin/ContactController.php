@@ -31,11 +31,10 @@ class ContactController extends Controller
     public function getContacts(Request $request){
 		$columns = array(
 			0 => 'id',
-			1 => 'contract_type_id',
-            2 => 'user_id',
-            3 => 'contract_person',
-			4 => 'created_at',
-			5 => 'action'
+            1 => 'user_id',
+            2 => 'contract_person',
+			3 => 'created_at',
+			4 => 'action'
 		);
 		
 		$totalData = Contracts::count();
