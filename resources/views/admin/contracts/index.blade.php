@@ -63,13 +63,13 @@
             </div>
         </div>
         <!-- Modal-->
-        <div class="modal fade" id="contracttypeModel" data-backdrop="static" tabindex="-1" role="dialog"
+        <div class="modal fade" id="contractModel" data-backdrop="static" tabindex="-1" role="dialog"
             aria-labelledby="staticBackdrop" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="myModalLabel">Plan Detail</h4>
+                        <h4 class="modal-title" id="myModalLabel">Contract Detail</h4>
                     </div>
                     <div class="modal-body"></div>
                     <div class="modal-footer">
@@ -148,7 +148,7 @@
                 id: id
             }).done(function(response) {
                 $('.modal-body').html(response);
-                $('#contracttypeModel').modal('show');
+                $('#contractModel').modal('show');
 
             });
         }
