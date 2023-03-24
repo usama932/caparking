@@ -41,7 +41,7 @@
                 <form action="{{ route('admin.delete-selected-contact') }}" method="post" id="contract_form">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <!--begin: Datatable-->
-                    <table class="table table-bordered table-hover table-checkable" id="contracttypes"
+                    <table class="table table-bordered table-hover table-checkable" id="contracts"
                         style="margin-top: 13px !important">
                         <thead>
                             <tr>
@@ -100,7 +100,7 @@
                     $(this).closest('tr').toggleClass('selected');
                 });
         });
-        var clients = $('#contracttypes').DataTable({
+        var clients = $('#contracts').DataTable({
             "order": [
                 [1, 'asc']
             ],

@@ -77,9 +77,18 @@
 
 </head>
 <body>
-
-   @if(!empty($plans) )
+  
+   
   <div class="container p-5">
+   <div class="col-md-12 bg-light text-right">
+                        <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById
+                        ('logout-form').submit();" class="btn btn-sm btn-danger font-weight-bolder py-2 px-5">Logout</a>
+                        
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                           @csrf
+                        </form>
+                  </div>
+    @if(!empty($plans) )
     <div class="row">
      @if(!empty($plans['0']) )
       <div class="col-lg-4 col-md-12 mb-4">
@@ -147,8 +156,11 @@
     @endif
     
   </div>
+ 
   @else
-  <h1>No Plans Found</h1>
+  <h1>No Plans Found
+  </h1>
+
   @endif
 
 

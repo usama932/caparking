@@ -20,6 +20,18 @@
    </head>
    <body class="bg-danger pt-5">
       <div class="container">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-12 bg-light text-right">
+                        <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById
+                        ('logout-form').submit();" class="btn btn-sm btn-danger font-weight-bolder py-2 px-5">Logout</a>
+                        
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                           @csrf
+                        </form>
+                  </div>
+               </div>
+            </div>
          <div class="row">
             <div class="col-md-4 offset-md-4 col-10 offset-1 pl-0 pr-0">
                <div class="card">
@@ -27,6 +39,7 @@
                      <div class="row">
                         <div class="col-md-5 col-12 pt-2">
                            <h6 class="m-0"><strong>Payment Details</strong></h6>
+                           
                         </div>
                         <div class="col-md-7 col-12 icons">
                            <i class="fa fa-cc-visa fa-2x" aria-hidden="true"></i>
