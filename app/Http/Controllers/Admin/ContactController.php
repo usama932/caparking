@@ -18,10 +18,10 @@ class ContactController extends Controller
 {
 	function __construct()
     {
-            $this->middleware('permission:contract-list|get-contract|get-contracts|contract-create|contract-edit|contract-delete', ['only' => ['index','store']]);
-            $this->middleware('permission:contract-create', ['only' => ['create','store']]);
-            $this->middleware('permission:contract-edit', ['only' => ['edit','update']]);
-            $this->middleware('permission:contract-delete', ['only' => ['destroy']]);
+            $this->middleware('permission:contract-list|get-contract|get-contracts|contract-create|contract-edit|contract-delete', ['only' => ['index','store','getContacts','contactDetail']]);
+            $this->middleware('permission:contract-create', ['only' => ['create','store','getContacts','contactDetail']]);
+            $this->middleware('permission:contract-edit', ['only' => ['edit','update','getContacts','contactDetail']]);
+            $this->middleware('permission:contract-delete', ['only' => ['destroy','getContacts','contactDetail']]);
     }
     public function index()
     {
