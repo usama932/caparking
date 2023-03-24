@@ -49,7 +49,7 @@ class ContactController extends Controller
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
-			$totalFiltered = Contracts::where('added_by',auth()->user()->id)->with('user')->count();
+			$totalFiltered = Contracts::count();
 		}else{
 			$search = $request->input('search.value');
 			$contracts = Contracts::where('added_by',auth()->user()->id)->with('user')->where([
@@ -60,7 +60,7 @@ class ContactController extends Controller
 				->limit($limit)
 				->orderBy($order, $dir)
 				->get();
-			$totalFiltered = Contracts::where('added_by',auth()->user()->id)->with('user')->where([
+			$totalFiltered = Contracts::where([
 				
 				['contract_person', 'like', "%{$search}%"],
 			])
