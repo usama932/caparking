@@ -77,11 +77,6 @@ class ContactController extends Controller
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="contracts[]" value="'.$r->id.'"><span></span></label></td>';
                 $nestedData['user_id'] = $r->user->name;
                 $nestedData['contract_person'] = $r->contract_person;
-				if($r->active){
-					$nestedData['active'] = '<span class="label label-success label-inline mr-2">Active</span>';
-				}else{
-					$nestedData['active'] = '<span class="label label-danger label-inline mr-2">Inactive</span>';
-				}
 				
 				$nestedData['created_at'] = date('d-m-Y',strtotime($r->created_at));
 				$nestedData['action'] = '
