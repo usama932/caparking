@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Contracts extends Model
+class Contract extends Model
 {
+    
     use HasFactory;
     protected $fillable = [
        'contract_type_id', 'user_id', 'address','contract_person'
@@ -19,5 +20,4 @@ class Contracts extends Model
     {
         return $this->belongsTo('App\Models\ContractType','contract_type_id','id');
     }
-
 }
