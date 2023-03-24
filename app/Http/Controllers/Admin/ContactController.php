@@ -45,6 +45,7 @@ class ContactController extends Controller
 		$dir = $request->input('order.0.dir');
 		
 		if(empty($request->input('search.value'))){
+            dd($contracts);
 			$contracts = Contracts::offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
@@ -69,7 +70,7 @@ class ContactController extends Controller
 				->count();
 		}
 		
-        dd($contracts);
+        
 		$data = array();
 		
 		if($contracts){
