@@ -37,13 +37,13 @@ class ContactController extends Controller
 			3 => 'created_at',
 			4 => 'action'
 		);
-		
+		dd('sda');
 		$totalData = Contract::count();
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$order = $columns[$request->input('order.0.column')];
 		$dir = $request->input('order.0.dir');
-		dd('sda');
+		
 		if(empty($request->input('search.value'))){
          
 			$contracts = Contract::offset($start)
