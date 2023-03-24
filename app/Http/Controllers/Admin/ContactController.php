@@ -39,7 +39,7 @@ class ContactController extends Controller
 		);
 		
 		$totalData = Contract::count();
-        dd('sda');
+    
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$order = $columns[$request->input('order.0.column')];
