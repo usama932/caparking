@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Contracts;
+use App\Models\Contract;
 use App\Models\ContractType;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\Permission\Models\Role;
@@ -38,7 +38,7 @@ class ContactController extends Controller
 			4 => 'action'
 		);
 		
-		$totalData = Contracts::count();
+		$totalData = Contract::count();
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$order = $columns[$request->input('order.0.column')];
@@ -46,15 +46,15 @@ class ContactController extends Controller
 		dd('sda');
 		if(empty($request->input('search.value'))){
          
-			$contracts = Contracts::offset($start)
+			$contracts = Contract::offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
-			$totalFiltered = Contracts::count();
+			$totalFiltered = Contract::count();
 		}else{
            
 			$search = $request->input('search.value');
-			$contracts = Contracts::where([
+			$contracts = Contract::where([
 				['contract_person', 'like', "%{$search}%"],
 			])   
 				->orWhere('created_at','like',"%{$search}%")
@@ -62,7 +62,7 @@ class ContactController extends Controller
 				->limit($limit)
 				->orderBy($order, $dir)
 				->get();
-			$totalFiltered = Contracts::where([
+			$totalFiltered = Contract::where([
 				
 				['contract_person', 'like', "%{$search}%"],
 			])
@@ -115,7 +115,7 @@ class ContactController extends Controller
 	public function contactDetail(Request $request)
 	{
 		$title = "Contracts Details";
-        $contract = Contracts::with('user','contract')->find($request->id);
+        $contract = Contract::with('user','contract')->find($request->id);
       
 		return view('admin.contracts.detail', compact('contract','title'));
 	}
@@ -136,7 +136,7 @@ class ContactController extends Controller
             'contract_person' => 'required',
            
         ]);
-        $contract        = new Contracts;
+        $contract        = new Contract;
         $contract->contract_type_id = $request->input('contract_type_id');
         $contract->user_id = $request->input('user_id');
         $contract->contract_person = $request->input('contract_person');
@@ -155,8 +155,8 @@ class ContactController extends Controller
 
     public function edit($id)
     {
-        $title = "Contracts Edit";
-        $contract = Contracts::with('user')->find($id);
+        $title = "Contract Edit";
+        $contract = Contract::with('user')->find($id);
         $contract_types = ContractType::latest()->get();
         $users = User::where('is_admin', '0')->get();
       
@@ -172,7 +172,7 @@ class ContactController extends Controller
             'contract_person' => 'required',
            
         ]);
-        $contract        = Contracts::find($id);
+        $contract        = Contract::find($id);
         $contract->contract_type_id = $request->input('contract_type_id');
         $contract->user_id = $request->input('user_id');
         $contract->contract_person = $request->input('contract_person');
@@ -185,7 +185,7 @@ class ContactController extends Controller
 
     public function destroy($id)
     {
-	    $contract = Contracts::find($id);
+	    $contract = Contract::find($id);
 	    if(!empty($contract)){
 		    $contract->delete();
 		    Session::flash('success_message', 'Contract  successfully deleted!');
@@ -202,7 +202,7 @@ class ContactController extends Controller
 		]);
 		foreach ($input['contracts'] as $index => $id) {
 			
-			$contracts = Contracts::find($id);
+			$contracts = Contract::find($id);
 			if(!empty($contracts)){
 				$contracts->delete();
 			}

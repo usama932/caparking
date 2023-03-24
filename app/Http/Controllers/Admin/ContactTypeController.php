@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Contracts;
+use App\Models\Contract;
 use App\Models\ContractType;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\Permission\Models\Role;

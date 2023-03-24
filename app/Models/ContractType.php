@@ -13,6 +13,6 @@ class ContractType extends Model
     ];
     public function contracts()
     {
-        return $this->hasMany('App\Models\Contracts','contract_type_id','id');
+        return $this->hasMany('App\Models\Contract','contract_type_id','id');
     }
 }
