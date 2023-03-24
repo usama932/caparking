@@ -29,7 +29,7 @@ class ContactController extends Controller
         return view('admin.contracts.index',compact('title'));
     }
     public function getContacts(Request $request){
-        dd($request->all());
+       
 		$columns = array(
 			0 => 'id',
             1 => 'user_id',
@@ -69,7 +69,7 @@ class ContactController extends Controller
 				->count();
 		}
 		
-		
+        dd($contracts);
 		$data = array();
 		
 		if($contracts){
