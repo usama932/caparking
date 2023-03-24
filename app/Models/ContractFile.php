@@ -12,4 +12,8 @@ class ContractFile extends Model
         'contract_id', 'file'
  
      ];
+     public function contract()
+     {
+         return $this->belongsTo('App\Models\Contract','contract_id','id');
+     }
 }

@@ -22,4 +22,9 @@ class Contract extends Model
     {
         return $this->belongsTo('App\Models\ContractType','contract_type_id','id');
     }
+  
+    public function file()
+    {
+        return $this->hasOne('App\Models\ContractFile','contract_id','id');
+    }
 }
