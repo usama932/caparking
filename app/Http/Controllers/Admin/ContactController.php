@@ -43,16 +43,16 @@ class ContactController extends Controller
 		$start = $request->input('start');
 		$order = $columns[$request->input('order.0.column')];
 		$dir = $request->input('order.0.dir');
-		
+		dd('sda');
 		if(empty($request->input('search.value'))){
-            dd($contracts);
+         
 			$contracts = Contracts::offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
 			$totalFiltered = Contracts::count();
 		}else{
-            dd($contracts);
+           
 			$search = $request->input('search.value');
 			$contracts = Contracts::where([
 				['contract_person', 'like', "%{$search}%"],
