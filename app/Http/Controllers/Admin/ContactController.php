@@ -45,14 +45,14 @@ class ContactController extends Controller
 		$dir = $request->input('order.0.dir');
 		
 		if(empty($request->input('search.value'))){
-			$contracts = Contracts::where('added_by',auth()->user()->id)->with('user')->offset($start)
+			$contracts = Contracts::offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
 			$totalFiltered = Contracts::count();
 		}else{
 			$search = $request->input('search.value');
-			$contracts = Contracts::where('added_by',auth()->user()->id)->with('user')->where([
+			$contracts = Contracts::where([
 				['contract_person', 'like', "%{$search}%"],
 			])   
 				->orWhere('created_at','like',"%{$search}%")
