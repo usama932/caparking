@@ -10,9 +10,6 @@
 <!--begin::Page Vendors(used by this page)-->
 <script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
 
-<!--end::Page Vendors-->
-
-<!--begin::Page Scripts(used by this page)-->
 <script src="{{ asset('assets/js/pages/widgets.js') }}"></script>
 <script>
     var btn = KTUtil.getById("kt_btn");
@@ -24,6 +21,16 @@
             KTUtil.btnRelease(btn);
         }, 1000);
     });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script>
+$(function(){
+    $("#datepicker").datepicker();
+});
+$(function(){
+    $("#datepicker1").datepicker();
+});
 </script>
 @yield('scripts')
 

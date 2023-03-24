@@ -50,8 +50,9 @@
                                             type="checkbox"><span></span></label>
 
                                 </th>
-                                <th>User</th>
+                                <th>Name Contract Party</th>
                                 <th>Contract Person</th>
+                               
                                 <th>Created At</th>
                                 <th>Actions</th>
                             </tr>
@@ -127,6 +128,7 @@
                    {
                     "data": "contract_person"
                 },
+                
                 {
                     "data": "created_at"
                 },

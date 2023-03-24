@@ -80,17 +80,20 @@ class PayPalPaymentController extends Controller
              ->setExpireMonth($request->card_month)  
              ->setExpireYear($request->card_year) 
              ->setCvv2($request->card_cvc);  
-       
-        $fi = new FundingInstrument();
-        $fi->setCreditCard($card);
+        // $card->create($this->apiContext);
+
+        $fundingInstrument = new FundingInstrument();
+        $fundingInstrument->setCreditCard($card);
 
         $planId =  $request->plan_id;
         $plan = new Plan();
         $plan->setId($planId);
   
         $payer = new Payer();
-        $payer->setPaymentMethod('paypal');
-      
+        $payer->setPaymentMethod('credit_card')
+            ->setFundingInstruments(array($fundingInstrument));
+       
+           
         $agreementStateDescriptor = new \PayPal\Api\AgreementStateDescriptor();
         $agreementStateDescriptor->setNote('Activating the agreement.');
 

@@ -4,9 +4,9 @@ return [
 	'secret' => 'ELhokVQ2hhzVUWRr4pThD9mCAh6T81vOI4UTL5Ta56P_W43miZokpwsMtC7wARZ5nqjoJlMNNX8wuqbG',
     'settings' => array(
         'mode' => 'sandbox',
-        'http.ConnectionTimeOut' => 1000,
+        'http.ConnectionTimeOut' => 30,
         'log.LogEnabled' => true,
         'log.FileName' => storage_path() . '/logs/paypal.log',
-        'log.LogLevel' => 'DEBUG'
+        'log.LogLevel' => 'FINE',
     ),
 ];

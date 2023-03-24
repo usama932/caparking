@@ -18,7 +18,13 @@ class CreateContractsTable extends Migration
             $table->integer('contract_type_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->text('address')->nullable();
+            $table->string('added_by')->nullable();
+            $table->text('subject')->nullable();
+            $table->string('name_contracting_party')->nullable();
             $table->string('contract_person')->nullable();
+            $table->date('contract_start_date')->nullable();
+            $table->date('contract_end_date')->nullable();
+            $table->boolean('notify_by_email')->nullable();
             $table->timestamps();
         });
     }

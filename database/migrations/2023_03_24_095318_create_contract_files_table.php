@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAddedByToContracts extends Migration
+class CreateContractFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddAddedByToContracts extends Migration
      */
     public function up()
     {
-        Schema::table('contracts', function (Blueprint $table) {
-            $table->string('added_by')->nullable();
+        Schema::create('contract_files', function (Blueprint $table) {
+            $table->id();
+            $table->integer('contract_id')->nullable();
+            $table->string('file')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddAddedByToContracts extends Migration
      */
     public function down()
     {
-        Schema::table('contracts', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('contract_files');
     }
 }

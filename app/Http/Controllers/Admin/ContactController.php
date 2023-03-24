@@ -12,6 +12,7 @@ use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Arr;
 use App\Models\User;
+use App\Models\ContractFile;
 use DB;
 
 class ContactController extends Controller
@@ -34,6 +35,7 @@ class ContactController extends Controller
 			0 => 'id',
             1 => 'user_id',
             2 => 'contract_person',
+            
 			3 => 'created_at',
 			4 => 'action'
 		);
@@ -79,7 +81,9 @@ class ContactController extends Controller
 			foreach($contracts as $r){
 				$edit_url = route('contacts.edit',$r->id);
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="contracts[]" value="'.$r->id.'"><span></span></label></td>';
-                $nestedData['user_id'] = $r->user->name;
+                $nestedData['user_id'] = $r->name_contracting_party;
+                $nestedData['start_date'] = $r->contract_start_date;
+                $nestedData['end_Date'] = $r->contract_end_date;
                 $nestedData['contract_person'] = $r->contract_person;
 				
 				$nestedData['created_at'] = date('d-m-Y',strtotime($r->created_at));
@@ -130,20 +134,47 @@ class ContactController extends Controller
 
     
     public function store(Request $request)
-    {
+    {  
+        
         $this->validate($request, [
             'contract_type_id' => 'required',
-            'user_id' => 'required',
+            'name_contracting_party' => 'required',
             'contract_person' => 'required',
+            'contract_start_date' => 'required',
+            'contract_end_date' => 'required',
            
         ]);
+      
         $contract        = new Contract;
         $contract->contract_type_id = $request->input('contract_type_id');
-        $contract->user_id = $request->input('user_id');
         $contract->contract_person = $request->input('contract_person');
+        $contract->name_contracting_party = $request->input('name_contracting_party');
+        $contract->contract_start_date = $request->input('contract_start_date');
+        $contract->contract_end_date = $request->input('contract_end_date');
+        $contract->subject = $request->input('subject');
         $contract->address = $request->input('address');
+        $contract->notify_by_email = $request->input('notify_by_email');
         $contract->added_by = auth()->user()->id;
         $contract->save();
+
+        if ($request->hasFile('file')) {
+			if ($request->file('file')->isValid()) {
+				$this->validate($request, [
+					'file' => 'required|mimes:jpeg,png,jpg'
+				]);
+				$file = $request->file('file');
+				$destinationPath = public_path('/contractfile');
+				$filename = $file->getClientOriginalName('file');
+				$filename = rand() . $filename;
+				$request->file('file')->move($destinationPath, $filename);
+				
+                $contractfile       = new ContractFile;
+                $contractfile->contract_id = $contract->id;
+                $contractfile->file = $filename;
+                $contractfile->save();
+			}
+            
+		}
         Session::flash('success_message', 'Contract successfully update!');
         return  redirect()->route('contacts.index')
                           ->with('success','Contact  created successfully');
@@ -169,16 +200,45 @@ class ContactController extends Controller
     {
         $this->validate($request, [
             'contract_type_id' => 'required',
-            'user_id' => 'required',
+            'name_contracting_party' => 'required',
             'contract_person' => 'required',
+            'contract_start_date' => 'required',
+            'contract_end_date' => 'required',
            
         ]);
+      
         $contract        = Contract::find($id);
         $contract->contract_type_id = $request->input('contract_type_id');
-        $contract->user_id = $request->input('user_id');
         $contract->contract_person = $request->input('contract_person');
+        $contract->name_contracting_party = $request->input('name_contracting_party');
+        $contract->contract_start_date = $request->input('contract_start_date');
+        $contract->contract_end_date = $request->input('contract_end_date');
+        $contract->subject = $request->input('subject');
         $contract->address = $request->input('address');
+        $contract->notify_by_email = $request->input('notify_by_email');
         $contract->save();
+        if (!empty($request->file)) {
+        
+			if ($request->file('file')->isValid()) {
+				$this->validate($request, [
+					'file' => 'required|mimes:jpeg,png,jpg'
+				]);
+				$file = $request->file('file');
+				$destinationPath = public_path('/contractfile');
+				$filename = $file->getClientOriginalName('file');
+				$filename = rand() . $filename;
+				$request->file('file')->move($destinationPath, $filename);
+				
+                $contractfiled        = ContractFile::where('contract_id',$contract->id)->first();
+                $contractfiled->delete();
+
+                $contractfile       = new ContractFile;
+                $contractfile->contract_id = $contract->id;
+                $contractfile->file = $filename;
+                $contractfile->save();
+			}
+            
+		}
         Session::flash('success_message', 'Contract successfully update!');
         return  redirect()->route('contacts.index')
                           ->with('success','Contact  created successfully');
