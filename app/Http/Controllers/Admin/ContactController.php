@@ -52,6 +52,7 @@ class ContactController extends Controller
 				->get();
 			$totalFiltered = Contracts::count();
 		}else{
+            dd($contracts);
 			$search = $request->input('search.value');
 			$contracts = Contracts::where([
 				['contract_person', 'like', "%{$search}%"],
