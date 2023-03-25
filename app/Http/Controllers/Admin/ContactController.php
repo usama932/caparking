@@ -121,11 +121,12 @@ class ContactController extends Controller
 	{
 		$title = "Contracts Details";
         $contract = Contract::with('file','contract')->find($request->id);
-       
-		return view('admin.contracts.detail', compact('contract','title'));
+        $users = json_decode($contract->users);
+		return view('admin.contracts.detail', compact('contract','title','users'));
 	}
     public function create()
     {
+        
         $title = "Contract Types";
         $contract_types = ContractType::latest()->get();
         $users = User::where('is_admin', '0')->get();
@@ -154,6 +155,7 @@ class ContactController extends Controller
         $contract->subject = $request->input('subject');
         $contract->address = $request->input('address');
         $contract->notify_by_email = $request->input('notify_by_email');
+        $contract->users = $request->input('users');
         $contract->added_by = auth()->user()->id;
         $contract->save();
 
@@ -216,6 +218,7 @@ class ContactController extends Controller
         $contract->subject = $request->input('subject');
         $contract->address = $request->input('address');
         $contract->notify_by_email = $request->input('notify_by_email');
+        $contract->users = $request->input('users');
         $contract->save();
         if (!empty($request->file)) {
         

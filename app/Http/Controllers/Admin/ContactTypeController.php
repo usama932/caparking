@@ -174,6 +174,7 @@ class ContactTypeController extends Controller
     {
 	    $contracttypes = ContractType::find($id);
 	    if(!empty($contracttypes)){
+			
 		    $contracttypes->delete();
 		    Session::flash('success_message', 'Contract types successfully deleted!');
 	    }

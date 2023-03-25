@@ -10,7 +10,7 @@ class Contract extends Model
     
     use HasFactory;
     protected $fillable = [
-       'contract_type_id', 'user_id', 'address','contract_person','subject','name_contracting_party','contract_start_date','contract_end_date',
+       'contract_type_id','users', 'user_id', 'address','contract_person','subject','name_contracting_party','contract_start_date','contract_end_date',
         'notify_by_email',''
 
     ];
@@ -27,4 +27,10 @@ class Contract extends Model
     {
         return $this->hasOne('App\Models\ContractFile','contract_id','id');
     }
+    public function setUsersAttribute($value)
+    {
+        $this->attributes['users'] = json_encode($value);
+    }
+  
+   
 }

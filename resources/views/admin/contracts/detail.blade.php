@@ -9,16 +9,24 @@
 			<td>Contracts</td>
 			<td>
 				{{ $contract->contract->title }}
+			</td> 
+		</tr>
+		<tr>
+			<td>Assign User</td>
+			<td>
+			{{ $contract->users ?? 'Not assign' }}
 			</td>
 		</tr>
 		<tr>
 			<td>Subject</td>
 			<td>{{$contract->subject}}</td>
 		</tr>
+		@if(!empty($contract->file))
 		<tr>
 			<td>File</td>
-			<td><input type="image" src="{{asset('contractfile')}}/{{$contract->file->file}}"  width="48" height="48"></td>
+			<td><input type="image" src="{{asset('contractfile')}}/{{$contract->file->file }}"  width="48" height="48"></td>
 		</tr>
+		@endif
 		<tr>
 			<td>Address</td>
 			<td>{{$contract->address}}</td>

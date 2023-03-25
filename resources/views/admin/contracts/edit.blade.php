@@ -77,7 +77,19 @@
                         <span class="text-danger">{{ $errors->first('contract_type_id') }}</span>
                       </div>
                     </div>
-                    <div class="form-group row {{ $errors->has('nacontract_type_idme') ? 'has-error' : '' }}">
+                    <div class="form-group row {{ $errors->has('users') ? 'has-error' : '' }}">
+                      <label class="col-3">Assign User</label>
+                      <div class="col-9">
+                        <select name="user[]" multiple="" class="form-control form-control-solid">
+                            @foreach($users as $user)
+                                <option value="{{$user->name}}" class="form-control form-control-solid">{{$user->name}}</option>
+                            @endforeach
+                            
+                        </select>
+                        <span class="text-danger">{{ $errors->first('contract_type_id') }}</span>
+                      </div>
+                    </div> 
+                    <div class="form-group row {{ $errors->has('name_contracting_party') ? 'has-error' : '' }}">
                       <label class="col-3">Name Contract Party</label>
                       <div class="col-9">  
                        {{ Form::text('name_contracting_party', null, ['class' => 'form-control form-control-solid','id'=>'name_contracting_party','placeholder'=>'Enter Name Contract Party','required'=>'true']) }}
