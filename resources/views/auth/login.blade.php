@@ -69,19 +69,26 @@
 								<input class="form-control form-control-solid h-auto py-6 px-6 rounded-lg @error('password') is-invalid @enderror"  required autocomplete="current-password" type="password" name="password"/>
 									@error('password')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>@enderror
 							</div>
-							<!--end::Form group-->
-							<!--begin::Action-->
+							
 							<div class="pb-lg-0 pb-5">
                                 <button type="submit"  id="kt_btn" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign In</button>
                                 <a href=""  class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3  ">Back</a>
+                             
 
                       
 							</div>
+							
+							
 							<!--end::Action-->
 						</form>
-						<!--end::Form-->
+						<div class="text-center">
+						
+						<strong>If you are not Registerd <a href="{{route('register')}}">Sign Up</a></strong>
+						</div>
+						
+						
 					</div>
-		
+					
 				</div>
 
 			</div>

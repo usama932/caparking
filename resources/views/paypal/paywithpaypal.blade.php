@@ -19,95 +19,69 @@
       </style>
    </head>
    <body class="bg-danger pt-5">
+      
       <div class="container">
-            <div class="container">
-               <div class="row">
-                  <div class="col-md-12 bg-light text-right">
-                        <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById
-                        ('logout-form').submit();" class="btn btn-sm btn-danger font-weight-bolder py-2 px-5">Logout</a>
-                        
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                           @csrf
-                        </form>
-                  </div>
-               </div>
-            </div>
-         <div class="row">
-            <div class="col-md-4 offset-md-4 col-10 offset-1 pl-0 pr-0">
-               <div class="card">
-                  <div class="card-header">
-                     <div class="row">
-                        <div class="col-md-5 col-12 pt-2">
-                           <h6 class="m-0"><strong>Payment Details</strong></h6>
-                           
-                        </div>
-                        <div class="col-md-7 col-12 icons">
-                           <i class="fa fa-cc-visa fa-2x" aria-hidden="true"></i>
-                           <i class="fa fa-cc-mastercard fa-2x" aria-hidden="true"></i>
-                           <i class="fa fa-cc-discover fa-2x" aria-hidden="true"></i>
-                           <i class="fa fa-cc-amex fa-2x" aria-hidden="true"></i>
-                        </div>
-                     </div>
-                  </div>
-                  <div class= "card-body">
-                     <form action="{{route('success.payment')}}" method="post">
-                        @csrf
-                        <input name="plan_id" value="{{$plan->plan_id}}" type="hidden">
-                        <input name="user_id" value="{{auth()->user()->id}}" type="hidden">
-                           <div class="form-group">
-                           <label for="validationTooltipCardNumber"><strong>CARD NAME</strong></label>
-                           <div class="input-group">
-                              <input type="text" class="form-control border-right-0" name="card_name" value="visa" id="" placeholder="Card Name">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text rounded-right" id=""><i class="fa fa-credit-name"></i></span>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="form-group">
-                           <label for="validationTooltipCardNumber"><strong>CARD NUMBER</strong></label>
-                           <div class="input-group">
-                              <input type="text" class="form-control border-right-0"  name="card_number" value="4915805038587737" id="validationTooltipCardNumber" placeholder="Card Number">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text rounded-right"  id="validationTooltipCardNumber"><i class="fa fa-credit-card"></i></span>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-md-4 col-6">
-                              <div class="form-group">
-                                 <label for="exampleInputExpirationDate"><strong>Ex Month</strong></label>
-                                 <input type="text" class="form-control" name="card_month"  id="exampleInputExpirationDate" placeholder="MM">
-                              </div>
-                           </div>
-                            <div class="col-md-4 col-6">
-                              <div class="form-group">
-                                 <label for="exampleInputExpirationDate"><strong>Ex Year</strong></label>
-                                 <input type="text" class="form-control" name="card_year"  id="exampleInputExpirationDate" placeholder="YYYY">
-                              </div>
-                           </div>
-                           <div class="col-md-4 col-12">
-                              <div class="form-group">
-                                 <label for="exampleInputCvcCode"><strong>CVC CODE</strong></label>
-                                 <input type="text" class="form-control" name="card_cvc" id="exampleInputCvcCode" placeholder="CVC">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="form-group">
-                           <label for="validationTooltipCardNumber"><strong>Total Amount</strong></label>
-                           <div class="input-group">
-                              <input type="number" name="amount"  value={{$plan->price}} class="form-control border-right-0"  placeholder="amount" readonly>
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text rounded-right" id="amount"><i class="fa fa amount"></i></span>
-                              </div>
-                           </div>
-                        </div>
-                     
-                        <button class="btn btn-info w-100 pb-2 pt-2">Start Subscription ${{$plan->price}}</button>
-                     </form>
-                  </div>
-               </div>
+         <h1 class="text-center">Select Payment Option </h1>
+         <nav class="navbar navbar-light bg-light justify-content-between mb-5">
+            <a class="navbar-brand ml-3">Contact Kampaner</a>
+        
+            <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById
+               ('logout-form').submit();" class="btn btn-outline-success my-2 my-sm-0">Logout</a>
+        
+         
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+               @csrf
+            </form>
+         </nav>
+         <div id="smart-button-container mt-5">
+            <div style="text-align: center;">
+            <div id="paypal-button-container"></div>
+            <input type="hidden" name="amount" id="amount"  value={{$plan->price}} class="form-control border-right-0"  placeholder="amount" readonly>
             </div>
          </div>
+  
       </div>
+      <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+  <script>
+
+    function initPayPalButton() {
+      paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'paypal',
+          
+        },
+       
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{"amount":{"currency_code":"USD","value":1}}]
+          });
+        },
+
+         onApprove: function(data, actions) {
+            return actions.order.capture().then(function(orderData) {
+            dd(orderData);
+            // Full available details
+            console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+            // Show a success message within this page, e.g.
+            const element = document.getElementById('paypal-button-container');
+            element.innerHTML = '';
+            element.innerHTML = '<h3>Thank you for your payment!</h3><a class="btn btn-primary" href= "{{route('admin.dashboard')}}">Dashboard</a>';
+
+           
+            
+            });
+        },
+
+        onError: function(err) {
+          console.log(err);
+        }
+      }).render('#paypal-button-container');
+    }
+    initPayPalButton();
+  </script>
    </body>
 </html>

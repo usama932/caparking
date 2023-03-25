@@ -28,6 +28,7 @@ Route::get('/clear',function(){
 });
 
 Auth::routes();
+Route::post('/regsiter_company', 'Auth\RegisterController@register')->name('register.compnay');
 
 Route::group([
     'middleware'    => ['auth'],
