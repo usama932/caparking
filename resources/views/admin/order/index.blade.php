@@ -51,6 +51,7 @@
                                 </th>
                                 <th>User</th>
                                 <th>Plan</th>
+                                <th>Amount ($)</th>
                                 <th>Expiry Date</th>
                                 <th>Subscription Date</th>
                                 <th>Created At</th>
@@ -69,7 +70,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="myModalLabel">Plan Detail</h4>
+                        <h4 class="modal-title" id="myModalLabel">Order Detail</h4>
                     </div>
                     <div class="modal-body"></div>
                     <div class="modal-footer">
@@ -128,6 +129,9 @@
                 {
                     "data": "plan_id"
                 },
+                 {
+                    "data": "amount"
+                },
                    {
                     "data": "expiry_date"
                 },
@@ -153,7 +157,7 @@
                 id: id
             }).done(function(response) {
                 $('.modal-body').html(response);
-                $('#planModel').modal('show');
+                $('#orderModel').modal('show');
 
             });
         }

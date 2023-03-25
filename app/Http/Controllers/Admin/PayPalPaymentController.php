@@ -65,67 +65,28 @@ class PayPalPaymentController extends Controller
         return view('paypal.paywithpaypal',compact('plan'));
     }
     public function paymentSuccess(Request $request){
-        $currentDateTime = Carbon::now();
-        $newDateTime = Carbon::now()->addMonth();
-      
-        $todayDate = Carbon::now();
-     
-        date_default_timezone_set("UTC");
-        $now = time() + 60 * 5;
-        $created_on = strftime("%Y-%m-%dT%H:%M:%SZ", $now);
-
-        $card = new CreditCard();
-        $card->setType('visa')    
-             ->setNumber($request->card_number)  
-             ->setExpireMonth($request->card_month)  
-             ->setExpireYear($request->card_year) 
-             ->setCvv2($request->card_cvc);  
-        // $card->create($this->apiContext);
-
-        $fundingInstrument = new FundingInstrument();
-        $fundingInstrument->setCreditCard($card);
-
-        $planId =  $request->plan_id;
-        $plan = new Plan();
-        $plan->setId($planId);
-  
-        $payer = new Payer();
-        $payer->setPaymentMethod('credit_card')
-            ->setFundingInstruments(array($fundingInstrument));
-       
-           
-        $agreementStateDescriptor = new \PayPal\Api\AgreementStateDescriptor();
-        $agreementStateDescriptor->setNote('Activating the agreement.');
-
-        $agreement = new Agreement();
-        $agreement->setName($request->_token)
-            ->setDescription('Monthly subscription '.$request->_token)
-            ->setStartDate($created_on)
-            ->setPlan($plan)
-            ->setPayer($payer);
-
-      
+        
+        $now    = Carbon::now();
+        $expiry =  Carbon::now()->addMonth();
         try
         {
-            $agreement->create($this->apiContext);
+           
            
             $order = Order::create([
                 'user_id' => auth()->user()->id,
-                'plan_id' => $plan->id,
-                'expiry_date' => $newDateTime,
-                'subscription_date' => Carbon::now(),
+                'order_id' => $request->order['id'],
+                'plan_name' => $request->plan_name,
+                'amount' => $request->amount,
+                'expiry_date' => $expiry,
+                'subscription_date' => $now,
             ]);
             
-           //dd($order);
+           return $order;   
             
         }
         catch(\PayPal\Exception\PayPalConnectionException $ex)
         {
-            echo "--------------------- exception\n";
-             echo "Code: ", $ex->getCode(), "\n";
-            echo "Data: ", $ex->getData(), "\n";
-            $this->error = "Sorry. Could not create the PayPal Plan.";
-            // return $ex;
+          
         }
   
         

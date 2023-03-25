@@ -62,7 +62,7 @@ Route::group([
     Route::get('handle-payment/{id}', 'PayPalPaymentController@handlePayment')->name('make.payment');
     Route::get('cancel-payment', 'PayPalPaymentController@paymentCancel')->name('cancel.payment');
 
-    Route::post('payment-success', 'PayPalPaymentController@paymentSuccess')->name('success.payment');
+    Route::post('/payment-success', 'PayPalPaymentController@paymentSuccess')->name('success.payment');
 
 
 	//User Routes

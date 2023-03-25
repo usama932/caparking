@@ -9,7 +9,7 @@ class Order extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id', 'plan_id', 'expiry_date','subscription_date'
+        'user_id', 'order_id', 'expiry_date','subscription_date','plan_name','amount'
     ];
     public function user()
     {

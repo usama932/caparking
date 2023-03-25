@@ -31,10 +31,11 @@ class OrderController extends Controller
 			0 => 'id',
 			1 => 'user_id',
             2 => 'plan_id',
-			3 => 'expiry_date',
-			4 => 'subscription_date',
-			5 => 'created_at',
-			5 => 'action'
+			3 => 'amount',
+			4 => 'expiry_date',
+			5 => 'subscription_date',
+			6 => 'created_at',
+			7 => 'action'
 		);
 		
 		$totalData = Order::with('user')->count();
@@ -68,7 +69,8 @@ class OrderController extends Controller
 				$edit_url = route('plans.edit',$r->id);
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="orders[]" value="'.$r->id.'"><span></span></label></td>';
 				$nestedData['user_id'] = $r->user->name;
-                $nestedData['plan_id'] = $r->plan_id;
+                $nestedData['plan_id'] = $r->plan_name;
+				$nestedData['amount'] = $r->amount;
 				$nestedData['expiry_date'] = $r->expiry_date;
 				$nestedData['subscription_date'] = $r->subscription_date;
 				if($r->active){
@@ -84,10 +86,7 @@ class OrderController extends Controller
                                     <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View Client" href="javascript:void(0)">
                                         <i class="icon-1x text-dark-50 flaticon-eye"></i>
                                     </a>
-                                    <a title="Edit Client" class="btn btn-sm btn-clean btn-icon"
-                                       href="'.$edit_url.'">
-                                       <i class="icon-1x text-dark-50 flaticon-edit"></i>
-                                    </a>
+                                   
                                     <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();del('.$r->id.');" title="Delete Client" href="javascript:void(0)">
                                         <i class="icon-1x text-dark-50 flaticon-delete"></i>
                                     </a>

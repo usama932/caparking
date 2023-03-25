@@ -37,13 +37,16 @@
             <div style="text-align: center;">
             <div id="paypal-button-container"></div>
             <input type="hidden" name="amount" id="amount"  value={{$plan->price}} class="form-control border-right-0"  placeholder="amount" readonly>
+            <input type="hidden" name="amount" id="plan_name"  value={{$plan->name}} class="form-control border-right-0"  placeholder="amount" readonly>
             </div>
          </div>
   
       </div>
       <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
-  <script>
-
+   <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script  type="text/javascript">
+    let amount = $('#amount').val();
+      let plan_name = $('#plan_name').val();
     function initPayPalButton() {
       paypal.Buttons({
         style: {
@@ -56,13 +59,30 @@
        
         createOrder: function(data, actions) {
           return actions.order.create({
-            purchase_units: [{"amount":{"currency_code":"USD","value":1}}]
+            purchase_units: [{"amount":{"currency_code":"USD","value":amount}}]
           });
         },
 
          onApprove: function(data, actions) {
             return actions.order.capture().then(function(orderData) {
-            dd(orderData);
+                
+                $.ajax({
+                     url:'{{route("success.payment")}}',
+                     type:"POST",
+                     data:{
+                     "_token": "{{ csrf_token() }}",
+                     order:orderData,
+                     plan_name:plan_name,
+                     amount:amount,
+                   
+                     },
+                     success:function(response){
+                     $('#successMsg').show();
+                     console.log(response);
+                     },
+               
+                     });
+                  
             // Full available details
             console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
 
