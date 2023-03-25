@@ -68,6 +68,7 @@
                   <div class="my-5">
                     <h3 class="text-dark font-weight-bold mb-10">Contract Info: </h3>
                     <div class="form-group row {{ $errors->has('contract_type_id') ? 'has-error' : '' }}">
+                    
                       <label class="col-3">Contract Type</label>
                       <div class="col-9">
                         <select name="contract_type_id" class="form-control form-control-solid">
@@ -78,7 +79,8 @@
                         </select>
                         <span class="text-danger">{{ $errors->first('contract_type_id') }}</span>
                       </div>
-                    </div>    
+                    </div>   
+                    @if(auth()->user()->order->plan_name == 'Premium') 
                     <div class="form-group row {{ $errors->has('users') ? 'has-error' : '' }}">
                       <label class="col-3">Assign User</label>
                       <div class="col-9">
@@ -98,6 +100,7 @@
                         <span class="text-danger">{{ $errors->first('name_contracting_party') }}</span>
                       </div>
                     </div>
+                    @endif
                     <div class="form-group row {{ $errors->has('subject') ? 'has-error' : '' }}">
                       <label class="col-3">Subject</label>
                       <div class="col-9">
