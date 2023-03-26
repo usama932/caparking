@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use DB;
-
+use Auth;
 
 class RegisterController extends Controller
 {
@@ -70,6 +70,25 @@ class RegisterController extends Controller
 			'user_type' => 'company',
         ]);
         $user->assignRole('company');
-        return redirect()->route('login');
-    }
+        
+        if(!empty($user)){
+            if(auth()->attempt(array('email' => $user->email, 'password' => $request->password)))
+            {
+              
+                if (auth()->user()->is_admin == '1' && auth()->user()->assign_role == '2') {
+                  
+                    return redirect()->route('admin.dashboard');
+                }
+                
+                else{
+                   
+                    return redirect()->route('client.dashboard');
+                }
+            }else{
+    
+                return redirect()->route('login')
+                    ->with('error','Authentication Failed. Email or Password Is Invalid.');
+            }
+           }
+        }
 }
