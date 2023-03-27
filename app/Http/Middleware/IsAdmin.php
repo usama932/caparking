@@ -15,11 +15,17 @@ class IsAdmin
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
-    {
-        if(auth()->user()->is_admin == 1){
-            return $next($request);
+    {   
+        if(auth()->user()){
+            if(auth()->user()->is_admin == 1){
+                return $next($request);
+            }
+    
+            return redirect()->route('client.dashboard');
         }
-
-        return redirect()->route('client.dashboard');
+        else{
+            return redirect()->route('login');
+        }
+      
     }
 }
