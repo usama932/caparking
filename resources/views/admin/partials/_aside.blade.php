@@ -66,7 +66,7 @@
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                width="24px" height="24px" viewBox="0 24 0" version="1.1">
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <polygon points="0 0 24 0 24 24 0 24" />
                                     <path
@@ -98,7 +98,7 @@
 
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                width="24px" height="24px" viewBox="0  24 0" version="1.1">
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <rect x="0" y="0" width="24" height="24" />
                                     <circle fill="#000000" opacity="0.3" cx="12" cy="12"
@@ -111,7 +111,7 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text text-white">Manage Users</span>
+                        <span class="menu-text text-white"> {{ __('manage_users') }}</span>
                        
                     </a>
                     

@@ -106,8 +106,13 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
-
+    
+    'locale' => 'en',
+    'locales' => [
+        'en' => 'English',
+        'ge' => 'German',
+        // Add more languages here
+    ],
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
