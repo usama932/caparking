@@ -114,7 +114,7 @@
                         <span class="menu-text text-white">Manage Users</span>
                        
                     </a>
-                     <hr>
+                    
                 </li>
 
                 <li class="menu-item text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'roles') {
