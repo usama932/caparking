@@ -1,9 +1,7 @@
-<!doctype html>
-<html lang="en">
-   <head>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-      <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-      <style>
+@extends('admin.layouts.master')
+@section('title','Contract Kampaner')
+@section('content')
+       <style>
          .card-header .icons .fa-cc-visa{
          color: #FFB85F;
          }
@@ -17,22 +15,9 @@
          font-size: 14px;
          }
       </style>
-   </head>
-   <body class="bg-danger pt-5">
-      
       <div class="container">
          <h1 class="text-center">Select Payment Option </h1>
-         <nav class="navbar navbar-light bg-light justify-content-between mb-5">
-            <a class="navbar-brand ml-3">Contact Kampaner</a>
         
-            <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById
-               ('logout-form').submit();" class="btn btn-outline-success my-2 my-sm-0">Logout</a>
-        
-         
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-               @csrf
-            </form>
-         </nav>
          <div id="smart-button-container mt-5">
             <div style="text-align: center;">
             <div id="paypal-button-container"></div>
@@ -42,9 +27,16 @@
          </div>
   
       </div>
-      <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+   @endsection
+@section('stylesheets')
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+@endsection
+
+@section('scripts')
+   <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-  <script  type="text/javascript">
+   <script  type="text/javascript">
     let amount = $('#amount').val();
       let plan_name = $('#plan_name').val();
     function initPayPalButton() {
@@ -102,6 +94,5 @@
       }).render('#paypal-button-container');
     }
     initPayPalButton();
-  </script>
-   </body>
-</html>
+   </script>
+@endsection
