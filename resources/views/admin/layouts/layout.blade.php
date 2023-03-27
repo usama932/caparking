@@ -5,7 +5,7 @@
 <div class="d-flex flex-column flex-root">
 
     <!--begin::Page-->
-    <div class="d-flex flex-row flex-column-fluid page">
+    <div class="d-flex flex-row flex-column-fluid page" >
         @include('admin.partials._aside')
         <!--[html-partial:include:{"file":"partials/_aside.html"}]/-->
 

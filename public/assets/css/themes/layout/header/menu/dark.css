@@ -11,13 +11,13 @@
     transition: fill 0.3s ease;
   }
   .header-menu .menu-nav > .menu-item > .menu-link .menu-bullet.menu-bullet-dot > span {
-    background-color: #9096b8;
+    background-color: #ffffff;
   }
   .header-menu .menu-nav > .menu-item > .menu-link .menu-bullet.menu-bullet-line > span {
-    background-color: #9096b8;
+    background-color: #ffffff;
   }
   .header-menu .menu-nav > .menu-item > .menu-link .menu-text {
-    color: #9096b8;
+    color: #ffffff;
   }
   .header-menu .menu-nav > .menu-item > .menu-link .menu-arrow {
     color: #6c7293;

@@ -1,4 +1,12 @@
 <!--begin::Aside-->
+<style>
+.menu-link{
+    background-color:#0000FF !important;
+}
+.menu-link-active{
+    background-color:#fffff !important;
+}
+</style>
 <div class="aside aside-left aside-fixed d-flex flex-column flex-row-auto" id="kt_aside">
 
     <!--begin::Brand-->
@@ -42,16 +50,16 @@
     <!--end::Brand-->
 
     <!--begin::Aside Menu-->
-    <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
+    <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper" style="background-color:#0000FF !important";>
 
         <!--begin::Menu Container-->
         <div id="kt_aside_menu" class="aside-menu my-4" data-menu-vertical="1" data-menu-scroll="1"
-            data-menu-dropdown-timeout="500">
+            data-menu-dropdown-timeout="500" style="background-color:#0000FF !important";>
 
             <!--begin::Menu Nav-->
             <ul class="menu-nav">
                 @if(auth()->user()->is_admin == 1  && auth()->user()->assign_role == 1  && auth()->user()->user_type == 'admin' )
-                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'dashboard') {
+                <li class="menu-item text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'dashboard') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">
                     <a href="{{ route('admin.dashboard') }}" class="menu-link">
@@ -72,16 +80,17 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">Dashboard</span>
+                        <span class="menu-text text-white">Dashboard</span>
+                     
                     </a>
                 </li>
 
                 <li class="menu-section">
-                    <h4 class="menu-text">User Settings</h4>
+                    <h4 class="menu-text text-white">User Settings</h4>
                     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                 </li>
-               
-                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'clients') {
+                   
+                <li class="menu-item  <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'clients') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">
                     <a href="{{ route('clients.index') }}" class="menu-link">
@@ -102,11 +111,13 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">Manage Users</span>
+                        <span class="menu-text text-white">Manage Users</span>
+                       
                     </a>
+                     <hr>
                 </li>
 
-                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'roles') {
+                <li class="menu-item text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'roles') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">
                     <a href="{{ route('roles.index') }}" class="menu-link">
@@ -127,7 +138,7 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">Manage Roles</span>
+                        <span class="menu-text text-white">Manage Roles</span>
                     </a>
                 </li>
 
@@ -152,16 +163,16 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">Manage Permissions</span>
+                        <span class="menu-text text-white">Manage Permissions</span>
                     </a>
                 </li>
 
-                <li class="menu-section">
+                <li class="menu-section text-white">
                     <h4 class="menu-text">CMS</h4>
                     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                 </li>
 
-                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'Plans') {
+                <li class="menu-item  <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'Plans') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">
                     <a href="{{ route('plans.index') }}" class="menu-link">
@@ -182,7 +193,7 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">Plans</span>
+                        <span class="menu-text text-white">Plans</span>
                     </a>
                 </li>
 
@@ -237,7 +248,7 @@
                 </li> --}}
 
 
-                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'orders') {
+                <li class="menu-item text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'orders') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">
                     <a href="{{ route('orders.index') }}" class="menu-link">
@@ -258,16 +269,16 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">Order</span>
+                        <span class="menu-text text-white">Order</span>
                     </a>
                 </li>
 
-                <li class="menu-section">
-                    <h4 class="menu-text">Website Settings</h4>
+                <li class="menu-section ">
+                    <h4 class="menu-text text-white">Website Settings</h4>
                     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                 </li>
 
-                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'setting') {
+                <li class="menu-item text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'setting') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">
                     <a href="{{ route('setting.index') }}" class="menu-link">
@@ -290,12 +301,12 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">Settings</span>
+                        <span class="menu-text text-white">Settings</span>
                     </a>
                 </li>
                 @endif
                 @if(auth()->user()->is_admin == 1  && auth()->user()->assign_role == 2  && auth()->user()->user_type == 'company' )
-                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'dashboard') {
+                <li class="menu-item text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'dashboard') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">
                     <a href="{{ route('admin.dashboard') }}" class="menu-link">
@@ -316,15 +327,15 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">Dashboard</span>
+                        <span class="menu-text text-white">Dashboard</span>
                     </a>
                 </li>
                      <li class="menu-section">
-                    <h4 class="menu-text">User Settings</h4>
+                    <h4 class="menu-text text-white">User Settings</h4>
                     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                 </li>
                
-                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'clients') {
+                <li class="menu-item  text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'clients') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">
                     <a href="{{ route('clients.index') }}" class="menu-link">
@@ -345,11 +356,11 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">Manage Users</span>
+                        <span class="menu-text text-white">Manage Users</span>
                     </a>
                 </li>
 
-                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'roles') {
+                <li class="menu-item text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'roles') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">
                     <a href="{{ route('roles.index') }}" class="menu-link">
@@ -370,14 +381,14 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">Manage Roles</span>
+                        <span class="menu-text text-white">Manage Roles</span>
                     </a>
                 </li>
-                <li class="menu-section">
-                    <h4 class="menu-text">CMS</h4>
-                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+                <li class="menu-section text-white">
+                    <h4 class="menu-text text-white">CMS</h4>
+                    <i class="menu-icon ki ki-bold-more-hor icon-md text-white"></i>
                 </li>
-                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'contact_types') {
+                <li class="menu-item text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'contact_types') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">
                     <a href="{{ route('contact_types.index') }}" class="menu-link">
@@ -398,11 +409,11 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">Contract Types</span>
+                        <span class="menu-text text-white">Contract Types</span>
                     </a>
                 </li>
 
-                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'contacts') {
+                <li class="menu-item text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'contacts') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">
                     <a href="{{ route('contacts.index') }}" class="menu-link">
@@ -423,7 +434,7 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">Contracts</span>
+                        <span class="menu-text text-white">Contracts</span>
                     </a>
                 </li>
                 @endif

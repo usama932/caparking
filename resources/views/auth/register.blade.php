@@ -31,7 +31,7 @@
 			</div>
 			<!--begin::Aside-->
 			<!--begin::Content-->
-			<div class="login-content flex-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden p-7 mx-auto">
+			<div class="login-content flex-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden p-7 mx-auto" >
 				<!--begin::Content body-->
 				<div class="d-flex flex-column-fluid flex-center">
 					<!--begin::Signin-->
@@ -99,15 +99,14 @@
                         </div>
 
                         <div class="form-group ">
-                            
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                          
+							<div class="col-md-12 text-center" style="background-color:#004DFF !important;  border-radius: 25px;">
+								<button type="submit" class="btn btn-primary" style="background-color:#004DFF !important;  border: 0px;" >   {{ __('Register') }}</button>
+							
+							</div>
                         </div>
                     </form>
                     <div class="text-center">
-						<strong>If you are already Sign up <a href="{{route('login')}}">Login</a></strong></div>
+						<strong  class="text-black">Already have an account. <a href="{{route('login')}}">(Login)</a></strong></div>
 						
 					</div>
 					

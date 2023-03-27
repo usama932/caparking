@@ -19,7 +19,7 @@
   --white: #ffffff;
   --gray: #7E8299;
   --gray-dark: #3F4254;
-  --primary: #3699FF;
+  --primary: #004DFF;
   --secondary: #E4E6EF;
   --success: #1BC5BD;
   --info: #8950FC;
@@ -3244,8 +3244,8 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #ffffff;
-  background-color: #3699FF;
-  border-color: #3699FF;
+  background-color: #004DFF;
+  border-color: #004DFF;
   -webkit-box-shadow: none;
   box-shadow: none;
 }

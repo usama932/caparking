@@ -58,15 +58,15 @@
     font-weight: 500;
   }
   .header .header-menu .menu-nav > .menu-item > .menu-link .menu-arrow {
-    color: #6e7899;
+    color: #ffffff;
   }
   .header .header-menu .menu-nav > .menu-item > .menu-link .menu-icon {
-    color: #6e7899;
+    color: #ffffff;
   }
   .header .header-menu .menu-nav > .menu-item > .menu-link svg g [fill] {
     -webkit-transition: fill 0.3s ease;
     transition: fill 0.3s ease;
-    fill: #6e7899;
+    fill: #ffffff;
   }
   .header .header-menu .menu-nav > .menu-item > .menu-link svg:hover g [fill] {
     -webkit-transition: fill 0.3s ease;

@@ -7,7 +7,7 @@
 	$auth_image = isset($setting['auth_image']) ? 'uploads/'.$setting['auth_image'] : 'assets/media/svg/illustrations/login-visual-1.svg';
 	$copy_right = isset($setting['copy_right']) ? $setting['copy_right'] : 'com';
 	?>
-	<div class="d-flex flex-column flex-root">
+	<div class="d-flex flex-column flex-root" style=>
 		<!--begin::Login-->
 		<div class="login login-1 login-signin-on d-flex flex-column flex-lg-row flex-column-fluid bg-white" id="kt_login">
 			<!--begin::Aside-->
@@ -31,7 +31,7 @@
 			</div>
 			<!--begin::Aside-->
 			<!--begin::Content-->
-			<div class="login-content flex-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden p-7 mx-auto">
+			<div class="login-content flex-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden p-7 mx-auto" >
 				<!--begin::Content body-->
 				<div class="d-flex flex-column-fluid flex-center">
 					<!--begin::Signin-->
@@ -69,13 +69,10 @@
 								<input class="form-control form-control-solid h-auto py-6 px-6 rounded-lg @error('password') is-invalid @enderror"  required autocomplete="current-password" type="password" name="password"/>
 									@error('password')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>@enderror
 							</div>
-							
-							<div class="pb-lg-0 pb-5">
-                                <button type="submit"  id="kt_btn" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign In</button>
-                                <a href=""  class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3  ">Back</a>
-                             
-
-                      
+							 <div class="form-group ">
+							<div class="col-md-12 text-center" style="background-color:#004DFF !important; border-radius: 25px;">
+                                <button type="submit" class="btn btn-primary" style="background-color:#004DFF !important;  border: 0px;" >Sign In</button>
+							</div>
 							</div>
 							
 							
@@ -83,7 +80,7 @@
 						</form>
 						<div class="text-center">
 						
-						<strong>If you are not Registerd <a href="{{route('register')}}">Sign Up</a></strong>
+						<strong class="text-black">Not a Memeber.? <a href="{{route('register')}}">Signup</a></strong>
 						</div>
 						
 						
