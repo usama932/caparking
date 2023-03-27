@@ -111,7 +111,7 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text text-white"> {{ __('manage_users') }}</span>
+                        <span class="menu-text text-white">{{app()->getLocale()}} {{__('admin.manage_users') }}</span>
                        
                     </a>
                     
