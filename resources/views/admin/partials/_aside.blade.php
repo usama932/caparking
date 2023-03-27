@@ -10,7 +10,7 @@
 <div class="aside aside-left aside-fixed d-flex flex-column flex-row-auto" id="kt_aside">
 
     <!--begin::Brand-->
-    <div class="brand flex-column-auto" id="kt_brand">
+    <div class="brand flex-column-auto" id="kt_brand" style="background-color:#F9FAFB !important;">
 
         <!--begin::Logo-->
         <a href="{{ route('admin.dashboard') }}" class="brand-logo">
