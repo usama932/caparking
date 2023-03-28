@@ -56,7 +56,8 @@ class PlanController extends Controller
     public function index()
     {
         $title  = "Plans";
-        return view('admin.plans.index',compact('title'));
+        $plans = Pay_Plan::count();
+        return view('admin.plans.index',compact('title','plans'));
     }
     public function getPlans(Request $request){
 		$columns = array(
@@ -120,9 +121,7 @@ class PlanController extends Controller
                                         <i class="icon-1x text-dark-50 flaticon-eye"></i>
                                     </a>
                                     
-                                    <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();del('.$r->id.');" title="Delete Client" href="javascript:void(0)">
-                                        <i class="icon-1x text-dark-50 flaticon-delete"></i>
-                                    </a>
+                                   
                                 </td>
                                 </div>
                             ';

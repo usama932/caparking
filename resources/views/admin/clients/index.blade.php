@@ -8,14 +8,14 @@
                 <span class="card-icon">
                     <i class="flaticon-users text-primary"></i>
                 </span>
-                <h3 class="card-label">Client List</h3>
+                <h3 class="card-label">Company List</h3>
                 <div class="d-flex align-items-center ">
                     <a class="btn btn-danger font-weight-bolder" onclick="del_selected()" href="javascript:void(0)"> <i
                             class="la la-trash-o"></i>Delete All</a>
                 </div>
             </div>
             <div class="card-toolbar">
-
+                @if(auth()->user()->user_type != 'admin')
                 <!--begin::Button-->
                 <a href="{{ route('clients.create') }}" class="btn btn-primary font-weight-bolder">
                     <span class="svg-icon svg-icon-md">
@@ -33,6 +33,7 @@
                         <!--end::Svg Icon-->
                     </span>New Record</a>
                 <!--end::Button-->
+                @endif
             </div>
         </div>
         <div class="card-body">
@@ -70,7 +71,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="myModalLabel">Client Detail</h4>
+                        <h4 class="modal-title" id="myModalLabel">Company Detail</h4>
                     </div>
                     <div class="modal-body"></div>
                     <div class="modal-footer">
@@ -167,7 +168,7 @@
                 if (result.value) {
                     Swal.fire(
                         "Deleted!",
-                        "Your client has been deleted.",
+                        "Your Company has been deleted.",
                         "success"
                     );
                     var APP_URL = {!! json_encode(url('/')) !!}
@@ -187,7 +188,7 @@
                 if (result.value) {
                     Swal.fire(
                         "Deleted!",
-                        "Your clients has been deleted.",
+                        "Your Companys has been deleted.",
                         "success"
                     );
                     $("#client_form").submit();

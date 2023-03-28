@@ -21,11 +21,7 @@ Route::get('/', function () {
 Route::get('/user', function () {
     return view('auth.user');
 });
-Route::get('/clear',function(){
-    Artisan::call('config:clear');
-    Artisan::call('cache:clear');
-    Artisan::call('config:cache');
-});
+
 
 Auth::routes();
 Route::post('/regsiter_company', 'Auth\RegisterController@register')->name('register.compnay');
@@ -66,12 +62,19 @@ Route::group([
     Route::post('/payment-success', 'PayPalPaymentController@paymentSuccess')->name('success.payment');
 
 
-	//User Routes
+	//Companies Routes
 	Route::resource('clients','ClientController');
 	Route::post('get-clients', 'ClientController@getClients')->name('admin.getClients');
 	Route::post('get-client', 'ClientController@clientDetail')->name('admin.getClient');
 	Route::get('client/delete/{id}', 'ClientController@destroy');
 	Route::post('delete-selected-clients', 'ClientController@deleteSelectedClients')->name('admin.delete-selected-clients');
+
+    //User
+    Route::resource('users','UserController');
+	Route::post('get-users', 'UserController@getUser')->name('admin.getUsers');
+	Route::post('get-user', 'UserController@userDetail')->name('admin.getUser');
+	Route::get('user/delete/{id}', 'UserController@destroy');
+	Route::post('delete-selected-users', 'UserController@deleteSelectedClients')->name('admin.delete-selected-users');
 
     //Roles
     Route::group(['middleware' => ['auth']], function() {

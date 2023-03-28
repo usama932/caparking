@@ -82,13 +82,14 @@
                     <div class="form-group row {{ $errors->has('name') ? 'has-error' : '' }}">
                       <label class="col-3">Permissions</label>
                       <div class="col-9">
-                        
+                          <div class="row">
                              @foreach($permission as $value)
+                              <div class="col-md-4">
                                 <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
                                 {{ $value->name }}</label>
-                            <br/>
+                              </div>
                             @endforeach
-                            
+                          </div>
                         
                       </div>
                     </div>

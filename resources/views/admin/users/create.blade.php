@@ -15,13 +15,10 @@
             <!--begin::Breadcrumb-->
             <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
               <li class="breadcrumb-item text-muted">
-                <a href="" class="text-muted">Manage Company</a>
+                <a href="" class="text-muted">Manage User</a>
               </li>
               <li class="breadcrumb-item text-muted">
-                Edit Company
-              </li>
-              <li class="breadcrumb-item text-muted">
-               {{ $user->name }}
+                <a href="" class="text-muted">Add User</a>
               </li>
             </ul>
             <!--end::Breadcrumb-->
@@ -40,20 +37,20 @@
         <div class="card card-custom card-sticky" id="kt_page_sticky_card">
           <div class="card-header" style="">
             <div class="card-title">
-              <h3 class="card-label">Company Edit Form
+              <h3 class="card-label">User Add Form
                 <i class="mr-2"></i>
                 <small class="">try to scroll the page</small></h3>
 
             </div>
             <div class="card-toolbar">
 
-              <a href="{{ route('clients.index') }}" class="btn btn-light-primary
+              <a href="{{ route('users.index') }}" class="btn btn-light-primary
               font-weight-bolder mr-2">
                 <i class="ki ki-long-arrow-back icon-sm"></i>Back</a>
 
               <div class="btn-group">
-                <a href=""  onclick="event.preventDefault(); document.getElementById('client_update_form').submit();" id="kt_btn" class="btn btn-primary font-weight-bolder">
-                  <i class="ki ki-check icon-sm"></i>update</a>
+                <a href="{{ route('users.store') }}"  onclick="event.preventDefault(); document.getElementById('client_add_form').submit();" id="kt_btn" class="btn btn-primary font-weight-bolder">
+                  <i class="ki ki-check icon-sm"></i>Save</a>
 
 
 
@@ -63,13 +60,13 @@
           <div class="card-body">
           @include('admin.partials._messages')
           <!--begin::Form-->
-            {{ Form::model($user, [ 'method' => 'PATCH','route' => ['clients.update', $user->id],'class'=>'form' ,"id"=>"client_update_form", 'enctype'=>'multipart/form-data'])}}
+            {{ Form::open([ 'route' => 'clients.store','class'=>'form' ,"id"=>"client_add_form", 'enctype'=>'multipart/form-data']) }}
               @csrf
               <div class="row">
                 <div class="col-xl-2"></div>
                 <div class="col-xl-8">
                   <div class="my-5">
-                    <h3 class="text-dark font-weight-bold mb-10">Company Info: </h3>
+                    <h3 class="text-dark font-weight-bold mb-10">User Info: </h3>
                     <div class="form-group row {{ $errors->has('name') ? 'has-error' : '' }}">
                       <label class="col-3">Name</label>
                       <div class="col-9">
@@ -84,26 +81,26 @@
                         <span class="text-danger">{{ $errors->first('email') }}</span>
                       </div>
                     </div>
-                    <div class="form-group row {{ $errors->has('roles') ? 'has-error' : '' }}">
+                    {{-- <div class="form-group row {{ $errors->has('roles') ? 'has-error' : '' }}">
                         <label class="col-3">Roles</label>
                          <div class="col-9">
-                     
-                        {!! Form::select('roles[]', $roles,$user->role, array('class' => 'form-control','multiple')) !!}
+                        {!! Form::select('roles[]', $roles,[], array('class' => 'form-control form-control-solid','multiple')) !!}
                         </div>
-                    </div>
-                     <div class="form-group row {{ $errors->has('user_type') ? 'has-error' : '' }}">
+                    </div> --}}
+                    <input type="hidden" value="user" name="roles">
+                    {{-- <div class="form-group row {{ $errors->has('user_type') ? 'has-error' : '' }}">
                         <label class="col-3">Type</label>
                          <div class="col-9">
                           <select class="form-control form-control-solid" name="user_type">
-                            <option class="form-control form-control-solid" name="company"> Company</option>
-                            <option class="form-control form-control-solid" name="user"> User</option>
+                            <option class="form-control form-control-solid" name="user" value="user" selected> User</option>
                           </select>
                         </div>
-                    </div>
+                    </div> --}}
+                    <input name="user_type" value="user" type="hidden">
                     <div class="form-group row {{ $errors->has('password') ? 'has-error' : '' }}">
                       <label class="col-3">Password</label>
                       <div class="col-9">
-                        {{ Form::text('password','', ['placeholder'=>"If you won't change Password then leave it blank as it as.", 'class' => 'form-control form-control-solid','id'=>'password','required'=>'true']) }}
+                        {{ Form::text('password', null, ['class' => 'form-control form-control-solid','id'=>'password','required'=>'true']) }}
                         <span class="text-danger">{{ $errors->first('password') }}</span>
                       </div>
                     </div>
@@ -111,7 +108,7 @@
                       <label class="col-3 col-form-label">Active</label>
                       <div class="col-3">
                          <span class="switch switch-outline switch-icon switch-success">
-                          <label><input type="checkbox" {{ ($user->active) ?'checked':'' }} name="active" value="1">
+                          <label><input type="checkbox" checked="checked" name="active" value="1">
                             <span></span>
                           </label>
                         </span>

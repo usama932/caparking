@@ -1,4 +1,4 @@
-<!--begin::Aside-->
+
 <style>
 .menu-link{
     background-color:#0000FF !important;
@@ -85,37 +85,9 @@
                     </a>
                 </li>
 
-                <li class="menu-section">
-                    <h4 class="menu-text text-white">User Settings</h4>
-                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-                </li>
+             
                    
-                <li class="menu-item  <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'clients') {
-                    echo 'menu-item-active';
-                    } ?>" aria-haspopup="true">
-                    <a href="{{ route('clients.index') }}" class="menu-link">
-                        <span class="svg-icon menu-icon">
-
-                            <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <rect x="0" y="0" width="24" height="24" />
-                                    <circle fill="#000000" opacity="0.3" cx="12" cy="12"
-                                        r="10" />
-                                    <path
-                                        d="M12,11 C10.8954305,11 10,10.1045695 10,9 C10,7.8954305 10.8954305,7 12,7 C13.1045695,7 14,7.8954305 14,9 C14,10.1045695 13.1045695,11 12,11 Z M7.00036205,16.4995035 C7.21569918,13.5165724 9.36772908,12 11.9907452,12 C14.6506758,12 16.8360465,13.4332455 16.9988413,16.5 C17.0053266,16.6221713 16.9988413,17 16.5815,17 L7.4041679,17 C7.26484009,17 6.98863236,16.6619875 7.00036205,16.4995035 Z"
-                                        fill="#000000" opacity="0.3" />
-                                </g>
-                            </svg>
-
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-text text-white">{{app()->getLocale()}} {{__('admin.manage_users') }}</span>
-                       
-                    </a>
-                    
-                </li>
+              
 
                 <li class="menu-item text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'roles') {
                     echo 'menu-item-active';
@@ -138,11 +110,11 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text text-white">Manage Roles</span>
+                        <span class="menu-text text-white"> Roles & Permissions</span>
                     </a>
                 </li>
 
-                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'permissions') {
+                {{-- <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'permissions') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">
                     <a href="{{ route('permissions.index') }}" class="menu-link">
@@ -165,12 +137,8 @@
                         </span>
                         <span class="menu-text text-white">Manage Permissions</span>
                     </a>
-                </li>
+                </li> --}}
 
-                <li class="menu-section">
-                    <h4 class="menu-text text-white">CMS</h4>
-                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-                </li>
 
                 <li class="menu-item  <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'Plans') {
                     echo 'menu-item-active';
@@ -197,10 +165,10 @@
                     </a>
                 </li>
 
-                {{-- <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'contact_types') {
+                <li class="menu-item  <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'clients') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">
-                    <a href="{{ route('contact_types.index') }}" class="menu-link">
+                    <a href="{{ route('clients.index') }}" class="menu-link">
                         <span class="svg-icon menu-icon">
 
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
@@ -218,11 +186,13 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">Contract Types</span>
+                        <span class="menu-text text-white">{{__('admin.manage_users')}}</span>
+                       
                     </a>
+                    
                 </li>
 
-                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'contacts') {
+                {{-- <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'contacts') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">
                     <a href="{{ route('contacts.index') }}" class="menu-link">
@@ -245,7 +215,7 @@
                         </span>
                         <span class="menu-text">Contracts</span>
                     </a>
-                </li> --}}
+                </li>  --}}
 
 
                 <li class="menu-item text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'orders') {
@@ -273,10 +243,6 @@
                     </a>
                 </li>
 
-                <li class="menu-section ">
-                    <h4 class="menu-text text-white">Website Settings</h4>
-                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-                </li>
 
                 <li class="menu-item text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'setting') {
                     echo 'menu-item-active';
@@ -331,15 +297,12 @@
                     </a>
                 </li>
                     @if(auth()->user()->order)
-                        <li class="menu-section">
-                            <h4 class="menu-text text-white">User Settings</h4>
-                            <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-                        </li>
+                       
                     
-                        <li class="menu-item  text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'clients') {
+                        <li class="menu-item  text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'users') {
                             echo 'menu-item-active';
                             } ?>" aria-haspopup="true">
-                            <a href="{{ route('clients.index') }}" class="menu-link">
+                            <a href="{{ route('users.index') }}" class="menu-link">
                                 <span class="svg-icon menu-icon">
 
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
@@ -382,13 +345,10 @@
 
                                     <!--end::Svg Icon-->
                                 </span>
-                                <span class="menu-text text-white">Manage Roles</span>
+                                <span class="menu-text text-white"> Roles & Permissions</span>
                             </a>
                         </li>
-                        <li class="menu-section text-white">
-                            <h4 class="menu-text text-white">CMS</h4>
-                            <i class="menu-icon ki ki-bold-more-hor icon-md text-white"></i>
-                        </li>
+                    
                         <li class="menu-item text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'contact_types') {
                             echo 'menu-item-active';
                             } ?>" aria-haspopup="true">

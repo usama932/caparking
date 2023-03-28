@@ -9,18 +9,6 @@
 			<td>Email</td>
 			<td>{{$user->email}}</td>
 		</tr>
-		<tr>
-			<td>Users</td>
-			<td>
-				@if($users->count() > 0)
-					@foreach($users as $u)
-					<label class="badge badge-success">{{$u->name}}</label>
-					@endforeach
-				@else
-					<label class="badge badge-success">No User</label>
-				@endif
-			</td>
-		</tr>
 		
 		<tr>
 			<td>Status</td>

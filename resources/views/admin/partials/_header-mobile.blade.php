@@ -16,11 +16,25 @@
 				<button class="btn p-0 burger-icon burger-icon-left" id="kt_aside_mobile_toggle">
 					<span></span>
 				</button>
-
+				<ul class="navbar-nav p-0 ml-5">
+						<li class="nav-item dropdown">
+							
+								<form action="{{ route('changeLanguage') }}" method="POST">
+									@csrf
+									<select name="locale" onchange="this.form.submit()" class="form-control">
+										
+											<option value="en" @if("en" == Session::get('locale')) selected @endif >En</option>
+											<option value="ge" @if("ge"== Session::get('locale')) selected @endif>Ge</option>
+									</select>
+								</form>
+							
+						</li>
+					</ul>
 				<!--end::Aside Mobile Toggle-->
 
 				<!--begin::Topbar Mobile Toggle-->
-				<button class="btn btn-hover-text-primary p-0 ml-2" id="kt_header_mobile_topbar_toggle">
+				<button class="btn btn-hover-text-primary p-0 ml-5" id="kt_header_mobile_topbar_toggle">
+					
 					<span class="svg-icon svg-icon-xl">
 
 						<!--begin::Svg Icon | path:assets/media/svg/icons/General/User.svg-->
@@ -31,7 +45,7 @@
 								<path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z" fill="#000000" fill-rule="nonzero" />
 							</g>
 						</svg>
-
+						
 						<!--end::Svg Icon-->
 					</span>
 				</button>

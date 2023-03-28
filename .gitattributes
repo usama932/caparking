@@ -10,3 +10,5 @@
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore
 .env
+/node_modules
+/vendor

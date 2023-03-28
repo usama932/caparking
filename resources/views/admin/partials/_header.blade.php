@@ -13,19 +13,16 @@
 								<div class="topbar-item">
 									<ul class="navbar-nav ml-auto">
 										<li class="nav-item dropdown">
-											<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-												Language <span class="caret"></span>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+											
 												<form action="{{ route('changeLanguage') }}" method="POST">
 													@csrf
-													<select name="locale" onchange="this.form.submit()">
-														@foreach(config('app.locales') as $locale => $name)
-															<option value="{{ $locale }}" @if(app()->getLocale() == $locale) selected @endif>{{ $name }}</option>
-														@endforeach
+													<select name="locale" onchange="this.form.submit()" class="form-control">
+														
+															<option value="en" @if("en" == Session::get('locale')) selected @endif >English</option>
+															<option value="ge" @if("ge"== Session::get('locale')) selected @endif>German</option>
 													</select>
 												</form>
-											</div>
+											
 										</li>
 									</ul>
 									<div class="btn btn-icon btn-icon-mobile w-auto btn-clean d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">

@@ -16,7 +16,7 @@
             </div>
             <div class="card-toolbar">
 
-                <!--begin::Button-->
+                @if($plans < 2)
                 <a href="{{ route('plans.create') }}" class="btn btn-primary font-weight-bolder">
                     <span class="svg-icon svg-icon-md">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
@@ -33,6 +33,7 @@
                         <!--end::Svg Icon-->
                     </span>New Record</a>
                 <!--end::Button-->
+                @endif
             </div>
         </div>
         <div class="card-body">
@@ -52,8 +53,7 @@
                                 </th>
 
                                 <th>Name</th>
-                                <th>Price</th>
-                                
+                                <th>Price($)</th>
                                 <th>Created At</th>
                                 <th>Actions</th>
                             </tr>
