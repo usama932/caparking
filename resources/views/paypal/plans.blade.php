@@ -2,7 +2,7 @@
 @section('title','Contract Kampaner')
 @section('content')
 <div class="container p-5">
-<h1 class="text-center">Select Your Plan</h1>
+<h2 class="text-center">Select Your Plan</h2>
 <div class="col-md-12 bg-light text-right mt-5">
    <div class="tab-pane show active row text-center" id="kt-pricing-2_content1" role="tabpanel" aria-labelledby="pills-tab-1">
       <div class="card-body bg-white col-11 col-lg-12 col-xxl-10 mx-auto">

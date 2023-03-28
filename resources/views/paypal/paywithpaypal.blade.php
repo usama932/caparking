@@ -16,7 +16,7 @@
          }
       </style>
       <div class="container">
-         <h1 class="text-center">Select Payment Option </h1>
+         <h2 class="text-center mt-4 mb-5">Select Payment Option </h2>
         
          <div id="smart-button-container mt-5">
             <div style="text-align: center;">
