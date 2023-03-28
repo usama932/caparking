@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\Pay_Plan;
+use App\Models\Contract;
+use App\Models\User;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -16,16 +18,20 @@ class AdminController extends Controller
     {
         $title = 'Subcription Service';
         if(auth()->user()->assign_role == 1 && auth()->user()->user_type == "admin"){
-            return view('admin.dashboard.index',compact('title'));
+            $contracts = Contract::count();
+            $companies = User::where('user_type','company')->count();
+            return view('admin.dashboard.index',compact('title','contracts','companies'));
         }
         elseif(auth()->user()->assign_role == 2 && auth()->user()->user_type == "company"){
             $now = Carbon::now();
             $order = Auth::user()->order;
+            $contracts = Contract::where('added_by',auth()->user()->id)->count();
+            $user = User::where('added_by',auth()->user()->id)->count();
             if(empty($order)){
                 return redirect()->route('admin.plan');
             }
             elseif($order->expiry_date >= $now){
-                return view('admin.dashboard.index',compact('title'));
+                return view('admin.dashboard.index',compact('title','contracts','user'));
             }
             else{
                 Auth::logout();

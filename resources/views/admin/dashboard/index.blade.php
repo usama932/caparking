@@ -26,7 +26,7 @@
 							<!--end::Svg Icon-->
 						</span>
 						<a href="#" class="text-warning font-weight-bold font-size-h6">Contracts: </a>
-						<a href="#" class="text-warning font-weight-bold ">0</a>
+						<a href="#" class="text-warning font-weight-bold ">{{$contracts ?? '0'}}</a>
 						</svg>
 					</div>
 
@@ -44,7 +44,7 @@
 							<!--end::Svg Icon-->
 						</span>
 						<a href="#" class="text-primary font-weight-bold font-size-h6 mt-2">Companies:</a>
-						<a href="#" class="text-primary font-weight-bold  mt-2">0</a>
+						<a href="#" class="text-primary font-weight-bold  mt-2">{{$companies ?? '0'}}</a>
 					</div>
 
 					<div class="col bg-light-danger px-6 py-8 rounded-xl mr-3 mb-7">
@@ -81,7 +81,7 @@
 							<!--end::Svg Icon-->
 						</span>
 						<a href="#" class="text-warning font-weight-bold font-size-h6">Contracts: </a>
-						<a href="#" class="text-warning font-weight-bold ">0</a>
+						<a href="#" class="text-warning font-weight-bold ">{{$contracts ?? '0'}}</a>
 						</svg>
 					</div>
 
@@ -99,7 +99,7 @@
 							<!--end::Svg Icon-->
 						</span>
 						<a href="#" class="text-primary font-weight-bold font-size-h6 mt-2">Companies:</a>
-						<a href="#" class="text-primary font-weight-bold  mt-2">0</a>
+						<a href="#" class="text-primary font-weight-bold  mt-2">{{$companies ?? '0'}}</a>
 					</div>
 
 					<div class="col bg-light-danger px-6 py-8 rounded-xl mr-3 mb-7">
