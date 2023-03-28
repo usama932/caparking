@@ -105,7 +105,6 @@ return [
     |
     */
 
-
     'locales' => [
         'en' => 'English',
         'ge' => 'German',

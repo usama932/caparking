@@ -29,7 +29,7 @@ Route::get('/clear',function(){
 
 Auth::routes();
 Route::post('/regsiter_company', 'Auth\RegisterController@register')->name('register.compnay');
-Route::post('/language', 'Admin\LanguageController@changeLanguage')->name('changeLanguage');
+Route::post('/language', 'Admin\LanguageController@changeLanguage')->name('changeLanguage')->middleware('web');
 
 Route::group([
     'middleware'    => ['auth'],
