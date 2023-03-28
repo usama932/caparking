@@ -77,6 +77,7 @@ class ClientController extends Controller
 		if($users){
 			foreach($users as $r){
 				$edit_url = route('clients.edit',$r->id);
+				$show_url = route('clients.show',$r->id);
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="clients[]" value="'.$r->id.'"><span></span></label></td>';
 				$nestedData['name'] = $r->name;
 				$nestedData['email'] = $r->email;
@@ -93,6 +94,10 @@ class ClientController extends Controller
                                     <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View Client" href="javascript:void(0)">
                                         <i class="icon-1x text-dark-50 flaticon-eye"></i>
                                     </a>
+									<a title="show User" class="btn btn-sm btn-clean btn-icon"
+									href="'.$show_url.'">
+									<i class="icon-1x text-dark-50 flaticon-user"></i>
+									</a>
                                     <a title="Edit Client" class="btn btn-sm btn-clean btn-icon"
                                        href="'.$edit_url.'">
                                        <i class="icon-1x text-dark-50 flaticon-edit"></i>
@@ -177,12 +182,95 @@ class ClientController extends Controller
  
     public function show($id)
     {
-	    $user = User::find($id);
-	    return view('admin.clients.single', ['title' => 'Client detail', 'user' => $user]);
+		$id = $id;
+	    return view('admin.clients.single', ['title' => 'User','id'=>$id]);
     }
     
 
-
+	public function reg_users(Request $request)
+    {
+		
+		$columns = array(
+			0 => 'id',
+			1 => 'name',
+			2 => 'email',
+			3 => 'active',
+			4 => 'created_at',
+			5 => 'action'
+		);
+		
+		$totalData = User::where('user_type', 'user')->where('added_by', $request->company_id)->count();
+		$limit = $request->input('length');
+		$start = $request->input('start');
+		$order = $columns[$request->input('order.0.column')];
+		$dir = $request->input('order.0.dir');
+		
+		if(empty($request->input('search.value'))){
+			$users = User::where('user_type', 'user')->where('added_by', $request->company_id)->offset($start)
+				->limit($limit)
+				->orderBy($order,$dir)
+				->get();
+			$totalFiltered = User::where('is_admin', 0)->where('added_by', $request->company_id)->count();
+		}else{
+			$search = $request->input('search.value');
+			$users = User::where('added_by', $request->company_id)->where([
+				['is_admin',0],
+				['name', 'like', "%{$search}%"],
+			])
+				->orWhere('email','like',"%{$search}%")
+				->orWhere('created_at','like',"%{$search}%")
+				->offset($start)
+				->limit($limit)
+				->orderBy($order, $dir)
+				->get();
+			$totalFiltered = User::where('added_by', $request->company_id)->where([
+				
+				['name', 'like', "%{$search}%"],
+			])
+				->orWhere('name', 'like', "%{$search}%")
+				->orWhere('email','like',"%{$search}%")
+				->orWhere('created_at','like',"%{$search}%")
+				->count();
+		}
+		
+		
+		$data = array();
+		
+		if($users){
+			foreach($users as $r){
+				$edit_url = route('clients.edit',$r->id);
+				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="clients[]" value="'.$r->id.'"><span></span></label></td>';
+				$nestedData['name'] = $r->name;
+				$nestedData['email'] = $r->email;
+				if($r->active){
+					$nestedData['active'] = '<span class="label label-success label-inline mr-2">Active</span>';
+				}else{
+					$nestedData['active'] = '<span class="label label-danger label-inline mr-2">Inactive</span>';
+				}
+				
+				$nestedData['created_at'] = date('d-m-Y',strtotime($r->created_at));
+				$nestedData['action'] = '
+                                <div>
+                                <td>
+                                    <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();del('.$r->id.');" title="Delete Client" href="javascript:void(0)">
+                                        <i class="icon-1x text-dark-50 flaticon-delete"></i>
+                                    </a>
+                                </td>
+                                </div>
+                            ';
+				$data[] = $nestedData;
+			}
+		}
+		
+		$json_data = array(
+			"draw"			=> intval($request->input('draw')),
+			"recordsTotal"	=> intval($totalData),
+			"recordsFiltered" => intval($totalFiltered),
+			"data"			=> $data
+		);
+		
+		echo json_encode($json_data);
+    }
   
     public function edit($id)
     {

@@ -77,6 +77,7 @@ class UserController extends Controller
 		if($users){
 			foreach($users as $r){
 				$edit_url = route('users.edit',$r->id);
+				
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="clients[]" value="'.$r->id.'"><span></span></label></td>';
 				$nestedData['name'] = $r->name;
 				$nestedData['email'] = $r->email;
@@ -93,7 +94,8 @@ class UserController extends Controller
                                     <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View Client" href="javascript:void(0)">
                                         <i class="icon-1x text-dark-50 flaticon-eye"></i>
                                     </a>
-                                    <a title="Edit Client" class="btn btn-sm btn-clean btn-icon"
+									
+                                    <a title="Edit User" class="btn btn-sm btn-clean btn-icon"
                                        href="'.$edit_url.'">
                                        <i class="icon-1x text-dark-50 flaticon-edit"></i>
                                     </a>
@@ -117,13 +119,9 @@ class UserController extends Controller
 		echo json_encode($json_data);
 		
 	}
-	public function userDetail(Request $request)
-	{
-		
-		$user = User::findOrFail($request->id);
-		$users = User::where('added_by',$user->id)->get();
 	
-		return view('admin.users.detail', ['title' => 'Client Detail', 'user' => $user,'users'=> $users]);
+	public function reg_users(Request $request){
+
 	}
     public function create()
     {
@@ -164,6 +162,7 @@ class UserController extends Controller
  
     public function show($id)
     {
+		
 	    $user = User::find($id);
 	    return view('admin.users.single', ['title' => 'Client detail', 'user' => $user]);
     }

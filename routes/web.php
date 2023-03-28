@@ -66,6 +66,7 @@ Route::group([
 	Route::resource('clients','ClientController');
 	Route::post('get-clients', 'ClientController@getClients')->name('admin.getClients');
 	Route::post('get-client', 'ClientController@clientDetail')->name('admin.getClient');
+    Route::post('get-reg_user', 'ClientController@reg_users')->name('admin.getRegUser');
 	Route::get('client/delete/{id}', 'ClientController@destroy');
 	Route::post('delete-selected-clients', 'ClientController@deleteSelectedClients')->name('admin.delete-selected-clients');
 
@@ -73,6 +74,7 @@ Route::group([
     Route::resource('users','UserController');
 	Route::post('get-users', 'UserController@getUser')->name('admin.getUsers');
 	Route::post('get-user', 'UserController@userDetail')->name('admin.getUser');
+   
 	Route::get('user/delete/{id}', 'UserController@destroy');
 	Route::post('delete-selected-users', 'UserController@deleteSelectedClients')->name('admin.delete-selected-users');
 
