@@ -10,5 +10,10 @@ return [
     'Settings' => 'Einstellungen',
     'users' => 'Benutzer',
     'contract_type' => 'Vertragstyp',
-    'contract' => 'Verträge'
+    'contract' => 'Verträge',
+    'roles_list' => 'Rollenliste',
+    'delete_all' => 'alles löschen',
+    'new_record' => 'Neuer Eintrag',
+    'role_detail' => 'Rollendetail',
+    'close' => 'Schließen',
 ];

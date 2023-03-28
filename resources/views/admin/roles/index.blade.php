@@ -1,6 +1,17 @@
+@php 
+if(!empty(Session::get('locale'))) 
+    {
+        app()->setLocale(Session::get('locale'));
+    }
+            
+    else{
+         app()->setLocale('en');
+    }
+@endphp
 @extends('admin.layouts.master')
 @section('title', $title)
 @section('content')
+
     <!--begin::Card-->
     <div class="card card-custom">
         <div class="card-header">
@@ -9,12 +20,12 @@
                     <i class="flaticon-users text-primary"></i>
                 </span>
                 <h3 class="card-label">
-                {{ Auth::user()->roles->pluck('name') }}
-                Roles List
+               
+                {{trans('admin.roles_list')}}
                 </h3>
                 <div class="d-flex align-items-center ">
                     <a class="btn btn-danger font-weight-bolder" onclick="del_selected()" href="javascript:void(0)"> <i
-                            class="la la-trash-o"></i>Delete All</a>
+                            class="la la-trash-o"></i>{{trans('admin.delete_all')}}</a>
                 </div>
             </div>
             <div class="card-toolbar">
@@ -34,7 +45,7 @@
                             </g>
                         </svg>
                         <!--end::Svg Icon-->
-                    </span>New Record</a>
+                    </span>{{trans('admin.new_record')}}</a>
                 <!--end::Button-->
             </div>
         </div>
@@ -72,7 +83,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="myModalLabel">Role Detail</h4>
+                        <h4 class="modal-title" id="myModalLabel">{{trans('admin.role_detail')}}</h4>
                     </div>
                     <div class="modal-body"></div>
                     <div class="modal-footer">

@@ -11,6 +11,12 @@ return [
     'Settings' => 'Settings',
     'users' => 'Users',
     'contract_type' => 'Contract Type',
-    'contract' => 'Contracts',
+    'contract' => 'Contracts',  
+    'roles_list' => 'Roles List',
+    'delete_all' => 'Delete All',
+    'new_record' => 'New Record',
+    'role_detail' => 'Role Detail',
+    'close' => 'Close',
+
 
 ];
