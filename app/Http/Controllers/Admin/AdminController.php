@@ -74,6 +74,7 @@ class AdminController extends Controller
         $this->validate($request, [
             'name' => 'required|max:255',
             'email' => 'required|unique:users,email,'.$admin->id,
+            'profile_pic' => 'mimes:jpeg,png,jpg,gif',
         ]);
         $input = $request->all();
         if (empty($input['password'])) {
@@ -81,6 +82,20 @@ class AdminController extends Controller
         } else {
             $input['password'] = bcrypt($input['password']);
         }
+        if ($request->hasFile('profile_pic')) {
+			if ($request->file('profile_pic')->isValid()) {
+				$this->validate($request, [
+					'profile_pic' => 'required|mimes:jpeg,png,jpg'
+				]);
+				$file = $request->file('profile_pic');
+				$destinationPath = public_path('/uploads');
+				//$extension = $file->getProductOriginalExtension('logo');
+				$thumbnail = $file->getClientOriginalName('profile_pic');
+				$thumbnail = rand() . $thumbnail;
+				$request->file('profile_pic')->move($destinationPath, $thumbnail);
+				$input['profile_pic'] = $thumbnail;
+			}
+		}
         $admin->fill($input)->save();
         Session::flash('success_message', 'Great! admin successfully updated!');
         return redirect()->back();
