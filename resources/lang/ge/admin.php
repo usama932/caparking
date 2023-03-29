@@ -44,4 +44,5 @@ return [
     'expiry_date' => 'Verfallsdatum',
     'subscription_date' => 'Abonnementdatum',
     'permissions' => 'Berechtigungen',
+    'price' => 'Preis'
 ];

@@ -1,6 +1,7 @@
 <?php
 $setting = \App\Models\Setting::pluck('value','name')->toArray();
 $logo = isset($setting['logo']) ? 'uploads/'.$setting['logo'] : 'assets/media/logos/logo-light.png';
+$banner = isset($setting['banner_image']) ? 'uploads/'.$setting['banner_image'] : 'assets/media/bg/img--2.png';
 $about = isset($setting['about_text']) ? $setting['about_text'] : 'Go to admin setting and write about us information';
 ?>
 <!DOCTYPE html>
@@ -20,7 +21,7 @@ $about = isset($setting['about_text']) ? $setting['about_text'] : 'Go to admin s
         }
         .banner {
             height: 500px;
-            background-image: url({{url('assets/media/bg/img--2.png')}});
+            background-image: url({{$banner}});
             background-size: cover;
             background-position: center;
             display: flex;
@@ -69,7 +70,7 @@ $about = isset($setting['about_text']) ? $setting['about_text'] : 'Go to admin s
     <!-- Banner -->
     <section class="banner mt-5">
         <div class="container">
-            <h1></h1>
+            <h1>Welcome To Contract Kampaner</h1>
         </div>
     </section>
 

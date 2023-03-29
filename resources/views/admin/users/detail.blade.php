@@ -21,7 +21,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>Created at</td>
+			<td>{{trans('admin.created_at')}}</td>
 			<td>{{$user->created_at}}</td>
 		</tr>
 		

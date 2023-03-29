@@ -133,7 +133,14 @@ class SettingController extends Controller
                 'place_holder'=>'Enter Copyright text',
                 'class'=>'form-control form-control-solid',
             ),
-
+            array(
+                'name'=>'banner_image',
+                'id'=>'banner_image',
+                'type'=>'file',
+                'label'=>'Home banner Image',
+                'class'=>'custom-file-input',
+                'style'=>'width:80px;max-width:100%;padding:12px;margin-bottom:10px'
+            ),
         );
         return view('admin.settings.index', ['title' => 'Site Setting','settings'=>$settings,
             'all_columns'=>$all_columns]);
