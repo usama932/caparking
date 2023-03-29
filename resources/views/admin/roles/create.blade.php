@@ -86,7 +86,7 @@ if(!empty(Session::get('locale')))
                     </div>
                   
                      <div class="form-group row {{ $errors->has('name') ? 'has-error' : '' }}">
-                      <label class="col-3">Permissions</label>
+                      <label class="col-3">{{trans('admin.permissions')}}</label>
                       <div class="col-9">
                         <div class="row"> 
                           @foreach($permission as $value)

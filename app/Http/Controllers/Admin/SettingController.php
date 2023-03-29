@@ -79,14 +79,14 @@ class SettingController extends Controller
 
             ),
 
-            array(
-                'name'=>'auth_page_heading',
-                'id'=>'auth_page_heading',
-                'type'=>'text',
-                'label'=>'Auth Page Heading',
-                'place_holder'=>'',
-                'class'=>'form-control form-control-solid',
-            ),
+            // array(
+            //     'name'=>'auth_page_heading',
+            //     'id'=>'auth_page_heading',
+            //     'type'=>'text',
+            //     'label'=>'Auth Page Heading',
+            //     'place_holder'=>'',
+            //     'class'=>'form-control form-control-solid',
+            // ),
 	
 	        array(
 		        'name'=>'auth_logo',
@@ -102,6 +102,14 @@ class SettingController extends Controller
 		        'value'=>'',
 	
 	        ),
+                array(
+                'name'=>'about_text',
+                'id'=>'about_text',
+                'type'=>'text',
+                'label'=>'About us',
+                'place_holder'=>'about us text',
+                'class'=>'form-control form-control-solid',
+            ),
             array(
                 'name'=>'auth_image',
                 'id'=>'auth_image',

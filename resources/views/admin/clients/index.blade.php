@@ -64,9 +64,9 @@ if(!empty(Session::get('locale')))
 
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Status</th>
-                                <th>Created At</th>
-                                <th>Actions</th>
+                                <th>{{trans('admin.status')}}</th>
+                                <th>{{trans('admin.created_at')}}</th>
+                                <th>{{trans('admin.actions')}}</th>
                             </tr>
                         </thead>
                     </table>
@@ -81,7 +81,7 @@ if(!empty(Session::get('locale')))
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="myModalLabel">{{trans('admin.Company')}} {{trans('admin.detail')}}</h4>
+                        <h4 class="modal-title" id="myModalLabel">{{trans('admin.Company')}} {{trans('admin.detail ')}}</h4>
                     </div>
                     <div class="modal-body"></div>
                     <div class="modal-footer">

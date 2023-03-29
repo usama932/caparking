@@ -68,11 +68,11 @@ class OrderController extends Controller
 			foreach($orders as $r){
 				$edit_url = route('plans.edit',$r->id);
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="orders[]" value="'.$r->id.'"><span></span></label></td>';
-				$nestedData['user_id'] = $r->user->name;
-                $nestedData['plan_id'] = $r->plan_name;
-				$nestedData['amount'] = $r->amount;
-				$nestedData['expiry_date'] = $r->expiry_date;
-				$nestedData['subscription_date'] = $r->subscription_date;
+				$nestedData['user_id'] = $r->user->name ?? '';
+                $nestedData['plan_id'] = $r->plan_name ?? '';
+				$nestedData['amount'] = $r->amount ?? "";
+				$nestedData['expiry_date'] = $r->expiry_date ?? " ";
+				$nestedData['subscription_date'] = $r->subscription_date ?? " ";
 				if($r->active){
 					$nestedData['active'] = '<span class="label label-success label-inline mr-2">Active</span>';
 				}else{

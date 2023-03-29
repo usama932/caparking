@@ -1,3 +1,8 @@
+<?php
+$setting = \App\Models\Setting::pluck('value','name')->toArray();
+$logo = isset($setting['logo']) ? 'uploads/'.$setting['logo'] : 'assets/media/logos/logo-light.png';
+$about = isset($setting['about_text']) ? $setting['about_text'] : 'Go to admin setting and write about us information';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +44,11 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-5">
         <div class="container">
-            <a class="navbar-brand" href="#">Contract Kampaner</a>
+            <a href="{{ route('admin.dashboard') }}" class="brand-logo">
+            <img alt="Logo" src="{{ asset($logo) }}"   width="200"/>
+            {{-- <h3>Pay Subcription</h3> --}}
+            </a>
+            
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -50,7 +59,7 @@
                         <a class="nav-link" href="{{route('login')}}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('register')}}">Sign Up</a>
+                        <a class="nav-link" href="{{route('register')}}">Signup</a>
                     </li>
                 </ul>
             </div>
@@ -69,7 +78,7 @@
         <div class="container">
             <h2>About Us</h2>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nulla vel porttitor pretium, nunc ante imperdiet massa, vel efficitur nibh nibh ut est. Nulla lacinia ipsum non euismod pulvinar. Suspendisse potenti. Aenean posuere mi vel odio pharetra, id bibendum mi iaculis. Integer blandit nisl sit amet enim fringilla euismod. Mauris blandit volutpat sapien, at blandit nibh dictum vel.
+                {{$about}}
             </p>
         </div>
     </section>

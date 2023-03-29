@@ -18,10 +18,10 @@ if(!empty(Session::get('locale')))
                 <span class="card-icon">
                     <i class="flaticon-users text-primary"></i>
                 </span>
-                <h3 class="card-label">User List</h3>
+                <h3 class="card-label">{{trans('admin.user')}} {{trans('admin.list')}} </h3>
                 <div class="d-flex align-items-center ">
                     <a class="btn btn-danger font-weight-bolder" onclick="del_selected()" href="javascript:void(0)"> <i
-                            class="la la-trash-o"></i>Delete All</a>
+                            class="la la-trash-o"></i>{{trans('admin.delete_all')}}</a>
                 </div>
                 <input type="hidden" id="company_id" value="{{$id}}">
             </div>
@@ -29,7 +29,7 @@ if(!empty(Session::get('locale')))
 
               <a href="{{ route('clients.index') }}" class="btn btn-light-primary
               font-weight-bolder mr-2">
-                <i class="ki ki-long-arrow-back icon-sm"></i>Back</a>
+                <i class="ki ki-long-arrow-back icon-sm"></i>{{trans('admin.back')}}</a>
 
             
             </div>
@@ -50,11 +50,11 @@ if(!empty(Session::get('locale')))
 
                                 </th>
 
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Status</th>
-                                <th>Created At</th>
-                                <th>Actions</th>
+                                <th>{{trans('admin.name')}}</th>
+                                <th>{{trans('admin.email')}}</th>
+                                <th>{{trans('admin.status')}}</th>
+                                <th>{{trans('admin.created_at')}}</th>
+                                <th>{{trans('admin.actions')}}</th>
                             </tr>
                         </thead>
                     </table>

@@ -63,9 +63,9 @@ if(!empty(Session::get('locale')))
                                 </th>
 
                                 <th>Name</th>
-                                <th>Price($)</th>
-                                <th>Created At</th>
-                                <th>Actions</th>
+                                <th>{{trans('admin.price')}} ($)</th>
+                                <th>{{trans('admin.created_at')}}</th>
+                                <th>{{trans('admin.actions')}}</th>
                             </tr>
                         </thead>
                     </table>

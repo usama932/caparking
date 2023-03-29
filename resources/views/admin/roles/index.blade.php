@@ -67,8 +67,8 @@ if(!empty(Session::get('locale')))
 
                                 <th>Name</th>
                                
-                                <th>Created At</th>
-                                <th>Actions</th>
+                                <th>{{trans('admin.created_at')}}</th>
+                                <th>{{trans('admin.actions')}}</th>
                             </tr>
                         </thead>
                     </table>

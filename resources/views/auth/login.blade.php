@@ -71,7 +71,7 @@
 							</div>
 							 <div class="form-group ">
 							<div class="col-md-12 text-center" style="background-color:#004DFF !important; border-radius: 25px;">
-                                <button type="submit" class="btn btn-primary" style="background-color:#004DFF !important;  border: 0px;" >Sign In</button>
+                                <button type="submit" class="btn btn-block btn-primary"   id="kt_btn"  style="background-color:#004DFF !important;  border: 0px;" >Sign In</button>
 							</div>
 							</div>
 							
