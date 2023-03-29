@@ -64,7 +64,6 @@ if(!empty(Session::get('locale')))
 
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Actions</th>
                                 <th>{{trans('admin.status')}}</th>
                                 <th>{{trans('admin.created_at')}}</th>
                                 <th>{{trans('admin.actions')}}</th>

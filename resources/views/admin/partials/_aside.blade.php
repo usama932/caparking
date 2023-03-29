@@ -282,7 +282,7 @@
                                         </g>
                                     </svg><!--end::Svg Icon--></span>
                                 </span>
-                                <span class="menu-text text-white">Contracts</span>
+                                <span class="menu-text text-white">{{trans('admin.contract')}}</span>
                             </a>
                         </li>
                     @endif

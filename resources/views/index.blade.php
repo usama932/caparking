@@ -28,7 +28,7 @@ $about = isset($setting['about_text']) ? $setting['about_text'] : 'Go to admin s
             align-items: center;
             justify-content: center;
             color: white;
-            text-align: center;
+            {{-- text-align: center; --}}
             
         }
         .introduction {
