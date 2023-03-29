@@ -97,6 +97,7 @@ if(!empty(Session::get('locale')))
                         <label class="col-3">Select Plan</label>
                          <div class="col-9">
                           <select class="form-control form-control-solid" name="plans">
+                            <option class="form-control form-control-solid" value="">--Select Plan--</option>
                             @foreach($plans as $plan)
                              <option class="form-control form-control-solid" value="{{$plan->id}}"> {{$plan->name}}</option>
                             @endforeach

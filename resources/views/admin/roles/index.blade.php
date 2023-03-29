@@ -88,7 +88,7 @@ if(!empty(Session::get('locale')))
                     <div class="modal-body"></div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light-primary font-weight-bold"
-                            data-dismiss="modal">Close</button>
+                            data-dismiss="modal">{{trans('admin.close')}}</button>
                     </div>
                 </div>
             </div>

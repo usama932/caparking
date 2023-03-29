@@ -147,14 +147,14 @@ class ClientController extends Controller
 		
 		$now    = Carbon::now();
         $expiry =  Carbon::now()->addMonth();
-		$plan = Pay_Plan::find($request->plans);
+		
 
 	    $this->validate($request, [
 		    'name' => 'required|max:255',
 		    'email' => 'required|unique:users,email',
 		    'password' => 'required|min:6',
 			'roles' => 'required',
-			'plans' =>  'required',
+		
 	    ]);
 	
 	    $input = $request->all();
@@ -178,20 +178,18 @@ class ClientController extends Controller
 	    $user->save();
 
 		$user->assignRole($request->input('roles'));
-		
-		$order = Order::create([
-			'user_id' => $user->id,
-			'order_id' => $plan->plan_id,
-			'plan_name' => $plan->name,
-			'amount' => $plan->price,
-			'expiry_date' => $expiry,
-			'subscription_date' => $now,
-		]);
-            
-           
-            
-        
-  
+		if($request->plans != null){
+			$plan = Pay_Plan::find($request->plans);
+			$order = Order::create([
+				'user_id' => $user->id,
+				'order_id' => $plan->plan_id,
+				'plan_name' => $plan->name,
+				'amount' => $plan->price,
+				'expiry_date' => $expiry,
+				'subscription_date' => $now,
+			]);
+		}
+
 	    Session::flash('success_message', 'Great! Client has been saved successfully!');
 	    $user->save();
 	    return redirect()->back();

@@ -60,7 +60,7 @@
     <!-- Banner -->
     <section class="banner mt-5">
         <div class="container">
-            <h1>Welcome to Contract Kampaner</h1>
+            <h1></h1>
         </div>
     </section>
 

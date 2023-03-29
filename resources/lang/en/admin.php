@@ -17,6 +17,17 @@ return [
     'new_record' => 'New Record',
     'role_detail' => 'Role Detail',
     'close' => 'Close',
-
-
+    'manage_roles' => 'Manage Roles',
+    'add' =>  'Add',
+    'edit' =>  'Edit',
+    'role' =>  'Role',
+    'from' => 'Form',
+    'try_to_scroll_the_page'  => 'try to scroll the page',
+    'back' => 'Back',
+    'save' => 'Save',
+    'info' => 'Info',
+    'update' => 'Update',
+    'list' => 'List',
+    'detail' => 'Detail',
+    'Company' => "Company",
 ];
