@@ -18,10 +18,10 @@ if(!empty(Session::get('locale')))
                 <span class="card-icon">
                     <i class="flaticon-users text-primary"></i>
                 </span>
-                <h3 class="card-label">Contract List</h3>
+                <h3 class="card-label">{{trans('admin.contract')}} {{trans('admin.list')}}</h3>
                 <div class="d-flex align-items-center ">
                     <a class="btn btn-danger font-weight-bolder" onclick="del_selected()" href="javascript:void(0)"> <i
-                            class="la la-trash-o"></i>Delete All</a>
+                            class="la la-trash-o"></i>{{trans('admin.delete_all')}}</a>
                 </div>
             </div>
             <div class="card-toolbar">
@@ -41,7 +41,7 @@ if(!empty(Session::get('locale')))
                             </g>
                         </svg>
                         <!--end::Svg Icon-->
-                    </span>New Record</a>
+                    </span>{{trans('admin.new_record')}}</a>
                 <!--end::Button-->
             </div>
         </div>
@@ -61,9 +61,9 @@ if(!empty(Session::get('locale')))
 
                                 </th>
 
-                                <th>Title</th>
-                                <th>Created At</th>
-                                <th>Actions</th>
+                                <th>{{trans('admin.title')}}</th>
+                                <th>{{trans('admin.created_at')}}</th>
+                                <th>{{trans('admin.actions')}}</th>
                             </tr>
                         </thead>
                     </table>
@@ -78,12 +78,12 @@ if(!empty(Session::get('locale')))
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="myModalLabel">Plan Detail</h4>
+                        <h4 class="modal-title" id="myModalLabel">{{trans('admin.contract')}} {{trans('admin.detail')}}</h4>
                     </div>
                     <div class="modal-body"></div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light-primary font-weight-bold"
-                            data-dismiss="modal">Close</button>
+                            data-dismiss="modal">{{trans('admin.close')}}</button>
                     </div>
                 </div>
             </div>

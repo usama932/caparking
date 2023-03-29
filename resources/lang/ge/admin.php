@@ -44,5 +44,12 @@ return [
     'expiry_date' => 'Verfallsdatum',
     'subscription_date' => 'Abonnementdatum',
     'permissions' => 'Berechtigungen',
-    'price' => 'Preis'
+    'price' => 'Preis',
+    'title' => 'Titel',
+    'type' => 'Typ',
+    'subject' => 'Thema',
+    'address' => 'Adresse',
+    'end_date' => 'Endtermin',
+    'start_date' => 'Startdatum',
+    'file' => 'Datei',
 ];

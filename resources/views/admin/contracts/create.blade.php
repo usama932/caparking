@@ -20,15 +20,15 @@ if(!empty(Session::get('locale')))
           <!--begin::Page Heading-->
           <div class="d-flex align-items-baseline flex-wrap mr-5">
             <!--begin::Page Title-->
-            <h5 class="text-dark font-weight-bold my-1 mr-5">Dashboard</h5>
+            <h5 class="text-dark font-weight-bold my-1 mr-5">{{trans('admin.dashboard')}}</h5>
             <!--end::Page Title-->
             <!--begin::Breadcrumb-->
             <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
               <li class="breadcrumb-item text-muted">
-                <a href="" class="text-muted">Manage Contract </a>
+                <a href="" class="text-muted">{{trans('admin.manage')}} {{trans('admin.contract')}} </a>
               </li>
               <li class="breadcrumb-item text-muted">
-                <a href="" class="text-muted">Add Contract</a>
+                <a href="" class="text-muted">{{trans('admin.add')}} {{trans('admin.contract')}}</a>
               </li>
             </ul>
             <!--end::Breadcrumb-->
@@ -47,20 +47,20 @@ if(!empty(Session::get('locale')))
         <div class="card card-custom card-sticky" id="kt_page_sticky_card">
           <div class="card-header" style="">
             <div class="card-title">
-              <h3 class="card-label">Contract Add Form
+              <h3 class="card-label">{{trans('admin.contract')}} {{trans('admin.add')}} {{trans('admin.form')}}
                 <i class="mr-2"></i>
-                <small class="">try to scroll the page</small></h3>
+                <small class="">{{trans('admin.try_to_scroll_the_page')}}</small></h3>
 
             </div>
             <div class="card-toolbar">
 
               <a href="{{ route('contacts.index') }}" class="btn btn-light-primary
               font-weight-bolder mr-2">
-                <i class="ki ki-long-arrow-back icon-sm"></i>Back</a>
+                <i class="ki ki-long-arrow-back icon-sm"></i>{{trans('admin.back')}}</a>
 
               <div class="btn-group">
                 <a href="{{ route('contacts.store') }}"  onclick="event.preventDefault(); document.getElementById('contacts_add_form').submit();" id="kt_btn" class="btn btn-primary font-weight-bolder">
-                  <i class="ki ki-check icon-sm"></i>Save</a>
+                  <i class="ki ki-check icon-sm"></i>{{trans('admin.save')}}</a>
 
 
 
@@ -76,10 +76,10 @@ if(!empty(Session::get('locale')))
                 <div class="col-xl-2"></div>
                 <div class="col-xl-8">
                   <div class="my-5">
-                    <h3 class="text-dark font-weight-bold mb-10">Contract Info: </h3>
+                    <h3 class="text-dark font-weight-bold mb-10">{{trans('admin.contract')}} {{trans('admin.info')}}: </h3>
                     <div class="form-group row {{ $errors->has('contract_type_id') ? 'has-error' : '' }}">
                     
-                      <label class="col-3">Contract Type</label>
+                      <label class="col-3">{{trans('admin.contract')}} {{trans('admin.type')}}</label>
                       <div class="col-9">
                         <select name="contract_type_id" class="form-control form-control-solid">
                             @foreach($contract_types as $contract_type)
@@ -92,7 +92,7 @@ if(!empty(Session::get('locale')))
                     </div>   
                     @if(auth()->user()->order->plan_name == 'Premium') 
                     <div class="form-group row {{ $errors->has('users') ? 'has-error' : '' }}">
-                      <label class="col-3">Assign User</label>
+                      <label class="col-3">Assign {{trans('admin.user')}}</label>
                       <div class="col-9">
                         <select name="users[]" multiple="" class="form-control form-control-solid">
                             @foreach($users as $user)
@@ -104,7 +104,7 @@ if(!empty(Session::get('locale')))
                       </div>
                     </div> 
                     <div class="form-group row {{ $errors->has('nacontract_type_idme') ? 'has-error' : '' }}">
-                      <label class="col-3">Name Contract Party</label>
+                      <label class="col-3">Name {{trans('admin.contract')}} Party</label>
                       <div class="col-9">  
                        {{ Form::text('name_contracting_party', null, ['class' => 'form-control form-control-solid','id'=>'name_contracting_party','placeholder'=>'Enter Name Contract Party','required'=>'true']) }}
                         <span class="text-danger">{{ $errors->first('name_contracting_party') }}</span>
@@ -112,35 +112,35 @@ if(!empty(Session::get('locale')))
                     </div>
                     @endif
                     <div class="form-group row {{ $errors->has('subject') ? 'has-error' : '' }}">
-                      <label class="col-3">Subject</label>
+                      <label class="col-3">{{trans('admin.subject')}}</label>
                       <div class="col-9">
                         {{ Form::textarea('subject', null, ['class' => 'form-control form-control-solid','id'=>'address','placeholder'=>'Enter subject','required'=>'true']) }}
                         <span class="text-danger">{{ $errors->first('subject') }}</span>
                       </div>
                     </div>
                     <div class="form-group row {{ $errors->has('name') ? 'has-error' : '' }}">
-                      <label class="col-3">Contract Person</label>
+                      <label class="col-3">{{trans('admin.contract')}} Person</label>
                       <div class="col-9">
                         {{ Form::text('contract_person', null, ['class' => 'form-control form-control-solid','id'=>'contract_person','placeholder'=>'Enter contract_person','required'=>'true']) }}
                         <span class="text-danger">{{ $errors->first('contract_person') }}</span>
                       </div>
                     </div>
                     <div class="form-group row {{ $errors->has('address') ? 'has-error' : '' }}">
-                      <label class="col-3">Address</label>
+                      <label class="col-3">{{trans('admin.address')}}</label>
                       <div class="col-9">
                         {{ Form::textarea('address', null, ['class' => 'form-control form-control-solid','id'=>'address','placeholder'=>'Enter address','required'=>'true']) }}
                         <span class="text-danger">{{ $errors->first('address') }}</span>
                       </div>
                     </div>
                     <div class="form-group row {{ $errors->has('contract_start_date') ? 'has-error' : '' }}">
-                      <label class="col-3">Contract Start Date</label>
+                      <label class="col-3">{{trans('admin.contract')}} {{trans('admin.start_date')}}</label>
                       <div class="col-9">
                         {{ Form::date('contract_start_date', null, ['class' => 'form-control form-control-solid','id'=>"contract_start_date",'placeholder'=>'Enter contract_start_date','required'=>'true']) }}
                         <span class="text-danger">{{ $errors->first('contract_start_date') }}</span>
                       </div>
                     </div>
                     <div class="form-group row {{ $errors->has('contract_end_date') ? 'has-error' : '' }}">
-                      <label class="col-3">Contract End Date</label>
+                      <label class="col-3">{{trans('admin.contract')}} {{trans('admin.end_date')}}</label>
                       <div class="col-9">
                         {{ Form::date('contract_end_date', null, ['class' => 'form-control form-control-solid','id'=>"contract_end_date",'placeholder'=>'Enter Contract_end_date','required'=>'true']) }}
                         <span class="text-danger">{{ $errors->first('contract_end_date') }}</span>

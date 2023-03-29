@@ -46,4 +46,12 @@ return [
     'subscription_date' => 'Subcription Date',
     'permissions' => 'Permissions',
     'price' => 'Price',
+    'title' => 'Title',
+    'type' => 'Type',
+    'party' => 'Party',
+    'subject' => 'Subject',
+    'address' => 'Address',
+    'end_date' => 'End Date',
+    'start_date' => 'Start Date',
+    'file' => 'File',
 ];
