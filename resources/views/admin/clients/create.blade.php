@@ -1,3 +1,13 @@
+@php 
+if(!empty(Session::get('locale'))) 
+    {
+        app()->setLocale(Session::get('locale'));
+    }
+            
+    else{
+         app()->setLocale('en');
+    }
+@endphp
 @extends('admin.layouts.master')
 @section('title',$title)
 @section('content')
@@ -81,19 +91,19 @@
                         <span class="text-danger">{{ $errors->first('email') }}</span>
                       </div>
                     </div>
-                    <div class="form-group row {{ $errors->has('roles') ? 'has-error' : '' }}">
-                        <label class="col-3">Roles</label>
+                    <input name="roles" value="company" type="hidden">
+                    <input name="user_type" value="company" type="hidden">
+                    <div class="form-group row {{ $errors->has('plans') ? 'has-error' : '' }}">
+                        <label class="col-3">Select Plan</label>
                          <div class="col-9">
-                        {!! Form::select('roles[]', $roles,[], array('class' => 'form-control form-control-solid','multiple')) !!}
-                        </div>
-                    </div>
-                    <div class="form-group row {{ $errors->has('user_type') ? 'has-error' : '' }}">
-                        <label class="col-3">Type</label>
-                         <div class="col-9">
-                          <select class="form-control form-control-solid" name="user_type">
-                            <option class="form-control form-control-solid" name="company"> Company</option>
-                            <option class="form-control form-control-solid" name="user"> User</option>
+                          <select class="form-control form-control-solid" name="plans">
+                            @foreach($plans as $plan)
+                             <option class="form-control form-control-solid" value="{{$plan->id}}"> {{$plan->name}}</option>
+                            @endforeach
+                           
+                            
                           </select>
+                           <span class="text-danger">{{ $errors->first('plans') }}</span>
                         </div>
                     </div>
                     <div class="form-group row {{ $errors->has('password') ? 'has-error' : '' }}">

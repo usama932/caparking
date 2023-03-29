@@ -9,11 +9,12 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Arr;
+use App\Http\Traits\LocaleTrait;
 use DB;
 
 class RoleController extends Controller
 {
-  
+	use LocaleTrait;
     // function __construct()
     // {
     //         $this->middleware('permission:role-list|get-role|get-roles|role-create|role-edit|role-delete', ['only' => ['index','store']]);

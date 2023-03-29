@@ -1,3 +1,13 @@
+@php 
+if(!empty(Session::get('locale'))) 
+    {
+        app()->setLocale(Session::get('locale'));
+    }
+            
+    else{
+         app()->setLocale('en');
+    }
+@endphp
 @extends('admin.layouts.master')
 @section('title', $title)
 @section('content')
@@ -15,7 +25,7 @@
                 </div>
             </div>
             <div class="card-toolbar">
-                @if(auth()->user()->user_type != 'admin')
+                @if(auth()->user()->user_type == 'admin')
                 <!--begin::Button-->
                 <a href="{{ route('clients.create') }}" class="btn btn-primary font-weight-bolder">
                     <span class="svg-icon svg-icon-md">

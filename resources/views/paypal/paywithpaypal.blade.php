@@ -1,3 +1,13 @@
+@php 
+if(!empty(Session::get('locale'))) 
+    {
+        app()->setLocale(Session::get('locale'));
+    }
+            
+    else{
+         app()->setLocale('en');
+    }
+@endphp
 @extends('admin.layouts.master')
 @section('title','Contract Kampaner')
 @section('content')

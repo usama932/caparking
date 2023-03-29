@@ -8,8 +8,11 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
+use App\Models\Pay_Plan;
+use App\Models\Order;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
 
 class ClientController extends Controller
 {
@@ -133,18 +136,25 @@ class ClientController extends Controller
     public function create()
     {
 		$roles = Role::pluck('name','name')->all();
+		$plans = Pay_Plan::all();
 	    $title = 'Add New Client';
-	    return view('admin.clients.create',compact('title','roles'));
+	    return view('admin.clients.create',compact('title','roles','plans'));
     }
 
    
     public function store(Request $request)
     {
+		
+		$now    = Carbon::now();
+        $expiry =  Carbon::now()->addMonth();
+		$plan = Pay_Plan::find($request->plans);
+
 	    $this->validate($request, [
 		    'name' => 'required|max:255',
 		    'email' => 'required|unique:users,email',
 		    'password' => 'required|min:6',
 			'roles' => 'required',
+			'plans' =>  'required',
 	    ]);
 	
 	    $input = $request->all();
@@ -152,28 +162,36 @@ class ClientController extends Controller
 	    $user->name = $input['name'];
 	    $user->email = $input['email'];
 		$user->added_by = auth()->user()->id;
-		if ($request->user_type == 'company') {
+		$user->password = bcrypt($input['password']);
 
-			$user->is_admin = '1';
-			$user->assign_role = '2';
-			$user->user_type = $request->user_type;
-		}
-		else{
-			$user->is_admin = '0';
-			$user->assign_role = '3';
-			$user->user_type = $request->user_type;
-		}
+		$user->is_admin = '1';
+		$user->assign_role = '2';
+		$user->user_type = $request->user_type;
+	
 	    // $res = array_key_exists('active', $input);
 	    // if ($res == false) {
 		//     $user->active = 0;
 	    // } else {
 		//     $user->active = 1;
-		
 	    // }
-	    $user->password = bcrypt($input['password']);
+	   
 	    $user->save();
+
 		$user->assignRole($request->input('roles'));
-	
+		
+		$order = Order::create([
+			'user_id' => $user->id,
+			'order_id' => $plan->plan_id,
+			'plan_name' => $plan->name,
+			'amount' => $plan->price,
+			'expiry_date' => $expiry,
+			'subscription_date' => $now,
+		]);
+            
+           
+            
+        
+  
 	    Session::flash('success_message', 'Great! Client has been saved successfully!');
 	    $user->save();
 	    return redirect()->back();
@@ -326,8 +344,10 @@ class ClientController extends Controller
   
     public function destroy($id)
     {
+		
 	    $user = User::find($id);
-	    if($user->is_admin == 0){
+		
+	    if(!empty($user)){
 		    $user->delete();
 		    Session::flash('success_message', 'User successfully deleted!');
 	    }
@@ -344,7 +364,7 @@ class ClientController extends Controller
 		foreach ($input['clients'] as $index => $id) {
 			
 			$user = User::find($id);
-			if($user->is_admin == 0){
+			if(!empty($user)){
 				$user->delete();
 			}
 			
