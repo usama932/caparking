@@ -105,7 +105,7 @@ class SettingController extends Controller
                 array(
                 'name'=>'about_text',
                 'id'=>'about_text',
-                'type'=>'text',
+                'type'=>'textarea',
                 'label'=>'About us',
                 'place_holder'=>'about us text',
                 'class'=>'form-control form-control-solid',

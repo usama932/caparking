@@ -26,7 +26,7 @@
 				<!--end::Aside Top-->
 				<!--begin::Aside Bottom-->
 				<div class="aside-img d-flex flex-row-fluid bgi-no-repeat bgi-position-y-bottom bgi-position-x-center"
-				     style="background-image: url({{ asset('assets/media/svg/illustrations/login-visual-1.svg') }})"></div>
+				     style="background-image: url({{ asset($auth_image) }})"></div>
 				<!--end::Aside Bottom-->
 			</div>
 			<!--begin::Aside-->
@@ -81,7 +81,7 @@
 							<!--end::Form group-->
 							<!--begin::Action-->
 							<div class="pb-lg-0 pb-5">
-								<button type="submit"  class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Reset Password</button>
+								<button type="submit"  id="kt_btn"  class="btn btn-primary btn-block font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Reset Password</button>
 								
 							</div>
 							<!--end::Action-->
