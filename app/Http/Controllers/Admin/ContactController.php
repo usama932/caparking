@@ -136,12 +136,8 @@ class ContactController extends Controller
     
     public function store(Request $request)
     {  
-<<<<<<< HEAD
         dd($request->all());
-=======
-       
-       
->>>>>>> d9a6c41 (push)
+
         $this->validate($request, [
             'contract_type_id' => 'required',
             /*'name_contracting_party' => 'required',*/
