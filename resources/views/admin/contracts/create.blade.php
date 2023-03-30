@@ -114,7 +114,7 @@ if(!empty(Session::get('locale')))
                     <div class="form-group row {{ $errors->has('subject') ? 'has-error' : '' }}">
                       <label class="col-3">{{trans('admin.subject')}}</label>
                       <div class="col-9">
-                        {{ Form::textarea('subject', null, ['class' => 'form-control form-control-solid','id'=>'address','placeholder'=>'Enter subject','required'=>'true']) }}
+                        {{ Form::text('subject', null, ['class' => 'form-control form-control-solid','id'=>'address','placeholder'=>'Enter subject','required'=>'true']) }}
                         <span class="text-danger">{{ $errors->first('subject') }}</span>
                       </div>
                     </div>
