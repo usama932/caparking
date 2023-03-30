@@ -31,6 +31,6 @@ class Contract extends Model
     {
         $this->attributes['users'] = json_encode($value);
     }
-  
+    
    
 }
