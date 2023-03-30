@@ -56,7 +56,7 @@ if(!empty(Session::get('locale')))
 
             </div>
             <div class="card-toolbar">
-                <a href="{{ route('contacts.index') }}" class="btn btn-light-primary
+                <a href="{{ route('contracts.index') }}" class="btn btn-light-primary
                     font-weight-bolder mr-2">
                 <i class="ki ki-long-arrow-back icon-sm"></i>{{trans('admin.back')}} </a>
                 <div class="btn-group">
@@ -68,7 +68,7 @@ if(!empty(Session::get('locale')))
           <div class="card-body">
           @include('admin.partials._messages')
           <!--begin::Form-->
-            {{ Form::model($contract, [ 'method' => 'PATCH','route' => ['contacts.update', $contract->id],'class'=>'form' ,"id"=>"contract_update_form", 'enctype'=>'multipart/form-data'])}}
+            {{ Form::model($contract, [ 'method' => 'PATCH','route' => ['contracts.update', $contract->id],'class'=>'form' ,"id"=>"contract_update_form", 'enctype'=>'multipart/form-data'])}}
               @csrf
                <div class="row">
                 <div class="col-xl-2"></div>

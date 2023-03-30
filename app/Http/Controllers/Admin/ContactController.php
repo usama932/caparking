@@ -129,7 +129,7 @@ class ContactController extends Controller
         
         $title = "Contract Types";
         $contract_types = ContractType::latest()->get();
-        $users = User::where('is_admin', '0')->get();
+        $users = User::where('is_admin', '0')->where('user_type','user')->get();
 		return view('admin.contracts.create',compact('title','contract_types','users'));
     }
 
@@ -137,10 +137,8 @@ class ContactController extends Controller
     public function store(Request $request)
     {  
 
-        dd($request->all());
         $this->validate($request, [
             'contract_type_id' => 'required',
-            'contract_party' => 'required',
             'contract_person' => 'required',
             'contract_start_date' => 'required',
             'contract_end_date' => 'required',
@@ -150,7 +148,7 @@ class ContactController extends Controller
         $contract        = new Contract;
         $contract->contract_type_id = $request->input('contract_type_id');
         $contract->contract_person = $request->input('contract_person');
-        $contract->name_contracting_party = $request->input('contract_party');
+        $contract->name_contracting_party = $request->input('contract_party') ?? "Not Assign";
         $contract->contract_start_date = $request->input('contract_start_date');
         $contract->contract_end_date = $request->input('contract_end_date');
         $contract->subject = $request->input('subject');

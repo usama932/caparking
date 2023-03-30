@@ -21,15 +21,15 @@ if(!empty(Session::get('locale')))
                 <h3 class="card-label">{{trans('admin.contract')}} {{trans('admin.list')}}</h3>
                 <div class="d-flex align-items-center ">
                    
-                    
+                    @if(auth()->user()->user_type == 'staff')
                     <a class="btn btn-danger font-weight-bolder" onclick="del_selected()" href="javascript:void(0)"> <i
                             class="la la-trash-o"></i>{{trans('admin.delete_all')}}</a>
-                   
+                    @endif
                 </div>
             </div>
             <div class="card-toolbar">
 
-              
+                @if(auth()->user()->user_type == 'staff')
                 <a href="{{ route('contracts.create') }}" class="btn btn-primary font-weight-bolder">
                     <span class="svg-icon svg-icon-md">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
@@ -46,7 +46,7 @@ if(!empty(Session::get('locale')))
                         <!--end::Svg Icon-->
                     </span>{{trans('admin.new_record')}}
                 </a>
-               
+                @endif
             </div>
         </div>
         <div class="card-body">
@@ -66,7 +66,6 @@ if(!empty(Session::get('locale')))
                                 </th>
                                 <th>Name {{trans('admin.contract')}} Party</th>
                                 <th>{{trans('admin.contract')}} Person</th>
-                               
                                 <th>{{trans('admin.created_at')}}</th>
                                 <th>{{trans('admin.actions')}}</th>
                             </tr>
