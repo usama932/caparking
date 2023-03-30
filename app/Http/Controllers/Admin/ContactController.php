@@ -136,10 +136,13 @@ class ContactController extends Controller
     
     public function store(Request $request)
     {  
-       
+
+        dd($request->all());
+
+
         $this->validate($request, [
             'contract_type_id' => 'required',
-            'name_contracting_party' => 'required',
+            /*'name_contracting_party' => 'required',*/
             'contract_person' => 'required',
             'contract_start_date' => 'required',
             'contract_end_date' => 'required',
@@ -157,8 +160,9 @@ class ContactController extends Controller
         $contract->notify_by_email = $request->input('notify_by_email');
         $contract->users = $request->input('users');
         $contract->added_by = auth()->user()->id;
-        $contract->save();
 
+        $contract->save();
+ 
         if ($request->hasFile('file')) {
 			if ($request->file('file')->isValid()) {
 				$this->validate($request, [
@@ -177,6 +181,7 @@ class ContactController extends Controller
 			}
             
 		}
+
         Session::flash('success_message', 'Contract successfully update!');
         return  redirect()->route('contacts.index')
                           ->with('success','Contact  created successfully');
