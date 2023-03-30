@@ -20,7 +20,7 @@ if(!empty(Session::get('locale')))
           <!--begin::Page Heading-->
           <div class="d-flex align-items-baseline flex-wrap mr-5">
             <!--begin::Page Title-->
-            <h5 class="text-dark font-weight-bold my-1 mr-5">Das{{trans('admin.dashboard')}}hboard</h5>
+            <h5 class="text-dark font-weight-bold my-1 mr-5">{{trans('admin.dashboard')}}</h5>
             <!--end::Page Title-->
             <!--begin::Breadcrumb-->
             <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -28,7 +28,7 @@ if(!empty(Session::get('locale')))
                 <a href="" class="text-muted">{{trans('admin.manage')}} {{trans('admin.user')}}</a>
               </li>
               <li class="breadcrumb-item text-muted">
-                {{trans('admin.edit')}} {{trans('admin.user')}}
+                {{trans('admin.edit')}} {{trans('admin.customer')}}
               </li>
               <li class="breadcrumb-item text-muted">
                {{ $user->name }}
@@ -50,7 +50,7 @@ if(!empty(Session::get('locale')))
         <div class="card card-custom card-sticky" id="kt_page_sticky_card">
           <div class="card-header" style="">
             <div class="card-title">
-              <h3 class="card-label">{{trans('admin.user')}} {{trans('admin.edit')}} {{trans('admin.form')}}
+              <h3 class="card-label">{{trans('admin.customer')}} {{trans('admin.edit')}} {{trans('admin.form')}}
                 <i class="mr-2"></i>
                 <small class="">{{trans('admin.try_to_scroll_the_page')}}</small></h3>
 
@@ -79,7 +79,7 @@ if(!empty(Session::get('locale')))
                 <div class="col-xl-2"></div>
                 <div class="col-xl-8">
                   <div class="my-5">
-                    <h3 class="text-dark font-weight-bold mb-10"> {{trans('admin.user')}}  {{trans('admin.info')}}: </h3>
+                    <h3 class="text-dark font-weight-bold mb-10"> {{trans('admin.customer')}}  {{trans('admin.info')}}: </h3>
                     <div class="form-group row {{ $errors->has('name') ? 'has-error' : '' }}">
                       <label class="col-3">Name</label>
                       <div class="col-9">

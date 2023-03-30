@@ -20,15 +20,18 @@ if(!empty(Session::get('locale')))
           <!--begin::Page Heading-->
           <div class="d-flex align-items-baseline flex-wrap mr-5">
             <!--begin::Page Title-->
-            <h5 class="text-dark font-weight-bold my-1 mr-5"> {{trans('admin.dashboard')}}</h5>
+            <h5 class="text-dark font-weight-bold my-1 mr-5">{{trans('admin.dashboard')}}</h5>
             <!--end::Page Title-->
             <!--begin::Breadcrumb-->
             <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
               <li class="breadcrumb-item text-muted">
-                <a href="" class="text-muted"> {{trans('admin.manage')}}  {{trans('admin.customer')}}</a>
+                <a href="" class="text-muted">{{trans('admin.manage')}} {{trans('admin.staff')}}</a>
               </li>
               <li class="breadcrumb-item text-muted">
-                <a href="" class="text-muted"> {{trans('admin.add')}}  {{trans('admin.form')}}</a>
+                {{trans('admin.edit')}} {{trans('admin.staff')}}
+              </li>
+              <li class="breadcrumb-item text-muted">
+               {{ $user->name }}
               </li>
             </ul>
             <!--end::Breadcrumb-->
@@ -47,20 +50,20 @@ if(!empty(Session::get('locale')))
         <div class="card card-custom card-sticky" id="kt_page_sticky_card">
           <div class="card-header" style="">
             <div class="card-title">
-              <h3 class="card-label"> {{trans('admin.customer')}}  {{trans('admin.add')}}  {{trans('admin.form')}}
+              <h3 class="card-label">{{trans('admin.staff')}} {{trans('admin.edit')}} {{trans('admin.form')}}
                 <i class="mr-2"></i>
-                <small class=""> {{trans('admin.try_to_scroll_the_page')}}</small></h3>
+                <small class="">{{trans('admin.try_to_scroll_the_page')}}</small></h3>
 
             </div>
             <div class="card-toolbar">
 
-              <a href="{{ route('users.index') }}" class="btn btn-light-primary
+              <a href="{{ route('staffs.index') }}" class="btn btn-light-primary
               font-weight-bolder mr-2">
-                <i class="ki ki-long-arrow-back icon-sm"></i>{{trans('admin.back')}}</a>
+                <i class="ki ki-long-arrow-back icon-sm"></i> {{trans('admin.back')}}</a>
 
               <div class="btn-group">
-                <a href="{{ route('users.store') }}"  onclick="event.preventDefault(); document.getElementById('client_add_form').submit();" id="kt_btn" class="btn btn-primary font-weight-bolder">
-                  <i class="ki ki-check icon-sm"></i>{{trans('admin.save')}}</a>
+                <a href=""  onclick="event.preventDefault(); document.getElementById('client_update_form').submit();" id="kt_btn" class="btn btn-primary font-weight-bolder">
+                  <i class="ki ki-check icon-sm"></i> {{trans('admin.update')}}</a>
 
 
 
@@ -70,13 +73,13 @@ if(!empty(Session::get('locale')))
           <div class="card-body">
           @include('admin.partials._messages')
           <!--begin::Form-->
-            {{ Form::open([ 'route' => 'users.store','class'=>'form' ,"id"=>"client_add_form", 'enctype'=>'multipart/form-data']) }}
+            {{ Form::model($user, [ 'method' => 'PATCH','route' => ['users.update', $user->id],'class'=>'form' ,"id"=>"client_update_form", 'enctype'=>'multipart/form-data'])}}
               @csrf
               <div class="row">
                 <div class="col-xl-2"></div>
                 <div class="col-xl-8">
                   <div class="my-5">
-                    <h3 class="text-dark font-weight-bold mb-10">{{trans('admin.company')}} {{trans('admin.info')}}: </h3>
+                    <h3 class="text-dark font-weight-bold mb-10"> {{trans('admin.staff')}}  {{trans('admin.info')}}: </h3>
                     <div class="form-group row {{ $errors->has('name') ? 'has-error' : '' }}">
                       <label class="col-3">Name</label>
                       <div class="col-9">
@@ -91,34 +94,29 @@ if(!empty(Session::get('locale')))
                         <span class="text-danger">{{ $errors->first('email') }}</span>
                       </div>
                     </div>
-                    {{-- <div class="form-group row {{ $errors->has('roles') ? 'has-error' : '' }}">
-                        <label class="col-3">Roles</label>
-                         <div class="col-9">
-                        {!! Form::select('roles[]', $roles,[], array('class' => 'form-control form-control-solid','multiple')) !!}
-                        </div>
-                    </div> --}}
                     <input type="hidden" value="user" name="roles">
                     {{-- <div class="form-group row {{ $errors->has('user_type') ? 'has-error' : '' }}">
                         <label class="col-3">Type</label>
                          <div class="col-9">
                           <select class="form-control form-control-solid" name="user_type">
-                            <option class="form-control form-control-solid" name="user" value="user" selected> User</option>
+                            <option class="form-control form-control-solid" name="company"> Company</option>
+                            <option class="form-control form-control-solid" name="user"> User</option>
                           </select>
                         </div>
                     </div> --}}
                     <input name="user_type" value="user" type="hidden">
                     <div class="form-group row {{ $errors->has('password') ? 'has-error' : '' }}">
-                      <label class="col-3">{{trans('admin.password')}}</label>
+                      <label class="col-3"> {{trans('admin.password')}}</label>
                       <div class="col-9">
-                        {{ Form::text('password', null, ['class' => 'form-control form-control-solid','id'=>'password','required'=>'true']) }}
+                        {{ Form::text('password','', ['placeholder'=>"If you won't change Password then leave it blank as it as.", 'class' => 'form-control form-control-solid','id'=>'password','required'=>'true']) }}
                         <span class="text-danger">{{ $errors->first('password') }}</span>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-3 col-form-label">{{trans('admin.active')}}</label>
+                      <label class="col-3 col-form-label"> {{trans('admin.active')}}</label>
                       <div class="col-3">
                          <span class="switch switch-outline switch-icon switch-success">
-                          <label><input type="checkbox" checked="checked" name="active" value="1">
+                          <label><input type="checkbox" {{ ($user->active) ?'checked':'' }} name="active" value="1">
                             <span></span>
                           </label>
                         </span>

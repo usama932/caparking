@@ -36,7 +36,7 @@ return [
     'created_at' => "hergestellt in",
     'status' => "Status",
     'actions' => "Aktionen",
-    'Password' => 'Passwort',
+    'password' => 'Passwort',
     'active'  => 'Aktiv',
     'select' => "Wählen",
     'Order'  => "Befehl",
@@ -52,4 +52,6 @@ return [
     'end_date' => 'Endtermin',
     'start_date' => 'Startdatum',
     'file' => 'Datei',
+    'customer' => 'Kundin',
+    'staff' => 'Mitarbeiter',
 ];

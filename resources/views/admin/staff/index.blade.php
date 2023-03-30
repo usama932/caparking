@@ -18,7 +18,7 @@ if(!empty(Session::get('locale')))
                 <span class="card-icon">
                     <i class="flaticon-users text-primary"></i>
                 </span>
-                <h3 class="card-label">{{trans('admin.customer')}} {{trans('admin.list')}}</h3>
+                <h3 class="card-label">{{trans('admin.staff')}} {{trans('admin.list')}}</h3>
                 <div class="d-flex align-items-center ">
                     <a class="btn btn-danger font-weight-bolder" onclick="del_selected()" href="javascript:void(0)"> <i
                             class="la la-trash-o"></i>{{trans('admin.delete_all')}}</a>
@@ -27,7 +27,7 @@ if(!empty(Session::get('locale')))
             <div class="card-toolbar">
                 @if(auth()->user()->user_type != 'admin')
                 <!--begin::Button-->
-                <a href="{{ route('users.create') }}" class="btn btn-primary font-weight-bolder">
+                <a href="{{ route('staffs.create') }}" class="btn btn-primary font-weight-bolder">
                     <span class="svg-icon svg-icon-md">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -49,10 +49,10 @@ if(!empty(Session::get('locale')))
         <div class="card-body">
             @include('admin.partials._messages')
             <div class="table-responsive">
-                <form action="{{ route('admin.delete-selected-users') }}" method="post" id="user_form">
+                <form action="{{ route('admin.delete-selected-staffs') }}" method="post" id="staff_form">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <!--begin: Datatable-->
-                    <table class="table table-bordered table-hover table-checkable" id="users"
+                    <table class="table table-bordered table-hover table-checkable" id="staffs"
                         style="margin-top: 13px !important">
                         <thead>
                             <tr>
@@ -75,13 +75,13 @@ if(!empty(Session::get('locale')))
             </div>
         </div>
         <!-- Modal-->
-        <div class="modal fade" id="userModel" data-backdrop="static" tabindex="-1" role="dialog"
+        <div class="modal fade" id="staffModel" data-backdrop="static" tabindex="-1" role="dialog"
             aria-labelledby="staticBackdrop" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="myModalLabel">{{trans('admin.customer')}} {{trans('admin.detail')}}</h4>
+                        <h4 class="modal-title" id="myModalLabel">{{trans('admin.staff')}} {{trans('admin.detail')}}</h4>
                     </div>
                     <div class="modal-body"></div>
                     <div class="modal-footer">
@@ -113,7 +113,7 @@ if(!empty(Session::get('locale')))
                     $(this).closest('tr').toggleClass('selected');
                 });
         });
-        var clients = $('#users').DataTable({
+        var clients = $('#staffs').DataTable({
             "order": [
                 [1, 'asc']
             ],
@@ -122,7 +122,7 @@ if(!empty(Session::get('locale')))
             "searchDelay": 500,
             "responsive": true,
             "ajax": {
-                "url": "{{ route('admin.getUsers') }}",
+                "url": "{{ route('admin.getStaffs') }}",
                 "dataType": "json",
                 "type": "POST",
                 "data": {
@@ -157,12 +157,12 @@ if(!empty(Session::get('locale')))
         function viewInfo(id) {
 
             var CSRF_TOKEN = '{{ csrf_token() }}';
-            $.post("{{ route('admin.getUser') }}", {
+            $.post("{{ route('admin.getStaff') }}", {
                 _token: CSRF_TOKEN,
                 id: id
             }).done(function(response) {
                 $('.modal-body').html(response);
-                $('#userModel').modal('show');
+                $('#staffModel').modal('show');
 
             });
         }
@@ -178,11 +178,11 @@ if(!empty(Session::get('locale')))
                 if (result.value) {
                     Swal.fire(
                         "Deleted!",
-                        "Your User has been deleted.",
+                        "Your Staff has been deleted.",
                         "success"
                     );
                     var APP_URL = {!! json_encode(url('/')) !!}
-                    window.location.href = APP_URL + "/admin/user/delete/" + id;
+                    window.location.href = APP_URL + "/admin/staff/delete/" + id;
                 }
             });
         }
@@ -198,10 +198,10 @@ if(!empty(Session::get('locale')))
                 if (result.value) {
                     Swal.fire(
                         "Deleted!",
-                        "Your Users has been deleted.",
+                        "Your Staffs has been deleted.",
                         "success"
                     );
-                    $("#user_form").submit();
+                    $("#staff_form").submit();
                 }
             });
         }

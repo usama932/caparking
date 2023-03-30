@@ -210,40 +210,43 @@ class ClientController extends Controller
 			0 => 'id',
 			1 => 'name',
 			2 => 'email',
-			3 => 'active',
-			4 => 'created_at',
-			5 => 'action'
+			3 => 'User_type',
+			4 => 'active',
+			5 => 'created_at',
+			6 => 'action'
 		);
 		
-		$totalData = User::where('user_type', 'user')->where('added_by', $request->company_id)->count();
+		$totalData = User::where('is_admin', 0)->where('assign_role', '3')->where('added_by', $request->company_id)->count();
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$order = $columns[$request->input('order.0.column')];
 		$dir = $request->input('order.0.dir');
 		
 		if(empty($request->input('search.value'))){
-			$users = User::where('user_type', 'user')->where('added_by', $request->company_id)->offset($start)
+			$users = User::where('is_admin', 0)->where('assign_role', '3')->where('added_by', $request->company_id)->offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
-			$totalFiltered = User::where('is_admin', 0)->where('added_by', $request->company_id)->count();
+			$totalFiltered = User::where('is_admin', 0)->where('assign_role', '3')->where('added_by', $request->company_id)->count();
 		}else{
 			$search = $request->input('search.value');
-			$users = User::where('added_by', $request->company_id)->where([
+			$users = User::where('is_admin', 0)->where('added_by', $request->company_id)->where([
 				['is_admin',0],
 				['name', 'like', "%{$search}%"],
 			])
 				->orWhere('email','like',"%{$search}%")
+				->orWhere('user_type', 'like', "%{$search}%")
 				->orWhere('created_at','like',"%{$search}%")
 				->offset($start)
 				->limit($limit)
 				->orderBy($order, $dir)
 				->get();
-			$totalFiltered = User::where('added_by', $request->company_id)->where([
+			$totalFiltered = User::where('is_admin', 0)->where('added_by', $request->company_id)->where([
 				
 				['name', 'like', "%{$search}%"],
 			])
 				->orWhere('name', 'like', "%{$search}%")
+				->orWhere('user_type', 'like', "%{$search}%")
 				->orWhere('email','like',"%{$search}%")
 				->orWhere('created_at','like',"%{$search}%")
 				->count();
@@ -257,6 +260,7 @@ class ClientController extends Controller
 				$edit_url = route('clients.edit',$r->id);
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="clients[]" value="'.$r->id.'"><span></span></label></td>';
 				$nestedData['name'] = $r->name;
+				$nestedData['user_type'] = $r->user_type;
 				$nestedData['email'] = $r->email;
 				if($r->active){
 					$nestedData['active'] = '<span class="label label-success label-inline mr-2">Active</span>';

@@ -52,6 +52,7 @@ if(!empty(Session::get('locale')))
 
                                 <th>{{trans('admin.name')}}</th>
                                 <th>{{trans('admin.email')}}</th>
+                                <th>{{trans('admin.user')}} {{trans('admin.type')}}</th>
                                 <th>{{trans('admin.status')}}</th>
                                 <th>{{trans('admin.created_at')}}</th>
                                 <th>{{trans('admin.actions')}}</th>
@@ -114,6 +115,9 @@ if(!empty(Session::get('locale')))
                 },
                 {
                     "data": "email"
+                },
+                {
+                    "data": "user_type"
                 },
                 {
                     "data": "active"

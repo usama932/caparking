@@ -37,11 +37,10 @@ Route::group([
 	Route::get('/profile', 'ClientController@edit')->name('client-profile');
 	Route::post('/admin-update', 'ClientController@update')->name('client-update');
 
-    Route::resource('contracts','ContactController');
-    Route::post('get-staffcontacts', 'ContactController@getContacts')->name('admin.getStaffContacts');
-    Route::post('get-contactstaff', 'ContactController@contactDetail')->name('admin.getStaffContact');
-    Route::get('staffcontact/delete/{id}', 'ContactController@destroy');
-    Route::post('delete-selected-staffcontacts', 'ContactController@deleteSelectedcontract')->name('admin.delete-selected-staffcontact');
+    Route::get('contact/staff', 'ContactController@staff_contracts')->name('contacts_staff');
+    Route::post('get-staffcontacts', 'ContactController@getStaffContact')->name('admin.getStaffContact');
+    Route::post('get-contactstaff', 'ContactController@contactDetail')->name('admin.getstaffContact');
+   
 
     //contacts_types
     // Route::resource('contact_types','ContactTypeController');

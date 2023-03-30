@@ -11,7 +11,7 @@ use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Session;
 
-class UserController extends Controller
+class StaffController extends Controller
 {
 	function __construct()
     {
@@ -22,12 +22,11 @@ class UserController extends Controller
     }
     public function index()
     {
-	    $title = 'Customer';
-	    return view('admin.users.index',compact('title'));
+        $title = 'Staffs';
+	    return view('admin.staff.index',compact('title'));
     }
 
-   
-	public function getUser(Request $request){
+    public function getStaff(Request $request){
 		$columns = array(
 			0 => 'id',
 			1 => 'name',
@@ -37,21 +36,21 @@ class UserController extends Controller
 			5 => 'action'
 		);
 		
-		$totalData = User::where('user_type', 'user')->where('added_by',auth()->user()->id)->count();
+		$totalData = User::where('user_type', 'staff')->where('added_by',auth()->user()->id)->count();
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$order = $columns[$request->input('order.0.column')];
 		$dir = $request->input('order.0.dir');
 		
 		if(empty($request->input('search.value'))){
-			$users = User::where('is_admin', 0)->where('user_type', 'user')->where('added_by',auth()->user()->id)->offset($start)
+			$users = User::where('is_admin', 0)->where('user_type', 'staff')->where('added_by',auth()->user()->id)->offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
-			$totalFiltered = User::where('is_admin', 0)->where('user_type', 'user')->where('added_by',auth()->user()->id)->count();
+			$totalFiltered = User::where('is_admin', 0)->where('user_type', 'staff')->where('added_by',auth()->user()->id)->count();
 		}else{
 			$search = $request->input('search.value');
-			$users = User::where('is_admin', 0)->where('user_type', 'user')->where('added_by',auth()->user()->id)->where([
+			$users = User::where('is_admin', 0)->where('user_type', 'staff')->where('added_by',auth()->user()->id)->where([
 				['is_admin',0],
 				['name', 'like', "%{$search}%"],
 			])
@@ -61,7 +60,7 @@ class UserController extends Controller
 				->limit($limit)
 				->orderBy($order, $dir)
 				->get();
-			$totalFiltered = User::where('is_admin', 0)->where('user_type', 'user')->where('added_by',auth()->user()->id)-where([
+			$totalFiltered = User::where('is_admin', 0)->where('user_type', 'staff')->where('added_by',auth()->user()->id)-where([
 				
 				['name', 'like', "%{$search}%"],
 			])
@@ -76,7 +75,7 @@ class UserController extends Controller
 		
 		if($users){
 			foreach($users as $r){
-				$edit_url = route('users.edit',$r->id);
+				$edit_url = route('staffs.edit',$r->id);
 				
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="clients[]" value="'.$r->id.'"><span></span></label></td>';
 				$nestedData['name'] = $r->name;
@@ -119,34 +118,26 @@ class UserController extends Controller
 		echo json_encode($json_data);
 		
 	}
-	
-	
-	public function userDetail(Request $request)
-	{
-		
-		$user = User::findOrFail($request->id);
-		$users = User::where('added_by',$user->id)->get();
-	
-		return view('admin.users.detail', ['title' => 'Client Detail', 'user' => $user,'users'=> $users]);
-	}
-	public function reg_users(Request $request){
+    public function staffDetail(Request $request){
 
+        $user = User::findOrFail($request->id);
+		$users = User::where('added_by',$user->id)->get();
+		return view('admin.staff.detail', ['title' => 'Staff Detail', 'user' => $user,'users'=> $users]);
 	}
     public function create()
     {
-		$roles = Role::pluck('name','name')->all();
-	    $title = 'Add New User';
-	    return view('admin.users.create',compact('title','roles'));
+        $roles = Role::pluck('name','name')->all();
+	    $title = 'Add New Staff';
+	    return view('admin.staff.create',compact('title','roles'));
     }
 
-   
     public function store(Request $request)
     {
-	    $this->validate($request, [
+        $this->validate($request, [
 		    'name' => 'required|max:255',
 		    'email' => 'required|unique:users,email',
 		    'password' => 'required|min:6',
-			'roles' => 'required',
+			
 	    ]);
 	
 	    $input = $request->all();
@@ -157,82 +148,52 @@ class UserController extends Controller
 	
         $user->is_admin = '0';
         $user->assign_role = '3';
-        $user->user_type = 'user';
+        $user->user_type = 'staff';
     
 	    $user->password = bcrypt($input['password']);
 	    $user->save();
-		$user->assignRole($request->input('user'));
+		$user->assignRole($request->input('staff'));
 	
 	    Session::flash('success_message', 'Great! Client has been saved successfully!');
 	    $user->save();
-	    return redirect()->back();
+	    return redirect()->route('staffs.index');
     }
 
- 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show($id)
     {
-		
-	    $user = User::find($id);
-	    return view('admin.users.single', ['title' => 'Client detail', 'user' => $user]);
+        //
     }
-    
 
-
-  
+   
     public function edit($id)
     {
-		$roles = Role::pluck('name','name')->all();
+        $roles = Role::pluck('name','name')->all();
 	    $user = User::find($id);
-	    return view('admin.users.edit', ['title' => 'Edit client details','roles' => $roles])->withUser($user);
+	    return view('admin.staff.edit', ['title' => 'Edit Staff details','roles' => $roles])->withUser($user);
     }
 
+   
     public function update(Request $request, $id)
     {
-	    $user = User::find($id);
-	    $this->validate($request, [
-		    'name' => 'required|max:255',
-		    'email' => 'required|unique:users,email,'.$user->id,
-			'roles' => 'required',
-	    ]);
-	    $input = $request->all();
-	
-	    $user->name = $input['name'];
-	    $user->email = $input['email'];
-
-        $user->is_admin = '0';
-        $user->assign_role = '3';
-        $user->user_type = 'user';
-    
-	    $res = array_key_exists('active', $input);
-
-	    if ($res == false) {
-		    $user->active = 0;
-	    } else {
-		    $user->active = 1;
-		
-	    }
-	    if(!empty($input['password'])) {
-		    $user->password = bcrypt($input['password']);
-	    }
-	
-	    $user->save();
-		DB::table('model_has_roles')->where('model_id',$id)->delete();
-    
-        $user->assignRole($request->input('user'));
-	
-	    Session::flash('success_message', 'Great! Client successfully updated!');
-	    return redirect()->back();
+        //
     }
 
-  
-    public function destroy($id)
+	public function destroy($id)
     {
+		
 	    $user = User::find($id);
-	    if($user->is_admin == 0){
+		
+	    if(!empty($user)){
 		    $user->delete();
 		    Session::flash('success_message', 'User successfully deleted!');
 	    }
-	    return redirect()->route('users.index');
+	    return redirect()->back();
 	   
     }
 	public function deleteSelectedClients(Request $request)
@@ -245,12 +206,12 @@ class UserController extends Controller
 		foreach ($input['clients'] as $index => $id) {
 			
 			$user = User::find($id);
-			if($user->is_admin == 0){
+			if(!empty($user)){
 				$user->delete();
 			}
 			
 		}
-		Session::flash('success_message', 'Users successfully deleted!');
+		Session::flash('success_message', 'clietns successfully deleted!');
 		return redirect()->back();
 		
 	}

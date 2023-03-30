@@ -84,8 +84,8 @@ if(!empty(Session::get('locale')))
                         <span class="text-danger">{{ $errors->first('name') }}</span>
                       </div>
                     </div>
-                  
-                     <div class="form-group row {{ $errors->has('name') ? 'has-error' : '' }}">
+                   
+                    <div class="form-group row {{ $errors->has('name') ? 'has-error' : '' }}">
                       <label class="col-3">{{trans('admin.permissions')}}</label>
                       <div class="col-9">
                         <div class="row"> 
@@ -99,7 +99,7 @@ if(!empty(Session::get('locale')))
                       </div>
                     </div>
                   
-
+               
                   </div>
 
                 </div>

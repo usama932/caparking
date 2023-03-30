@@ -37,7 +37,7 @@ return [
     'created_at' => "Created at",
     'status' => "Status",
     'actions' => "Actions",
-    'Password' => 'Password',
+    'password' => 'Password',
     'active'  => 'Active',
     'select' => "Select",
     'order'  => "Order",
@@ -54,4 +54,7 @@ return [
     'end_date' => 'End Date',
     'start_date' => 'Start Date',
     'file' => 'File',
+    'customer' => 'Customer',
+    'staff' => 'Staff',
+
 ];

@@ -9,14 +9,11 @@ use Illuminate\Support\Facades\Session;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-	    $title = 'NewsWatch Client Dashboard';
+       
+	    $title = 'Dashboard';
 	    return view('client.dashboard.index',compact('title'));
     
     }
@@ -31,12 +28,7 @@ class ClientController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
         //
