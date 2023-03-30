@@ -103,11 +103,11 @@ if(!empty(Session::get('locale')))
                         <span class="text-danger">{{ $errors->first('contract_type_id') }}</span>
                       </div>
                     </div> 
-                    <div class="form-group row {{ $errors->has('nacontract_type_idme') ? 'has-error' : '' }}">
+                    <div class="form-group row {{ $errors->has('contract_party') ? 'has-error' : '' }}">
                       <label class="col-3">Name {{trans('admin.contract')}} Party</label>
                       <div class="col-9">  
-                       {{ Form::text('name_contracting_party', null, ['class' => 'form-control form-control-solid','id'=>'name_contracting_party','placeholder'=>'Enter Name Contract Party','required'=>'true']) }}
-                        <span class="text-danger">{{ $errors->first('name_contracting_party') }}</span>
+                       {{ Form::text('contract_party', null, ['class' => 'form-control form-control-solid','id'=>'contract_party','placeholder'=>'Enter Name Contract Party','required'=>'true']) }}
+                        <span class="text-danger">{{ $errors->first('contract_party') }}</span>
                       </div>
                     </div>
                     @endif
@@ -128,7 +128,8 @@ if(!empty(Session::get('locale')))
                     <div class="form-group row {{ $errors->has('address') ? 'has-error' : '' }}">
                       <label class="col-3">{{trans('admin.address')}}</label>
                       <div class="col-9">
-                        {{ Form::textarea('address', null, ['class' => 'form-control form-control-solid','id'=>'address','placeholder'=>'Enter address','required'=>'true']) }}
+                        <textarea rows="4" cols="50" class = "form-control form-control-solid" name="address">Enter Address
+                        </textarea>
                         <span class="text-danger">{{ $errors->first('address') }}</span>
                       </div>
                     </div>

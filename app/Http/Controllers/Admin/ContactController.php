@@ -140,7 +140,7 @@ class ContactController extends Controller
         dd($request->all());
         $this->validate($request, [
             'contract_type_id' => 'required',
-            /*'name_contracting_party' => 'required',*/
+            'contract_party' => 'required',
             'contract_person' => 'required',
             'contract_start_date' => 'required',
             'contract_end_date' => 'required',
@@ -150,7 +150,7 @@ class ContactController extends Controller
         $contract        = new Contract;
         $contract->contract_type_id = $request->input('contract_type_id');
         $contract->contract_person = $request->input('contract_person');
-        $contract->name_contracting_party = $request->input('name_contracting_party');
+        $contract->name_contracting_party = $request->input('contract_party');
         $contract->contract_start_date = $request->input('contract_start_date');
         $contract->contract_end_date = $request->input('contract_end_date');
         $contract->subject = $request->input('subject');
