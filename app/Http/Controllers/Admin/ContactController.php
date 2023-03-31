@@ -120,7 +120,7 @@ class ContactController extends Controller
 	{
 		$title = "Contracts Details";
         $contract = Contract::with('file','contract')->find($request->id);
-        $users = json_decode($contract->users);
+        $users = User::where('id'.$contract->users)->first();
 		return view('admin.contracts.detail', compact('contract','title','users'));
 	}
     public function create()
