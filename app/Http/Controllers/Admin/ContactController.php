@@ -128,7 +128,7 @@ class ContactController extends Controller
         
         $title = "Contract Types";
         $contract_types = ContractType::where('added_by',auth()->user()->id)->latest()->get();
-        $users = User::where('is_admin', '0')->where('user_type','user')->get();
+        $users = User::where('is_admin', '0')->where('user_type','user')->where('added_by',auth()->user()->id)->get();
 		return view('admin.contracts.create',compact('title','contract_types','users'));
     }
 
@@ -193,7 +193,7 @@ class ContactController extends Controller
         $title = "Contract Edit";
         $contract = Contract::with('user')->find($id);
         $contract_types = ContractType::where('added_by',auth()->user()->id)->latest()->get();
-        $users = User::where('is_admin', '0')->where('user_type','user')->get();
+        $users = User::where('is_admin', '0')->where('user_type','user')->where('added_by',auth()->user()->id)->get();
       
 		return view('admin.contracts.edit', compact('contract','title','contract_types','users'));
     }
