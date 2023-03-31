@@ -9,7 +9,7 @@ class ContractType extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title'
+        'title','added_by'
     ];
     public function contracts()
     {

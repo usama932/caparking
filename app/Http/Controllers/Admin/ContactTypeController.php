@@ -43,14 +43,14 @@ class ContactTypeController extends Controller
 		$dir = $request->input('order.0.dir');
 		
 		if(empty($request->input('search.value'))){
-			$contracts = ContractType::offset($start)
+			$contracts = ContractType::where('added_by',auth()->user()->id)->offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
-			$totalFiltered = ContractType::count();
+			$totalFiltered = ContractType::where('added_by',auth()->user()->id)->count();
 		}else{
 			$search = $request->input('search.value');
-			$contracts = ContractType::where([
+			$contracts = ContractType::where('added_by',auth()->user()->id)->where([
 				['title', 'like', "%{$search}%"],
 			])   
 				->orWhere('created_at','like',"%{$search}%")
@@ -58,7 +58,7 @@ class ContactTypeController extends Controller
 				->limit($limit)
 				->orderBy($order, $dir)
 				->get();
-			$totalFiltered = ContractType::where([
+			$totalFiltered = ContractType::where('added_by',auth()->user()->id)->where([
 				
 				['title', 'like', "%{$search}%"],
 			])
@@ -133,7 +133,7 @@ class ContactTypeController extends Controller
         ]);
         $contracttype = new ContractType;
         $contracttype->title = $request->input('title');
-		
+		$contracttype->added_by = auth()->user()->id;
         $contracttype->save();
         Session::flash('success_message', 'Contract Type successfully update!');
         return  redirect()->route('contact_types.index')
