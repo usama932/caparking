@@ -40,7 +40,7 @@ if(!empty(Session::get('locale')))
                                     <label class="checkbox checkbox-outline checkbox-success"><input
                                             type="checkbox"><span></span></label>
                                 </th>
-                                <th>{{trans('admin.user')}}</th>
+                                <th>{{trans('admin.company')}} Name</th>
                                 <th>{{trans('admin.plans')}}</th>
                                 <th>{{trans('admin.amount')}} ($)</th>
                                 <th>{{trans('admin.expiry_date')}}</th>

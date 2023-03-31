@@ -21,12 +21,14 @@ if(!empty(Session::get('locale')))
 				{{ $contract->contract->title }}
 			</td> 
 		</tr>
+		@if($contract->users)
 		<tr>
 			<td>Assign {{trans('admin.user')}}</td>
 			<td>
 			{{ $contract->users ?? 'Not assign' }}
 			</td>
 		</tr>
+		@endif
 		<tr>
 			<td>{{trans('admin.subject')}}</td>
 			<td>{{$contract->subject}}</td>
