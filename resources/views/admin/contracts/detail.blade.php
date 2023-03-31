@@ -25,7 +25,7 @@ if(!empty(Session::get('locale')))
 		<tr>
 			<td>Assign {{trans('admin.user')}}</td>
 			<td>
-			{{ $contract->users ?? 'Not assign' }}
+			{{ $users->name ?? 'Not assign' }}
 			</td>
 		</tr>
 		@endif

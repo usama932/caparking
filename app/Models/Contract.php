@@ -27,10 +27,7 @@ class Contract extends Model
     {
         return $this->hasOne('App\Models\ContractFile','contract_id','id');
     }
-    public function setUsersAttribute($value)
-    {
-        $this->attributes['users'] = json_encode($value);
-    }
+  
     
    
 }
