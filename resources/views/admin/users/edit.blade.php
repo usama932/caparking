@@ -80,6 +80,43 @@ if(!empty(Session::get('locale')))
                 <div class="col-xl-8">
                   <div class="my-5">
                     <h3 class="text-dark font-weight-bold mb-10"> {{trans('admin.customer')}}  {{trans('admin.info')}}: </h3>
+                    <div class="form-group row {{ $errors->has('street') ? 'has-error' : '' }}">
+                      <label class="col-3">Company Name</label>
+                      <div class="col-9">
+                        {{ Form::text('street', null, ['class' => 'form-control form-control-solid','id'=>'street','placeholder'=>'Enter Street','required'=>'true']) }}
+                        <span class="text-danger">{{ $errors->first('street') }}</span>
+                      </div>
+                    </div>
+                    <div class="form-group row {{ $errors->has('house_number') ? 'has-error' : '' }}">
+                      <label class="col-3">House No.#</label>
+                      <div class="col-9">
+                        {{ Form::text('house_number', null, ['class' => 'form-control form-control-solid','id'=>'house_number','placeholder'=>'Enter House number','required'=>'true']) }}
+                        <span class="text-danger">{{ $errors->first('house_number') }}</span>
+                      </div>
+                    </div>
+                    <div class="form-group row {{ $errors->has('zip') ? 'has-error' : '' }}">
+                      <label class="col-3">Zip.#</label>
+                      <div class="col-9">
+                        {{ Form::text('zip', null, ['class' => 'form-control form-control-solid','id'=>'zip','placeholder'=>'Enter House number','required'=>'true']) }}
+                        <span class="text-danger">{{ $errors->first('zip') }}</span>
+                      </div>
+                    </div>
+                    <div class="form-group row {{ $errors->has('city') ? 'has-error' : '' }}">
+                      <label class="col-3">City</label>
+                      <div class="col-9">
+                        {{ Form::text('city', null, ['class' => 'form-control form-control-solid','id'=>'city','placeholder'=>'Enter House number','required'=>'true']) }}
+                        <span class="text-danger">{{ $errors->first('city') }}</span>
+                      </div>
+                    </div>
+                    <div class="form-group row {{ $errors->has('country') ? 'has-error' : '' }}">
+                      <label class="col-3">Country</label>
+                      <div class="col-9">
+                        {{ Form::text('country', null, ['class' => 'form-control form-control-solid','id'=>'country','placeholder'=>'Enter House number','required'=>'true']) }}
+                        <span class="text-danger">{{ $errors->first('country') }}</span>
+                      </div>
+                    </div>
+                    <h3> Contact Person: </h3>
+                   
                     <div class="form-group row {{ $errors->has('name') ? 'has-error' : '' }}">
                       <label class="col-3">Name</label>
                       <div class="col-9">
@@ -104,6 +141,13 @@ if(!empty(Session::get('locale')))
                           </select>
                         </div>
                     </div> --}}
+                    <div class="form-group row {{ $errors->has('mobile_number') ? 'has-error' : '' }}">
+                      <label class="col-3">Mobile.#</label>
+                      <div class="col-9">
+                        {{ Form::text('mobile_number', null, ['class' => 'form-control form-control-solid','id'=>'mobile_number','placeholder'=>'Enter Name','required'=>'true']) }}
+                        <span class="text-danger">{{ $errors->first('mobile_number') }}</span>
+                      </div>
+                    </div>
                     <input name="user_type" value="user" type="hidden">
                     <div class="form-group row {{ $errors->has('password') ? 'has-error' : '' }}">
                       <label class="col-3"> {{trans('admin.password')}}</label>

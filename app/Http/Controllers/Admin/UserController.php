@@ -147,6 +147,10 @@ class UserController extends Controller
 		    'email' => 'required|unique:users,email',
 		    'password' => 'required|min:6',
 			'roles' => 'required',
+			'street' => 'required',
+			'house_number' => 'required',
+			'city' => 'required',
+			'country' => 'required',
 	    ]);
 	
 	    $input = $request->all();
@@ -154,6 +158,13 @@ class UserController extends Controller
 	    $user->name = $input['name'];
 	    $user->email = $input['email'];
 		$user->added_by = auth()->user()->id;
+		$user->street = $input['street'];
+		$user->house_number = $input['house_number'];
+		$user->city = $input['city'];
+		$user->country = $input['country'];
+		$user->zip = $input['zip'];
+		$user->mobile_number = $input['mobile_number'];
+		$user->company_name = auth()->user()->name;
 	
         $user->is_admin = '0';
         $user->assign_role = '3';
@@ -195,9 +206,16 @@ class UserController extends Controller
 			'roles' => 'required',
 	    ]);
 	    $input = $request->all();
-	
-	    $user->name = $input['name'];
+		$user->name = $input['name'];
 	    $user->email = $input['email'];
+		$user->added_by = auth()->user()->id;
+		$user->street = $input['street'];
+		$user->house_number = $input['house_number'];
+		$user->city = $input['city'];
+		$user->country = $input['country'];
+		$user->zip = $input['zip'];
+		$user->mobile_number = $input['mobile_number'];
+		$user->company_name = auth()->user()->name;
 
         $user->is_admin = '0';
         $user->assign_role = '3';

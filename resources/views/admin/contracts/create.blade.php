@@ -59,7 +59,7 @@ if(!empty(Session::get('locale')))
                 <i class="ki ki-long-arrow-back icon-sm"></i>{{trans('admin.back')}}</a>
 
               <div class="btn-group">
-                <a href="{{ route('contracts.store') }}"  onclick="event.preventDefault(); document.getElementById('contacts_add_form').submit();" id="kt_btn" class="btn btn-primary font-weight-bolder">
+                <a href="{{ route('contacts.store') }}"  onclick="event.preventDefault(); document.getElementById('contacts_add_form').submit();" id="kt_btn" class="btn btn-primary font-weight-bolder">
                   <i class="ki ki-check icon-sm"></i>{{trans('admin.save')}}</a>
 
 
@@ -70,7 +70,7 @@ if(!empty(Session::get('locale')))
           <div class="card-body">
           @include('admin.partials._messages')
           <!--begin::Form-->
-            {{ Form::open([ 'route' => 'contracts.store','class'=>'form' ,"id"=>"contacts_add_form", 'enctype'=>'multipart/form-data']) }}
+            {{ Form::open([ 'route' => 'contacts.store','class'=>'form' ,"id"=>"contacts_add_form", 'enctype'=>'multipart/form-data']) }}
               @csrf
               <div class="row">
                 <div class="col-xl-2"></div>
@@ -95,7 +95,7 @@ if(!empty(Session::get('locale')))
                         <div class="form-group row {{ $errors->has('users') ? 'has-error' : '' }}">
                           <label class="col-3">Assign {{trans('admin.user')}}</label>
                           <div class="col-9">
-                            <select name="users[]" multiple="" class="form-control form-control-solid">
+                            <select name="users[]" multiple="" id="select2Multiple" class="select2-multiple form-control form-control-solid">
                                 @foreach($users as $user)
                                     <option value="{{$user->name}}" class="form-control form-control-solid">{{$user->name}}</option>
                                 @endforeach

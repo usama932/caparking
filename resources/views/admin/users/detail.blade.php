@@ -9,7 +9,31 @@
 			<td>Email</td>
 			<td>{{$user->email}}</td>
 		</tr>
+		<tr>
+			<td>Mobile #</td>
+			<td>{{$user->mobile_number}}</td>
+		</tr>
+		<tr>
+			<td>House #</td>
+			<td>{{$user->house_number}}</td>
+		</tr>
+		<tr>
+			<td>Street</td>
+			<td>{{$user->street}}</td>
+		</tr>
 		
+		<tr>
+			<td>Zip</td>
+			<td>{{$user->zip}}</td>
+		</tr>
+		<tr>
+			<td>City</td>
+			<td>{{$user->city}}</td>
+		</tr>
+		<tr>
+			<td>Country</td>
+			<td>{{$user->country}}</td>
+		</tr>
 		<tr>
 			<td>Status</td>
 			<td>

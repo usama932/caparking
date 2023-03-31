@@ -111,7 +111,7 @@ if(!empty(Session::get('locale')))
                         </div>
                     </div> --}}
                     <div class="form-group row {{ $errors->has('password') ? 'has-error' : '' }}">
-                      <label class="col-3">{{trans('admin.Passowrd')}}</label>
+                      <label class="col-3">{{trans('admin.passowrd')}}</label>
                       <div class="col-9">
                         {{ Form::text('password','', ['placeholder'=>"If you won't change Password then leave it blank as it as.", 'class' => 'form-control form-control-solid','id'=>'password','required'=>'true']) }}
                         <span class="text-danger">{{ $errors->first('password') }}</span>

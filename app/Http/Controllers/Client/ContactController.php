@@ -125,7 +125,7 @@ class ContactController extends Controller
 		$title = "Contract Types";
         $contract_types = ContractType::latest()->get();
         $users = User::where('is_admin', '0')->get();
-		return view('admin.contracts.create',compact('title','contract_types','users'));
+		return view('admin.contracts.create_staff',compact('title','contract_types','users'));
     }
 
     public function store(Request $request)

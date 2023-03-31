@@ -35,12 +35,11 @@ class ContactController extends Controller
 			0 => 'id',
             1 => 'user_id',
             2 => 'contract_person',
-            
 			3 => 'created_at',
 			4 => 'action'
 		);
 		
-		$totalData = Contract::count();
+		$totalData = Contract::where('added_by',auth()->user()->id)->count();
     
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -49,7 +48,7 @@ class ContactController extends Controller
 		
 		if(empty($request->input('search.value'))){
          
-			$contracts = Contract::offset($start)
+			$contracts = Contract::where('added_by',auth()->user()->id)->offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
@@ -57,7 +56,7 @@ class ContactController extends Controller
 		}else{
            
 			$search = $request->input('search.value');
-			$contracts = Contract::where([
+			$contracts = Contract::where('added_by',auth()->user()->id)->where([
 				['contract_person', 'like', "%{$search}%"],
 			])   
 				->orWhere('created_at','like',"%{$search}%")
@@ -65,7 +64,7 @@ class ContactController extends Controller
 				->limit($limit)
 				->orderBy($order, $dir)
 				->get();
-			$totalFiltered = Contract::where([
+			$totalFiltered = Contract::where('added_by',auth()->user()->id)->where([
 				
 				['contract_person', 'like', "%{$search}%"],
 			])
@@ -136,7 +135,7 @@ class ContactController extends Controller
     
     public function store(Request $request)
     {  
-
+       
         $this->validate($request, [
             'contract_type_id' => 'required',
             'contract_person' => 'required',
@@ -190,10 +189,11 @@ class ContactController extends Controller
 
     public function edit($id)
     {
+        
         $title = "Contract Edit";
         $contract = Contract::with('user')->find($id);
         $contract_types = ContractType::latest()->get();
-        $users = User::where('is_admin', '0')->get();
+        $users = User::where('is_admin', '0')->where('user_type','user')->get();
       
 		return view('admin.contracts.edit', compact('contract','title','contract_types','users'));
     }
