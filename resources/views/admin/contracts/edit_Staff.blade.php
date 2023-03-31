@@ -127,8 +127,7 @@ if(!empty(Session::get('locale')))
                     <div class="form-group row {{ $errors->has('address') ? 'has-error' : '' }}">
                       <label class="col-3">{{trans('admin.address')}} </label>
                       <div class="col-9">
-                     <textarea rows="4" cols="50" class = "form-control form-control-solid" name="address" placeholder="Enter Address here...">
-                        </textarea><span class="text-danger">{{ $errors->first('address') }}</span>
+                     <textarea rows="4" cols="50" class = "form-control form-control-solid" name="address" placeholder="Enter Address here..."></textarea><span class="text-danger">{{ $errors->first('address') }}</span>
                       </div>
                     </div>
                     <div class="form-group row {{ $errors->has('contract_start_date') ? 'has-error' : '' }}">
