@@ -92,9 +92,9 @@ if(!empty(Session::get('locale')))
                         <div class="form-group row {{ $errors->has('users') ? 'has-error' : '' }}">
                           <label class="col-3">Assign {{trans('admin.user')}} </label>
                           <div class="col-9">
-                            <select name="user[]" multiple="" id="select2Multiple" class="select2-multiple form-control form-control-solid">
+                            <select name="users"  id="select2Multiple" class="select2-multiple form-control form-control-solid">
                                 @foreach($users as $user)
-                                    <option value="{{$user->name}}" class=" form-control form-control-solid "  {{is_array($contract->users) && in_array($contract->users, $user->name) ? 'selected' : '' }}>{{$user->name}}</option>
+                                    <option value="{{$user->id}}" class=" form-control form-control-solid "  {{is_array($contract->users) && in_array($contract->users, $user->name) ? 'selected' : '' }}>{{$user->name}}</option>
                                 @endforeach
                                 
                             </select>

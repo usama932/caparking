@@ -201,6 +201,7 @@ class ContactController extends Controller
   
     public function update(Request $request, $id)
     {
+        
         $this->validate($request, [
             'contract_type_id' => 'required',
             'name_contracting_party' => 'required',

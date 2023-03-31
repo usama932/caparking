@@ -10,6 +10,7 @@ use DB;
 use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Session;
+use App\Models\Contract;
 
 class UserController extends Controller
 {
@@ -77,7 +78,7 @@ class UserController extends Controller
 		if($users){
 			foreach($users as $r){
 				$edit_url = route('users.edit',$r->id);
-				
+				$show_url = route('users.show',$r->id);
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="clients[]" value="'.$r->id.'"><span></span></label></td>';
 				$nestedData['name'] = $r->name;
 				$nestedData['email'] = $r->email;
@@ -91,7 +92,7 @@ class UserController extends Controller
 				$nestedData['action'] = '
                                 <div>
                                 <td>
-                                    <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View Client" href="javascript:void(0)">
+                                    <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View User" href="javascript:void(0)">
                                         <i class="icon-1x text-dark-50 flaticon-eye"></i>
                                     </a>
 									
@@ -99,6 +100,10 @@ class UserController extends Controller
                                        href="'.$edit_url.'">
                                        <i class="icon-1x text-dark-50 flaticon-edit"></i>
                                     </a>
+									<a title=" User Contract" class="btn btn-sm btn-clean btn-icon"
+									href="'.$show_url.'">
+									<i class="icon-1x text-dark-50 flaticon-user"></i>
+								 	</a>
                                     <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();del('.$r->id.');" title="Delete Client" href="javascript:void(0)">
                                         <i class="icon-1x text-dark-50 flaticon-delete"></i>
                                     </a>
@@ -184,17 +189,104 @@ class UserController extends Controller
     {
 		
 	    $user = User::find($id);
-	    return view('admin.users.single', ['title' => 'Client detail', 'user' => $user]);
+		$title = 'User Contracts';
+	    return view('admin.users.single', ['title' => 'UserContract ', 'user' => $user]);
     }
     
-
+	public function getUserContracts(Request $request){
+		
+		$columns = array(
+			0 => 'id',
+            1 => 'user_id',
+            2 => 'contract_person',
+			3 => 'created_at',
+			4 => 'action'
+		);
+		
+		$totalData = Contract::where('users',$request->id)->count();
+    
+		$limit = $request->input('length');
+		$start = $request->input('start');
+		$order = $columns[$request->input('order.0.column')];
+		$dir = $request->input('order.0.dir');
+		
+		if(empty($request->input('search.value'))){
+         
+			$contracts = Contract::where('users',$request->id)->offset($start)
+				->limit($limit)
+				->orderBy($order,$dir)
+				->get();
+			$totalFiltered = Contract::count();
+		}else{
+           
+			$search = $request->input('search.value');
+			$contracts = Contract::where('users',$request->id)->where([
+				['contract_person', 'like', "%{$search}%"],
+			])   
+				->orWhere('created_at','like',"%{$search}%")
+				->offset($start)
+				->limit($limit)
+				->orderBy($order, $dir)
+				->get();
+			$totalFiltered = Contract::where('users',$request->id)->where([
+				
+				['contract_person', 'like', "%{$search}%"],
+			])
+				->orWhere('contract_person', 'like', "%{$search}%")
+				->orWhere('created_at','like',"%{$search}%")
+				->count();
+		}
+		
+        
+		$data = array();
+		
+		if($contracts){
+			foreach($contracts as $r){
+				$edit_url = route('contacts.edit',$r->id);
+				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="contracts[]" value="'.$r->id.'"><span></span></label></td>';
+                $nestedData['user_id'] = $r->name_contracting_party;
+                $nestedData['start_date'] = $r->contract_start_date;
+                $nestedData['end_Date'] = $r->contract_end_date;
+                $nestedData['contract_person'] = $r->contract_person;
+				
+				$nestedData['created_at'] = date('d-m-Y',strtotime($r->created_at));
+				$nestedData['action'] = '
+                                <div>
+                                <td>
+                                    <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View Contract" href="javascript:void(0)">
+                                        <i class="icon-1x text-dark-50 flaticon-eye"></i>
+                                    </a>
+                                    <a title="Edit Contract" class="btn btn-sm btn-clean btn-icon"
+                                       href="'.$edit_url.'">
+                                       <i class="icon-1x text-dark-50 flaticon-edit"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();del('.$r->id.');" title="Delete Contract" href="javascript:void(0)">
+                                        <i class="icon-1x text-dark-50 flaticon-delete"></i>
+                                    </a>
+                                </td>
+                                </div>
+                            ';
+				$data[] = $nestedData;
+			}
+		}
+		
+		$json_data = array(
+			"draw"			=> intval($request->input('draw')),
+			"recordsTotal"	=> intval($totalData),
+			"recordsFiltered" => intval($totalFiltered),
+			"data"			=> $data
+		);
+		
+		echo json_encode($json_data);
+	}
 
   
     public function edit($id)
     {
 		$roles = Role::pluck('name','name')->all();
 	    $user = User::find($id);
-	    return view('admin.users.edit', ['title' => 'Edit client details','roles' => $roles])->withUser($user);
+		
+	    return view('admin.users.single', ['title' => 'Edit client details','roles' => $roles])->withUser($user);
     }
 
     public function update(Request $request, $id)

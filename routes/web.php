@@ -85,6 +85,7 @@ Route::group([
     //User
     Route::resource('users','UserController');
 	Route::post('get-users', 'UserController@getUser')->name('admin.getUsers');
+    Route::post('get-users-contracts', 'UserController@getUserContracts')->name('admin.getUsersContracts');
 	Route::post('get-user', 'UserController@userDetail')->name('admin.getUser');
 	Route::get('user/delete/{id}', 'UserController@destroy');
 	Route::post('delete-selected-users', 'UserController@deleteSelectedClients')->name('admin.delete-selected-users');
