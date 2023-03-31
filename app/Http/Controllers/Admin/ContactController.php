@@ -202,25 +202,17 @@ class ContactController extends Controller
     public function update(Request $request, $id)
     {
         
-        $this->validate($request, [
-            'contract_type_id' => 'required',
-            'name_contracting_party' => 'required',
-            'contract_person' => 'required',
-            'contract_start_date' => 'required',
-            'contract_end_date' => 'required',
-           
-        ]);
-      
+       
         $contract        = Contract::find($id);
-        $contract->contract_type_id = $request->input('contract_type_id');
-        $contract->contract_person = $request->input('contract_person');
-        $contract->name_contracting_party = $request->input('name_contracting_party');
-        $contract->contract_start_date = $request->input('contract_start_date');
-        $contract->contract_end_date = $request->input('contract_end_date');
-        $contract->subject = $request->input('subject');
-        $contract->address = $request->input('address');
-        $contract->notify_by_email = $request->input('notify_by_email');
-        $contract->users = $request->input('users');
+        $contract->contract_type_id = $request->input('contract_type_id') ?? $contract->contract_type_id;
+        $contract->contract_person = $request->input('contract_person') ?? $contract->contract_person;
+        $contract->name_contracting_party = $request->input('name_contracting_party') ?? $contract->name_contracting_party;
+        $contract->contract_start_date = $request->input('contract_start_date') ?? $contract->contract_start_date;
+        $contract->contract_end_date = $request->input('contract_end_date') ?? $contract->contract_end_date;
+        $contract->subject = $request->input('subject') ?? $contract->subject;
+        $contract->address = $request->input('address') ?? $contract->address;
+        $contract->notify_by_email = $request->input('notify_by_email') ?? $contract->notify_by_email;
+        $contract->users = $request->input('users') ?? $contract->users;
         $contract->save();
         if (!empty($request->file)) {
         
