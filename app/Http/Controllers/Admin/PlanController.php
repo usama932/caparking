@@ -21,6 +21,8 @@ use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
+use PayPal\Api\WebhookEvent;
+use PayPal\Exception\PayPalConnectionException;
 
 class PlanController extends Controller
 {
@@ -249,55 +251,12 @@ class PlanController extends Controller
 
     public function update(Request $request, $id)
     {
-      //  dd($request->all());
         $planId = $request->pin;
-        $plan = Plan::get($planId,$this->apiContext);
-        //dd($request->all());
-        $patchName = new Patch();
-        $patchName->setOp('replace')
-            ->setPath('/')
-            ->setValue($request->name);
-        $patchRequest = new PatchRequest();
-        $patchRequest->addPatch($patchName);
-        
-        // Create a Patch object for the plan description
-        $patchDescription = new Patch();
-        $patchDescription->setOp('replace')
-            ->setPath('/')
-            ->setValue($request->sub_name);
-        $patchRequest->addPatch($patchDescription);
-        
-        // Update the plan with the new name and description
-        $plan->update($patchRequest, $this->    apiContext);
-        $paymentDefinition = new PaymentDefinition();
-        $paymentDefinition->setName('Subscription')
-          ->setType('REGULAR')
-          ->setFrequency('Month')
-          ->setFrequencyInterval('1')
-          ->setCycles('12')
-          ->setAmount(new Currency(array('value' => $request->price, 'currency' => 'USD')));
-
-        // Set merchant preferences
-        $merchantPreferences = new MerchantPreferences();
-        $merchantPreferences->setReturnUrl('https://website.dev/subscribe/paypal/return')
-          ->setCancelUrl('https://website.dev/subscribe/paypal/return')
-          ->setAutoBillAmount('yes')
-          ->setInitialFailAmountAction('CONTINUE')
-          ->setMaxFailAttempts('3');
-
-        $plan->setPaymentDefinitions(array($paymentDefinition));
-        $plan->setMerchantPreferences($merchantPreferences);
-        
-        $patch = new Patch();
-        $value = new PayPalModel('{"state":"ACTIVE"}');
-        $patch->setOp('replace')
-          ->setPath('/')
-          ->setValue($value);
-        $patchRequest = new PatchRequest();
-        $patchRequest->addPatch($patch);
-        $plan->update($patchRequest, $this->apiContext);
-        
-        dd($plan);
+        $updateplan = Plan::get($planId,$this->apiContext);
+       
+        $updateplan->delete($this->apiContext);
+        dd($updateplan);
+      
     }
 
     public function destroy($id)

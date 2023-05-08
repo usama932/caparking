@@ -118,6 +118,7 @@ class SettingController extends Controller
                 'class'=>'custom-file-input',
                 'style'=>'width:80px;max-width:100%;padding:12px;margin-bottom:10px'
             ),
+            
             array(
                 'name'=>'auth_image',
                 'type'=>'hidden',
@@ -141,7 +142,36 @@ class SettingController extends Controller
                 'class'=>'custom-file-input',
                 'style'=>'width:80px;max-width:100%;padding:12px;margin-bottom:10px'
             ),
+           
+            array(
+                'name'=>'client_id',
+                'id'=>'client_id',
+                'type'=>'text',
+                'label'=>'Paypal Client Id',
+                'class'=>'form-control form-control-solid',
+                'place_holder'=>'Enter Your Client Id',
+                'style'=>'width:80px;max-width:100%;padding:12px;margin-bottom:10px'
+            ),
+            array(
+                'name'=>'secret_id',
+                'id'=>'secret_id',
+                'type'=>'text',
+                'label'=>'Paypal Secret Id',
+                'class'=>'form-control form-control-solid',
+                'place_holder'=>'Enter Your Secret Id',
+                'style'=>'width:80px;max-width:100%;padding:12px;margin-bottom:10px'
+            ),
+            array(
+                'name'=>'live',
+                'id'=>'live',
+                'type'=>'checkbox',
+                'label'=>'Paypal Live',
+                'value'=> "1",
+              
+                'style'=>'width:80px;max-width:100%;padding:12px;margin-bottom:10px'
+            ),
         );
+       
         return view('admin.settings.index', ['title' => 'Site Setting','settings'=>$settings,
             'all_columns'=>$all_columns]);
     }

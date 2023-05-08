@@ -116,25 +116,45 @@
 														</div>
 													</div>
 												@endif
+												<!-- @if($column['type']=="checkbox")
+													<div class="form-group row">
+														<label class="col-3 col-form-label">{{$column['label']}}</label>
+														<div class="col-9">
+															 	<span class="switch switch-outline switch-icon switch-success">
+																<input name="{{$column['name']}}"
+																      
+														           type="checkbox"
+														           id="{{$column['id']}}"
+																       value="{{$column['value']}}" checked="checked"
+																><span></span>
+																 </label>
+                              									</span>
+																
+														</div>
+													</div>
+												@endif -->
 												@if($column['type']=="checkbox")
 													<div class="form-group row">
 														<label class="col-3 col-form-label">{{$column['label']}}</label>
 														<div class="col-9">
-															 <span class="switch switch-outline switch-icon switch-success">
+															 	
 																<input name="{{$column['name']}}"
-																       class="{{$column['class']}}"
+																      
 														           type="checkbox"
 														           id="{{$column['id']}}"
-																       value="{{$column['value']}}"
-																><span></span>
+																   @if(isset($settings['live'] ))
+							  										@if($settings['live'] == 'on' ) checked @endif
+																	@endif  
+																>
 																 </label>
-                              </span>
+                              									</span>
 																
 														</div>
 													</div>
 												@endif
-											
+										
 										@endforeach
+										
 									</div>
 									<div class="separator separator-dashed my-10"></div>
 								
