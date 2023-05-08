@@ -76,7 +76,7 @@ if(!empty(Session::get('locale')))
                 <div class="col-xl-2"></div>
                 <div class="col-xl-8">
                   <div class="my-5">
-                    <h3 class="text-dark font-weight-bold mb-10">Role Info: </h3>
+                    <h3 class="text-dark font-weight-bold mb-10">Plan Info: </h3>
                     <div class="form-group row {{ $errors->has('name') ? 'has-error' : '' }}">
                       <label class="col-3">App Name</label>
                       <div class="col-9">

@@ -9,7 +9,7 @@ class Pay_Plan extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'price', 'plan_id', 'is_admin'
+        'name', 'price', 'plan_id', 'is_admin','sub_name'
     ];
     public function plan()
     {

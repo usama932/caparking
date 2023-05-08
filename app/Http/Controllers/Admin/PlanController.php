@@ -120,6 +120,10 @@ class PlanController extends Controller
                                     <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View Client" href="javascript:void(0)">
                                         <i class="icon-1x text-dark-50 flaticon-eye"></i>
                                     </a>
+                                    <a title="Edit Plan" class="btn btn-sm btn-clean btn-icon"
+                                    href="'.$edit_url.'">
+                                    <i class="icon-1x text-dark-50 flaticon-edit"></i>
+                                    </a>
                                     
                                    
                                 </td>
@@ -222,6 +226,7 @@ class PlanController extends Controller
                 'name' =>   $request->name,
                 'plan_id' => $plan->getId(),
                 'price' =>  $request->price,
+                'sub_name' =>   $request->sub_name,
             ]);
         }
        
@@ -237,12 +242,62 @@ class PlanController extends Controller
 
     public function edit($id)
     {
-        //
+        $title = "Edit Plan";
+        $plan = Pay_Plan::find($id);
+		return view('admin.plans.edit',compact('title','plan'));
     }
 
     public function update(Request $request, $id)
     {
-        //
+      //  dd($request->all());
+        $planId = $request->pin;
+        $plan = Plan::get($planId,$this->apiContext);
+        //dd($request->all());
+        $patchName = new Patch();
+        $patchName->setOp('replace')
+            ->setPath('/')
+            ->setValue($request->name);
+        $patchRequest = new PatchRequest();
+        $patchRequest->addPatch($patchName);
+        
+        // Create a Patch object for the plan description
+        $patchDescription = new Patch();
+        $patchDescription->setOp('replace')
+            ->setPath('/')
+            ->setValue($request->sub_name);
+        $patchRequest->addPatch($patchDescription);
+        
+        // Update the plan with the new name and description
+        $plan->update($patchRequest, $this->    apiContext);
+        $paymentDefinition = new PaymentDefinition();
+        $paymentDefinition->setName('Subscription')
+          ->setType('REGULAR')
+          ->setFrequency('Month')
+          ->setFrequencyInterval('1')
+          ->setCycles('12')
+          ->setAmount(new Currency(array('value' => $request->price, 'currency' => 'USD')));
+
+        // Set merchant preferences
+        $merchantPreferences = new MerchantPreferences();
+        $merchantPreferences->setReturnUrl('https://website.dev/subscribe/paypal/return')
+          ->setCancelUrl('https://website.dev/subscribe/paypal/return')
+          ->setAutoBillAmount('yes')
+          ->setInitialFailAmountAction('CONTINUE')
+          ->setMaxFailAttempts('3');
+
+        $plan->setPaymentDefinitions(array($paymentDefinition));
+        $plan->setMerchantPreferences($merchantPreferences);
+        
+        $patch = new Patch();
+        $value = new PayPalModel('{"state":"ACTIVE"}');
+        $patch->setOp('replace')
+          ->setPath('/')
+          ->setValue($value);
+        $patchRequest = new PatchRequest();
+        $patchRequest->addPatch($patch);
+        $plan->update($patchRequest, $this->apiContext);
+        
+        dd($plan);
     }
 
     public function destroy($id)
