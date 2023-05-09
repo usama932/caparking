@@ -16,6 +16,7 @@ use PayPal\Common\PayPalModel;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use App\Models\Setting;
+use App\Models\Order;
 
 class PlanController extends Controller
 {
@@ -161,7 +162,7 @@ class PlanController extends Controller
 
     public function store(Request $request)
     {
-       
+
         $this->validate($request, [
 		    'name' => 'required|max:255',
 		    'sub_name' => 'required',
@@ -261,7 +262,7 @@ class PlanController extends Controller
 
         $planId = $request->pin;
         $updateplan = Plan::get($planId,$this->apiContext);
-
+        $orders = Order::where('order_id',$planId)->get();
         $updateplan->delete($this->apiContext);
 
         $pay_plan = Pay_Plan::find($id);
