@@ -161,7 +161,7 @@ class PlanController extends Controller
 
     public function store(Request $request)
     {
-       // dd($this->apiContext);
+       
         $this->validate($request, [
 		    'name' => 'required|max:255',
 		    'sub_name' => 'required',
