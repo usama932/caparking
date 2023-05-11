@@ -40,16 +40,23 @@ class PlanController extends Controller
 
             $this->client_id = $client_id->value;
             $this->secret =  $secret->value;
+
+            $this->apiContext = new ApiContext(new OAuthTokenCredential($this->client_id, $this->secret));
+
+            $this->apiContext->setConfig(config('paypal.settings_live'));
         } else {
 
             $this->client_id = "AQDo_4Msx6bwCWesP5Pb2bgb7LIaeFnprdpowlFt7gvfdoFP3ILaKLYJb5Ssq7xKxopoIf2eEWA7iOw-";
             $this->secret = "EJrvtcJ5Zd5EfVno5A7i2rkAcAQld9ALwXAKeOzvMrb0BK5AimVK0WjOkV-ITk7Nt6Xs7675hyNuMxS6";
+
+
+            $this->apiContext = new ApiContext(new OAuthTokenCredential($this->client_id, $this->secret));
+
+            $this->apiContext->setConfig(config('paypal.settings'));
         }
 
         // Set the Paypal API Context/Credentials
-        $this->apiContext = new ApiContext(new OAuthTokenCredential($this->client_id, $this->secret));
 
-         $this->apiContext->setConfig(config('paypal.settings'));
     }
 
     public function index()
@@ -343,9 +350,11 @@ class PlanController extends Controller
 
     public function destroy($id)
     {
+        $plan = Pay_Plan::find($id);
 
-
-
+        $planId = $plan->plan_id;
+        $updateplan = Plan::get($planId,$this->apiContext);
+        $updateplan->delete($this->apiContext);
 	    if(!empty($plan)){
 		    $plan->delete();
 		    Session::flash('success_message', 'plan successfully deleted!');
