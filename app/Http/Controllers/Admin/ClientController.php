@@ -86,7 +86,7 @@ class ClientController extends Controller
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="clients[]" value="'.$r->id.'"><span></span></label></td>';
 				$nestedData['name'] = $r->name;
 				$nestedData['email'] = $r->email;
-                $nestedData['plan'] = $r->order->plan_name;
+                $nestedData['plan'] = $r->order->plan_name ?? "Not yet buy";
 				if($r->active){
 					$nestedData['active'] = '<span class="label label-success label-inline mr-2">Active</span>';
 				}else{
