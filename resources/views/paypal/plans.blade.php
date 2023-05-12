@@ -1,9 +1,9 @@
-@php 
-if(!empty(Session::get('locale'))) 
+@php
+if(!empty(Session::get('locale')))
     {
         app()->setLocale(Session::get('locale'));
     }
-            
+
     else{
          app()->setLocale('en');
     }
@@ -19,6 +19,7 @@ if(!empty(Session::get('locale')))
       @if(!empty($plans))
          <div class="row">
             <!-- begin: Pricing-->
+            @if(!empty($plans['0']['id']))
             <div class="col-md-6">
                <div class="pt-30 pt-md-25 pb-15 px-5 text-center">
                   <!--begin::Icon-->
@@ -47,7 +48,7 @@ if(!empty(Session::get('locale')))
                   <div class="d-flex flex-column line-height-xl pb-10">
                      <span>Monthly Subscribe</span>
                      <span>Auto Subscribe</span>
-                    
+
                   </div>
                   <span class="font-size-h1 d-block font-weight-boldest text-dark">{{ $plans['0']['price']}}<sup class="font-size-h3 font-weight-normal pl-1">$</sup></span>
                   <div class="mt-7">
@@ -58,8 +59,10 @@ if(!empty(Session::get('locale')))
                   <!--end::Content-->
                </div>
             </div>
+            @endif
             <!-- end: Pricing-->
             <!-- begin: Pricing-->
+            @if(!empty($plans['1']['id']))
             <div class="col-md-6 border-x-0 border-x-md border-y border-y-md-0">
                <div class="pt-30 pt-md-25 pb-15 px-5 text-center">
                   <!--begin::Icon-->
@@ -88,16 +91,17 @@ if(!empty(Session::get('locale')))
                      <span>Monthly Subscribe</span>
                      <span>Auto Subscribe</span>
                   </div>
-                  <span class="font-size-h1 d-block font-weight-boldest text-dark">{{ $plans['1']['price']}}<sup class="font-size-h3 font-weight-normal pl-1">$</sup></span>
+                  <span class="font-size-h1 d-block font-weight-boldest text-dark">{{ $plans['1']['price'] }}<sup class="font-size-h3 font-weight-normal pl-1">$</sup></span>
                   <div class="mt-7">
-                     <a href= "{{route('make.payment',$plans['1']['id'])}}">
+                     <a href= "{{route('make.payment',$plans['1']['id'] )}}">
                         <button type="button" class="btn btn-primary text-uppercase font-weight-bolder px-15 py-3">Subscribe</button>
                      </a>
                   </div>
                   <!--end::Content-->
                </div>
             </div>
-          
+            @endif
+
          </div>
       @else
       <h1 class="text-center">No Plans Found</h1>

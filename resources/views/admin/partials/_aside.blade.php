@@ -17,7 +17,7 @@
             <img alt="Logo" src="{{ asset($logo) }}"   width="200"/>
             {{-- <h3>Pay Subcription</h3> --}}
         </a>
-        
+
         <!--end::Logo-->
 
         <!--begin::Toggle-->
@@ -73,9 +73,9 @@
                             </svg><!--end::Svg Icon--></span>
                         </span>
                         <span class="menu-text text-white">{{trans('admin.dashboard')}}</span>
-                     
+
                     </a>
-                </li> 
+                </li>
                 <li class="menu-item text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'roles') {
                     echo 'menu-item-active';
                     } ?>" aria-haspopup="true">
@@ -154,9 +154,9 @@
                             </svg><!--end::Svg Icon--></span>
                         </span>
                         <span class="menu-text text-white">{{trans('admin.companies')}}</span>
-                       
+
                     </a>
-                    
+
                 </li>
 
                 {{-- <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'contacts') {
@@ -215,7 +215,7 @@
                     </a>
                 </li>
                 @endif
-                @if(auth()->user()->is_admin == 1  && auth()->user()->assign_role == 2  && auth()->user()->user_type == 'company' )
+                @if(auth()->user()->is_admin == '1'  && auth()->user()->assign_role == 2  && auth()->user()->user_type == 'company' )
                     <li class="menu-item text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'dashboard') {
                         echo 'menu-item-active';
                         } ?>" aria-haspopup="true">
@@ -251,7 +251,7 @@
                             </a>
                         </li> --}}
 
-                        @if(auth()->user()->order->plan_name == 'Premium') 
+                        @if(auth()->user()->order->plan_name == 'Premium')
                             <li class="menu-item  text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'users') {
                                 echo 'menu-item-active';
                                 } ?>" aria-haspopup="true">
@@ -325,7 +325,7 @@
                     @endif
                 @endif
                 @if(auth()->user()->user_type == 'user' || auth()->user()->user_type == 'staff' )
-        
+
                     @if(auth()->user()->user_type == 'staff')
                     {{-- <li class="menu-item text-white <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'contact_types') {
                         echo 'menu-item-active';
@@ -361,8 +361,8 @@
                             <span class="menu-text text-white">{{trans('admin.contract')}}</span>
                         </a>
                     </li>
-                    
-                  
+
+
                 @endif
             </ul>
 

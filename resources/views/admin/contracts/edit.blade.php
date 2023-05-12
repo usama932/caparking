@@ -1,9 +1,9 @@
-@php 
-if(!empty(Session::get('locale'))) 
+@php
+if(!empty(Session::get('locale')))
     {
         app()->setLocale(Session::get('locale'));
     }
-            
+
     else{
          app()->setLocale('en');
     }
@@ -82,13 +82,13 @@ if(!empty(Session::get('locale')))
                             @foreach($contract_types as $contract_type)
                                 <option value="{{$contract_type->id}}" class="form-control form-control-solid">{{$contract_type->title}}</option>
                             @endforeach
-                            
+
                         </select>
                         <span class="text-danger">{{ $errors->first('contract_type_id') }}</span>
                       </div>
                     </div>
                     @if(auth()->user()->user_type == "company")
-                      @if(auth()->user()->order->plan_name == 'Premium') 
+                      @if(auth()->user()->order->plan_name == 'Premium')
                         <div class="form-group row {{ $errors->has('users') ? 'has-error' : '' }}">
                           <label class="col-3">Assign {{trans('admin.user')}} </label>
                           <div class="col-9">
@@ -96,18 +96,18 @@ if(!empty(Session::get('locale')))
                                 @foreach($users as $user)
                                     <option value="{{$user->id}}" class=" form-control form-control-solid "  {{is_array($contract->users) && in_array($contract->users, $user->name) ? 'selected' : '' }}>{{$user->name}}</option>
                                 @endforeach
-                                
+
                             </select>
                             <span class="text-danger">{{ $errors->first('contract_type_id') }}</span>
                           </div>
-                        </div> 
+                        </div>
                       @endif
                     @endif
-                    <div class="form-group row {{ $errors->has('contract_party') ? 'has-error' : '' }}">
+                    <div class="form-group row {{ $errors->has('name_contracting_party') ? 'has-error' : '' }}">
                       <label class="col-3">Name {{trans('admin.contract')}}  Party</label>
-                      <div class="col-9">  
-                       {{ Form::text('contract_party', null, ['class' => 'form-control form-control-solid','id'=>'contract_party','placeholder'=>'Enter Name Contract Party','required'=>'true']) }}
-                        <span class="text-danger">{{ $errors->first('contract_party') }}</span>
+                      <div class="col-9">
+                       {{ Form::text('name_contracting_party', null, ['class' => 'form-control form-control-solid','id'=>'name_contracting_party','placeholder'=>'Enter Name Contract Party','required'=>'true']) }}
+                        <span class="text-danger">{{ $errors->first('name_contracting_party') }}</span>
                       </div>
                     </div>
                     <div class="form-group row {{ $errors->has('subject') ? 'has-error' : '' }}">
@@ -126,7 +126,7 @@ if(!empty(Session::get('locale')))
                     <div class="form-group row {{ $errors->has('address') ? 'has-error' : '' }}">
                       <label class="col-3">{{trans('admin.address')}} </label>
                       <div class="col-9">
-                        <textarea rows="2" cols="50" class = "form-control form-control-solid" name="address" placeholder="Enter Address here..."></textarea>
+                        <textarea rows="2" cols="50" class = "form-control form-control-solid" name="address" placeholder="Enter Address here...">{{ $contract->address ?? 'Enter Address' }}</textarea>
                         <span class="text-danger">{{ $errors->first('address') }}</span>
                       </div>
                     </div>

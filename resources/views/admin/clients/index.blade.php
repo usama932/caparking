@@ -1,9 +1,9 @@
-@php 
-if(!empty(Session::get('locale'))) 
+@php
+if(!empty(Session::get('locale')))
     {
         app()->setLocale(Session::get('locale'));
     }
-            
+
     else{
          app()->setLocale('en');
     }
@@ -64,6 +64,7 @@ if(!empty(Session::get('locale')))
 
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>{{trans('admin.plans')}}</th>
                                 <th>{{trans('admin.status')}}</th>
                                 <th>{{trans('admin.created_at')}}</th>
                                 <th>{{trans('admin.actions')}}</th>
@@ -139,6 +140,9 @@ if(!empty(Session::get('locale')))
                 },
                 {
                     "data": "email"
+                },
+                {
+                    "data": "plan"
                 },
                 {
                     "data": "active"

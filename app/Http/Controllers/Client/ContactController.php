@@ -17,59 +17,59 @@ use DB;
 
 class ContactController extends Controller
 {
-  
+
     public function index()
     {
         $title = "Contract";
         return view('admin.contracts.staff_contracts',compact('title'));
     }
     public function getContacts(Request $request){
-    
+
 		$columns = array(
 			0 => 'id',
             1 => 'user_id',
-            2 => 'contract_person',  
+            2 => 'contract_person',
 			3 => 'created_at',
 			4 => 'action'
 		);
-		
+
 		$totalData = Contract::count();
-    
+
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$order = $columns[$request->input('order.0.column')];
 		$dir = $request->input('order.0.dir');
-		
+
 		if(empty($request->input('search.value'))){
-         
+
 			$contracts = Contract::where('added_by',auth()->user()->added_by)->offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
 			$totalFiltered = Contract::where('added_by',auth()->user()->added_by)->count();
 		}else{
-           
+
 			$search = $request->input('search.value');
 			$contracts = Contract::where('added_by',auth()->user()->added_by)->where([
 				['contract_person', 'like', "%{$search}%"],
-			])   
+			])
 				->orWhere('created_at','like',"%{$search}%")
 				->offset($start)
 				->limit($limit)
 				->orderBy($order, $dir)
 				->get();
 			$totalFiltered = Contract::where('added_by',auth()->user()->added_by)->where([
-				
+
 				['contract_person', 'like', "%{$search}%"],
 			])
 				->orWhere('contract_person', 'like', "%{$search}%")
 				->orWhere('created_at','like',"%{$search}%")
 				->count();
 		}
-		
-        
+
+
 		$data = array();
-		
+
 		if($contracts){
 			foreach($contracts as $r){
 				$edit_url = route('contracts.edit',$r->id);
@@ -83,35 +83,33 @@ class ContactController extends Controller
 						href="'.$edit_url.'">
 						<i class="icon-1x text-dark-50 flaticon-edit"></i>
 						</a>
-						<a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();del('.$r->id.');" title="Delete Contract" href="javascript:void(0)">
-							<i class="icon-1x text-dark-50 flaticon-delete"></i>
-						</a>';
+						';
 					}
 					$action .= '</td>
 					</div>';
-				
+
 
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="contracts[]" value="'.$r->id.'"><span></span></label></td>';
                 $nestedData['user_id'] = $r->name_contracting_party;
                 $nestedData['start_date'] = $r->contract_start_date;
                 $nestedData['end_Date'] = $r->contract_end_date;
                 $nestedData['contract_person'] = $r->contract_person;
-				
+
 				$nestedData['created_at'] = date('d-m-Y',strtotime($r->created_at));
 				$nestedData['action'] = $action;
 				$data[] = $nestedData;
 			}
 		}
-		
+
 		$json_data = array(
 			"draw"			=> intval($request->input('draw')),
 			"recordsTotal"	=> intval($totalData),
 			"recordsFiltered" => intval($totalFiltered),
 			"data"			=> $data
 		);
-		
+
 		echo json_encode($json_data);
-		
+
 	}
 	public function contactDetail(Request $request)
 	{
@@ -123,22 +121,22 @@ class ContactController extends Controller
     public function create()
     {
 		$title = "Contract Types";
-        $contract_types = ContractType::latest()->get();
+        $contract_types = ContractType::where('added_by',auth()->user()->added_by)->latest()->get();
         $users = User::where('is_admin', '0')->get();
 		return view('admin.contracts.create_staff',compact('title','contract_types','users'));
     }
 
     public function store(Request $request)
     {
-		
+
 		$this->validate($request, [
             'contract_type_id' => 'required',
             'contract_person' => 'required',
             'contract_start_date' => 'required',
             'contract_end_date' => 'required',
-           
+
         ]);
-      
+
         $contract        = new Contract;
         $contract->contract_type_id = $request->input('contract_type_id');
         $contract->contract_person = $request->input('contract_person');
@@ -152,7 +150,7 @@ class ContactController extends Controller
         $contract->added_by = auth()->user()->added_by;
 
         $contract->save();
- 
+
         if ($request->hasFile('file')) {
 			if ($request->file('file')->isValid()) {
 				$this->validate($request, [
@@ -163,13 +161,13 @@ class ContactController extends Controller
 				$filename = $file->getClientOriginalName('file');
 				$filename = rand() . $filename;
 				$request->file('file')->move($destinationPath, $filename);
-				
+
                 $contractfile       = new ContractFile;
                 $contractfile->contract_id = $contract->id;
                 $contractfile->file = $filename;
                 $contractfile->save();
 			}
-            
+
 		}
 
         Session::flash('success_message', 'Contract successfully update!');
@@ -177,10 +175,10 @@ class ContactController extends Controller
                           ->with('success','Contact  created successfully');
     }
 
-    
+
     public function show($id)
     {
-        
+
 
     }
     public function edit($id)
@@ -189,21 +187,21 @@ class ContactController extends Controller
         $contract = Contract::with('user')->find($id);
         $contract_types = ContractType::latest()->get();
         $users = User::where('is_admin', '0')->get();
-      
+
 		return view('admin.contracts.edit_Staff', compact('contract','title','contract_types','users'));
     }
- 
+
     public function update(Request $request, $id)
     {
 		$this->validate($request, [
             'contract_type_id' => 'required',
-           
+
             'contract_person' => 'required',
             'contract_start_date' => 'required',
             'contract_end_date' => 'required',
-           
+
         ]);
-      
+
         $contract        = Contract::find($id);
         $contract->contract_type_id = $request->input('contract_type_id');
         $contract->contract_person = $request->input('contract_person');
@@ -216,7 +214,7 @@ class ContactController extends Controller
         $contract->users = $request->input('users');
         $contract->save();
         if (!empty($request->file)) {
-        
+
 			if ($request->file('file')->isValid()) {
 				$this->validate($request, [
 					'file' => 'required|mimes:jpeg,png,jpg'
@@ -226,7 +224,7 @@ class ContactController extends Controller
 				$filename = $file->getClientOriginalName('file');
 				$filename = rand() . $filename;
 				$request->file('file')->move($destinationPath, $filename);
-				
+
                 $contractfiled        = ContractFile::where('contract_id',$contract->id)->first();
                 $contractfiled->delete();
 
@@ -235,14 +233,14 @@ class ContactController extends Controller
                 $contractfile->file = $filename;
                 $contractfile->save();
 			}
-            
+
 		}
         Session::flash('success_message', 'Contract successfully update!');
         return  redirect()->route('contracts.index')
                           ->with('success','Contact  created successfully');
     }
 	public function destroy($id)
-   
+
 	{
 	    $contract = Contract::find($id);
 	    if(!empty($contract)){
@@ -250,25 +248,25 @@ class ContactController extends Controller
 		    Session::flash('success_message', 'Contract  successfully deleted!');
 	    }
 	    return redirect()->back();
-	   
+
     }
 	public function deleteSelectedcontract(Request $request)
 	{
 		$input = $request->all();
 		$this->validate($request, [
 			'contracts' => 'required',
-		
+
 		]);
 		foreach ($input['contracts'] as $index => $id) {
-			
+
 			$contracts = Contract::find($id);
 			if(!empty($contracts)){
 				$contracts->delete();
 			}
-			
+
 		}
 		Session::flash('success_message', 'Contracts successfully deleted!');
 		return redirect()->back();
-		
+
 	}
 }

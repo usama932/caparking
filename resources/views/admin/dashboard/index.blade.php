@@ -1,9 +1,9 @@
-@php 
-if(!empty(Session::get('locale'))) 
+@php
+if(!empty(Session::get('locale')))
     {
         app()->setLocale(Session::get('locale'));
     }
-            
+
     else{
          app()->setLocale('en');
     }
@@ -12,15 +12,20 @@ if(!empty(Session::get('locale')))
 @section('title',$title)
 @section('content')
 	<!--begin::Entry-->
+
 	<div class="d-flex flex-column-fluid">
 		<!--begin::Container-->
+
 		<div class="container">
+
 			<div id="cardbody" class="card card-custom">
-
-
 
 			<div class="card-spacer mt-3">
 				<!--begin::Row-->
+                @if(auth()->user()->user_type == 'company')
+                <h3 class="text-center">You Subcribe <span class="text-danger">"{{ auth()->user()->order->plan_name }}"</span> Plan.</h3>
+
+                @endif
 			@if(auth()->user()->user_type == 'admin')
 				<div class="row m-0">
 					<div class="col bg-light-warning px-6 py-8 rounded-xl mr-3 mb-7">
@@ -73,7 +78,7 @@ if(!empty(Session::get('locale')))
 					</div>
 
 
-					
+
 				</div>
 			@endif
 			@if(auth()->user()->user_type == 'company')
@@ -128,7 +133,7 @@ if(!empty(Session::get('locale')))
 					</div>
 
 
-					
+
 				</div>
 			@endif
 			</div>
@@ -138,7 +143,7 @@ if(!empty(Session::get('locale')))
 
 
 		</div>
-		
+
 		</div>
 		<!--end::Container-->
 	</div>

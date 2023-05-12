@@ -1,9 +1,9 @@
-@php 
-if(!empty(Session::get('locale'))) 
+@php
+if(!empty(Session::get('locale')))
     {
         app()->setLocale(Session::get('locale'));
     }
-            
+
     else{
          app()->setLocale('en');
     }
@@ -31,7 +31,10 @@ if(!empty(Session::get('locale')))
 				@endif
 			</td>
 		</tr>
-		
+		<tr>
+			<td>Subscribe Plan</td>
+			<td>{{$user->order->plan_name}}</td>
+		</tr>
 		<tr>
 			<td>Status</td>
 			<td>
@@ -46,7 +49,7 @@ if(!empty(Session::get('locale')))
 			<td>{{trans('admin.created_at')}}</td>
 			<td>{{$user->created_at}}</td>
 		</tr>
-		
+
 		</tbody>
 	</table>
 </div>
