@@ -29,7 +29,7 @@ $about = isset($setting['about_text']) ? $setting['about_text'] : 'Go to admin s
             justify-content: center;
             color: white;
             {{-- text-align: center; --}}
-            
+
         }
         .introduction {
             padding: 50px 0;
@@ -49,13 +49,13 @@ $about = isset($setting['about_text']) ? $setting['about_text'] : 'Go to admin s
             <img alt="Logo" src="{{ asset($logo) }}"   width="200"/>
             {{-- <h3>Pay Subcription</h3> --}}
             </a>
-            
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('login')}}">Login</a>
                     </li>
@@ -70,15 +70,15 @@ $about = isset($setting['about_text']) ? $setting['about_text'] : 'Go to admin s
     <!-- Banner -->
     <section class="banner mt-5">
         <div class="container">
-            <h1>Welcome To Contract Kampaner</h1>
-        </div>
+            {{--  <h1>Welcome To Contract Kampaner</h1>  --}}
+        </div>m
     </section>
 
     <!-- Introduction -->
     <section class="introduction">
         <div class="container">
             <h2>About Us</h2>
-            <p>
+            <p style="margin-left:10% !important;">
                 {{$about}}
             </p>
         </div>

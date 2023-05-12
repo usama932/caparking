@@ -22,10 +22,7 @@ if(!empty(Session::get('locale')))
 
 			<div class="card-spacer mt-3">
 				<!--begin::Row-->
-                @if(auth()->user()->user_type == 'company')
-                <h3 class="text-center">You Subcribe <span class="text-danger">"{{ auth()->user()->order->plan_name }}"</span> Plan.</h3>
 
-                @endif
 			@if(auth()->user()->user_type == 'admin')
 				<div class="row m-0">
 					<div class="col bg-light-warning px-6 py-8 rounded-xl mr-3 mb-7">
@@ -128,8 +125,11 @@ if(!empty(Session::get('locale')))
 								</g></svg>
 								<!--end::Svg Icon-->
 						</span>
-						<a href="#" class="text-danger font-weight-bold font-size-h6 mt-2">Plans:</a>
-						<a href="#" class="text-danger font-weight-bold  mt-2">2</a>
+						<a href="#" class="text-danger font-weight-bold font-size-h6 mt-2">Plan:</a>
+						<a href="#" class="text-danger font-weight-bold  mt-2">   @if(auth()->user()->user_type == 'company')
+                            {{ auth()->user()->order->plan_name }}
+
+                            @endif</a>
 					</div>
 
 
