@@ -37,18 +37,7 @@ Route::group([
 	Route::get('/profile', 'ClientController@edit')->name('client-profile');
 	Route::post('/admin-update', 'ClientController@update')->name('client-update');
 
-    Route::resource('contracts','ContactController');
-    Route::post('get-staffcontacts', 'ContactController@getContacts')->name('admin.getStaffContacts');
-    Route::post('get-contactstaff', 'ContactController@contactDetail')->name('admin.getStaffContact');
-    Route::get('staffcontact/delete/{id}', 'ContactController@destroy');
-    Route::post('delete-selected-staffcontacts', 'ContactController@deleteSelectedcontract')->name('admin.delete-selected-staffcontact');
 
-    //contacts_types
-    // Route::resource('contact_types','ContactTypeController');
-    // Route::post('get-contacttypes', 'ContactTypeController@getContacttype')->name('admin.getContactTypes');
-    // Route::post('get-contacttype', 'ContactTypeController@contacttypeDetail')->name('admin.getContactType');
-    // Route::get('contacttype/delete/{id}', 'ContactTypeController@destroy');
-    // Route::post('delete-selected-contacttype', 'ContactTypeController@deleteSelectedcontacttype')->name('admin.delete-selected-contacttype');
 
 });
 
@@ -58,7 +47,7 @@ Route::group([
     'namespace'     => 'Admin'
 ], function ()
 {
-    
+
 
     Route::resource('users', UserController::class);
     Route::get('/dashboard', 'AdminController@index')->name('admin.dashboard');
@@ -89,7 +78,7 @@ Route::group([
 	Route::post('get-user', 'UserController@userDetail')->name('admin.getUser');
 	Route::get('user/delete/{id}', 'UserController@destroy');
 	Route::post('delete-selected-users', 'UserController@deleteSelectedClients')->name('admin.delete-selected-users');
-    
+
     //Staff
     Route::resource('staffs','StaffController');
 	Route::post('get-staffs', 'StaffController@getStaff')->name('admin.getStaffs');
@@ -111,14 +100,6 @@ Route::group([
 	Route::post('get-permission', 'PermissionController@permissionDetail')->name('admin.getPermission');
 	Route::get('permission/delete/{id}', 'PermissionController@destroy');
 	Route::post('delete-selected-permissions', 'PermissionController@deleteSelectedPermission')->name('admin.delete-selected-permissions');
-
-     //Plan
-    Route::resource('plans','PlanController');
-    Route::post('get-plans', 'PlanController@getPlans')->name('admin.getPlans');
-    Route::post('get-plan', 'PlanController@planDetail')->name('admin.getPlan');
-    Route::get('plan/delete/{id}', 'PlanController@destroy');
-    Route::post('delete-selected-plans', 'PlanController@deleteSelectedPlan')->name('admin.delete-selected-plans');
-
     //Order
     Route::resource('orders','OrderController');
     Route::post('get-orders', 'OrderController@getOrders')->name('admin.getOrders');
@@ -126,18 +107,6 @@ Route::group([
     Route::get('order/delete/{id}', 'OrderController@destroy');
     Route::post('delete-selected-orders', 'OrderController@deleteSelectedOrders')->name('admin.delete-selected-order');
 
-    //contacts
-    Route::resource('contacts','ContactController');
-    Route::post('get-contacts', 'ContactController@getContacts')->name('admin.getContacts');
-    Route::post('get-contact', 'ContactController@contactDetail')->name('admin.getContact');
-    Route::get('contact/delete/{id}', 'ContactController@destroy');
-    Route::post('delete-selected-contacts', 'ContactController@deleteSelectedcontract')->name('admin.delete-selected-contact');
 
-    //contacts_types
-    Route::resource('contact_types','ContactTypeController');
-    Route::post('get-contacttypes', 'ContactTypeController@getContacttype')->name('admin.getContactTypes');
-    Route::post('get-contacttype', 'ContactTypeController@contacttypeDetail')->name('admin.getContactType');
-    Route::get('contacttype/delete/{id}', 'ContactTypeController@destroy');
-    Route::post('delete-selected-contacttype', 'ContactTypeController@deleteSelectedcontacttype')->name('admin.delete-selected-contacttype');
 });
 

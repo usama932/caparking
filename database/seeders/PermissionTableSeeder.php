@@ -32,12 +32,6 @@ class PermissionTableSeeder extends Seeder
             'order-delete',
             'get-order',
             'get-orders',
-            'contract-list',
-            'contract-create',
-            'contract-edit',
-            'contract-delete',
-            'get-contract',
-            'get-contracts',
             'client-list',
             'client-create',
             'client-edit',
@@ -45,7 +39,7 @@ class PermissionTableSeeder extends Seeder
             'get-client',
             'get-clients',
          ];
-      
+
          foreach ($permissions as $permission) {
               Permission::create(['name' => $permission]);
          }
