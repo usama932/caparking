@@ -7,10 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use DB;
-use Hash;
-use App\Models\Pay_Plan;
 use App\Models\Order;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 
@@ -25,7 +22,7 @@ class ClientController extends Controller
     }
     public function index()
     {
-	    $title = 'Customers';
+	    $title = 'Staff';
 	    return view('admin.clients.index',compact('title'));
     }
 
@@ -86,7 +83,6 @@ class ClientController extends Controller
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="clients[]" value="'.$r->id.'"><span></span></label></td>';
 				$nestedData['name'] = $r->name;
 				$nestedData['email'] = $r->email;
-                $nestedData['plan'] = $r->order->plan_name ?? "Not yet buy";
 				if($r->active){
 					$nestedData['active'] = '<span class="label label-success label-inline mr-2">Active</span>';
 				}else{
@@ -100,10 +96,7 @@ class ClientController extends Controller
                                     <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View Client" href="javascript:void(0)">
                                         <i class="icon-1x text-dark-50 flaticon-eye"></i>
                                     </a>
-									<a title="show User" class="btn btn-sm btn-clean btn-icon"
-									href="'.$show_url.'">
-									<i class="icon-1x text-dark-50 flaticon-user"></i>
-									</a>
+
                                     <a title="Edit Client" class="btn btn-sm btn-clean btn-icon"
                                        href="'.$edit_url.'">
                                        <i class="icon-1x text-dark-50 flaticon-edit"></i>

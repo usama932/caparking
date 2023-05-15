@@ -18,7 +18,7 @@ if(!empty(Session::get('locale')))
                 <span class="card-icon">
                     <i class="flaticon-users text-primary"></i>
                 </span>
-                <h3 class="card-label">{{trans('admin.Company')}} {{trans('admin.list')}}</h3>
+                <h3 class="card-label">{{trans('admin.Staff')}} {{trans('admin.list')}}</h3>
                 <div class="d-flex align-items-center ">
                     <a class="btn btn-danger font-weight-bolder" onclick="del_selected()" href="javascript:void(0)"> <i
                             class="la la-trash-o"></i>{{trans('admin.delete_all')}}</a>
@@ -64,7 +64,6 @@ if(!empty(Session::get('locale')))
 
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>{{trans('admin.plans')}}</th>
                                 <th>{{trans('admin.status')}}</th>
                                 <th>{{trans('admin.created_at')}}</th>
                                 <th>{{trans('admin.actions')}}</th>
@@ -82,7 +81,7 @@ if(!empty(Session::get('locale')))
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="myModalLabel">{{trans('admin.Company')}} {{trans('admin.detail')}}</h4>
+                        <h4 class="modal-title" id="myModalLabel">Staff {{trans('admin.detail')}}</h4>
                     </div>
                     <div class="modal-body"></div>
                     <div class="modal-footer">
@@ -141,9 +140,7 @@ if(!empty(Session::get('locale')))
                 {
                     "data": "email"
                 },
-                {
-                    "data": "plan"
-                },
+
                 {
                     "data": "active"
                 },
@@ -182,7 +179,7 @@ if(!empty(Session::get('locale')))
                 if (result.value) {
                     Swal.fire(
                         "Deleted!",
-                        "Your Company has been deleted.",
+                        "Your Staff has been deleted.",
                         "success"
                     );
                     var APP_URL = {!! json_encode(url('/')) !!}
@@ -202,7 +199,7 @@ if(!empty(Session::get('locale')))
                 if (result.value) {
                     Swal.fire(
                         "Deleted!",
-                        "Your Companys has been deleted.",
+                        "Your Staffs has been deleted.",
                         "success"
                     );
                     $("#client_form").submit();

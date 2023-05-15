@@ -6,43 +6,28 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use App\Models\Pay_Plan;
-use App\Models\Contract;
 use App\Models\User;
 use Carbon\Carbon;
 
 class AdminController extends Controller
-{   
-   
+{
+
     public function index()
     {
-        $title = 'Subcription Service';
+        $title = 'Car Parking';
         if(auth()->user()->assign_role == 1 && auth()->user()->user_type == "admin"){
-            $contracts = Contract::count();
-            $companies = User::where('user_type','company')->count();
-            return view('admin.dashboard.index',compact('title','contracts','companies'));
+            return view('admin.dashboard.index',compact('title'));
         }
         elseif(auth()->user()->assign_role == 2 && auth()->user()->user_type == "company"){
-            $now = Carbon::now();
-            $order = Auth::user()->order;
-            $contracts = Contract::where('added_by',auth()->user()->id)->count();
-            $user = User::where('added_by',auth()->user()->id)->count();
-            if(empty($order)){
-                return redirect()->route('admin.plan');
-            }
-            elseif($order->expiry_date >= $now){
-                return view('admin.dashboard.index',compact('title','contracts','user'));
-            }
-            else{
-                Auth::logout();
-                return redirect('/');
-            }
+
+            return view('admin.dashboard.index',compact('title'));
+
         }
         else{
             Auth::logout();
             return redirect('/');
         }
-       
+
     }
 
     public function getPlan(){
@@ -61,7 +46,7 @@ class AdminController extends Controller
         //
     }
 
-    
+
     public function show($id)
     {
         //
@@ -73,7 +58,7 @@ class AdminController extends Controller
         return view('admin.settings.edit', ['title' => 'Edit Admin Profile','user'=>$user]);
     }
 
-    
+
     public function update(Request $request)
     {
         $admin = Auth::user();
