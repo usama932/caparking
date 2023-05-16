@@ -32,12 +32,17 @@ class PermissionTableSeeder extends Seeder
             'order-delete',
             'get-order',
             'get-orders',
-            'client-list',
-            'client-create',
-            'client-edit',
-            'client-delete',
-            'get-client',
-            'get-clients',
+            'staff-list',
+            'staff-create',
+            'staff-edit',
+            'staff-delete',
+            'get-staff',
+            'get-staffs',
+            'staff',
+            'orders',
+            'rates',
+            'setting',
+            
          ];
 
          foreach ($permissions as $permission) {

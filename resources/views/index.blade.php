@@ -13,33 +13,7 @@ $about = isset($setting['about_text']) ? $setting['about_text'] : 'Go to admin s
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Custom CSS -->
-    <style>
-        /* Customize your styles here */
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        .banner {
-            height: 500px;
-            background-image: url({{$banner}});
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            {{-- text-align: center; --}}
 
-        }
-        .introduction {
-            padding: 50px 0;
-            background-color: #f7f7f7;
-        }
-        .introduction h2 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -67,22 +41,6 @@ $about = isset($setting['about_text']) ? $setting['about_text'] : 'Go to admin s
         </div>
     </nav>
 
-    <!-- Banner -->
-    <section class="banner mt-5">
-        <div class="container">
-            {{--  <h1>Welcome To Contract Kampaner</h1>  --}}
-        </div>m
-    </section>
-
-    <!-- Introduction -->
-    <section class="introduction">
-        <div class="container">
-            <h2>About Us</h2>
-            <p style="margin-left:10% !important;">
-                {{$about}}
-            </p>
-        </div>
-    </section>
 
  <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

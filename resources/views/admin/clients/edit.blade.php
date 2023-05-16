@@ -1,9 +1,9 @@
-@php 
-if(!empty(Session::get('locale'))) 
+@php
+if(!empty(Session::get('locale')))
     {
         app()->setLocale(Session::get('locale'));
     }
-            
+
     else{
          app()->setLocale('en');
     }
@@ -94,10 +94,12 @@ if(!empty(Session::get('locale')))
                         <span class="text-danger">{{ $errors->first('email') }}</span>
                       </div>
                     </div>
+                    <input name="roles" value="company" type="hidden">
+                    <input name="user_type" value="company" type="hidden">
                     {{-- <div class="form-group row {{ $errors->has('roles') ? 'has-error' : '' }}">
                         <label class="col-3">Roles</label>
                          <div class="col-9">
-                     
+
                         {!! Form::select('roles[]', $roles,$user->role, array('class' => 'form-control','multiple')) !!}
                         </div>
                     </div>

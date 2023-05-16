@@ -17,40 +17,40 @@ class CreateAdminUserSeeder extends Seeder
     public function run()
     {
         $user = User::create([
-            'name' => 'Admin', 
+            'name' => 'Admin',
             'email' => 'admin@domain.com',
-            'password' => bcrypt('123456'),
+            'password' => bcrypt('12345607'),
             'is_admin' => '1',
             'assign_role' => '1',
             'user_type' => 'admin',
         ]);
         $user1 = User::create([
-            'name' => 'Company', 
+            'name' => 'Company',
             'email' => 'company@domain.com',
-            'password' => bcrypt('123456'),
+            'password' => bcrypt('12345607'),
             'is_admin' => '1',
             'assign_role' => '2',
             'user_type' => 'company',
         ]);
         $user2 = User::create([
-            'name' => 'user', 
+            'name' => 'user',
             'email' => 'user@domain.com',
-            'password' => bcrypt('123456'),
+            'password' => bcrypt('12345607'),
             'is_admin' => '0',
             'assign_role' => '3',
             'user_type' => 'user',
         ]);
-        
+
         $role  = Role::create(['name' => 'Admin']);
         $role1 = Role::create(['name' => 'Company']);
         $role2 = Role::create(['name' => 'user']);
 
         $permissions = Permission::get();
-        
+
         foreach ($permissions as $permission) {
             $role->givePermissionTo($permission->name);
         }
-    
+
         $user->assignRole($role->name);
         $user1->assignRole($role1->name);
         $user2->assignRole($role2->name);

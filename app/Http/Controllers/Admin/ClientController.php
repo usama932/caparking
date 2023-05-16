@@ -6,19 +6,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
-use DB;
-use App\Models\Order;
 use Illuminate\Support\Facades\Session;
-use Carbon\Carbon;
 
 class ClientController extends Controller
 {
 	function __construct()
     {
-            $this->middleware('permission:client-list|get-client|get-clients|client-create|client-edit|client-delete', ['only' => ['index','store']]);
-            $this->middleware('permission:client-create', ['only' => ['create','store']]);
-            $this->middleware('permission:client-edit', ['only' => ['edit','update']]);
-            $this->middleware('permission:client-delete', ['only' => ['destroy']]);
+            $this->middleware('permission:staff-list|get-staff|get-staffs|staff-create|staff-edit|staff-delete', ['only' => ['index','store']]);
+            $this->middleware('permission:staff-create', ['only' => ['create','store']]);
+            $this->middleware('permission:staff-edit', ['only' => ['edit','update']]);
+            $this->middleware('permission:staff-delete', ['only' => ['destroy']]);
     }
     public function index()
     {
@@ -132,18 +129,13 @@ class ClientController extends Controller
     public function create()
     {
 		$roles = Role::pluck('name','name')->all();
-		$plans = Pay_Plan::all();
-	    $title = 'Add New Client';
-	    return view('admin.clients.create',compact('title','roles','plans'));
+	    $title = 'Add New Staff';
+	    return view('admin.clients.create',compact('title','roles'));
     }
 
 
     public function store(Request $request)
     {
-
-		$now    = Carbon::now();
-        $expiry =  Carbon::now()->addMonth();
-
 
 	    $this->validate($request, [
 		    'name' => 'required|max:255',
@@ -174,17 +166,6 @@ class ClientController extends Controller
 	    $user->save();
 
 		$user->assignRole($request->input('roles'));
-		if($request->plans != null){
-			$plan = Pay_Plan::find($request->plans);
-			$order = Order::create([
-				'user_id' => $user->id,
-				'order_id' => $plan->plan_id,
-				'plan_name' => $plan->name,
-				'amount' => $plan->price,
-				'expiry_date' => $expiry,
-				'subscription_date' => $now,
-			]);
-		}
 
 	    Session::flash('success_message', 'Great! Client has been saved successfully!');
 	    $user->save();
@@ -199,110 +180,24 @@ class ClientController extends Controller
     }
 
 
-	public function reg_users(Request $request)
-    {
-
-		$columns = array(
-			0 => 'id',
-			1 => 'name',
-			2 => 'email',
-			3 => 'User_type',
-			4 => 'active',
-			5 => 'created_at',
-			6 => 'action'
-		);
-
-		$totalData = User::where('is_admin', 0)->where('assign_role', '3')->where('added_by', $request->company_id)->count();
-		$limit = $request->input('length');
-		$start = $request->input('start');
-		$order = $columns[$request->input('order.0.column')];
-		$dir = $request->input('order.0.dir');
-
-		if(empty($request->input('search.value'))){
-			$users = User::where('is_admin', 0)->where('assign_role', '3')->where('added_by', $request->company_id)->offset($start)
-				->limit($limit)
-				->orderBy($order,$dir)
-				->get();
-			$totalFiltered = User::where('is_admin', 0)->where('assign_role', '3')->where('added_by', $request->company_id)->count();
-		}else{
-			$search = $request->input('search.value');
-			$users = User::where('is_admin', 0)->where('added_by', $request->company_id)->where([
-				['is_admin',0],
-				['name', 'like', "%{$search}%"],
-			])
-				->orWhere('email','like',"%{$search}%")
-				->orWhere('user_type', 'like', "%{$search}%")
-				->orWhere('created_at','like',"%{$search}%")
-				->offset($start)
-				->limit($limit)
-				->orderBy($order, $dir)
-				->get();
-			$totalFiltered = User::where('is_admin', 0)->where('added_by', $request->company_id)->where([
-
-				['name', 'like', "%{$search}%"],
-			])
-				->orWhere('name', 'like', "%{$search}%")
-				->orWhere('user_type', 'like', "%{$search}%")
-				->orWhere('email','like',"%{$search}%")
-				->orWhere('created_at','like',"%{$search}%")
-				->count();
-		}
-
-
-		$data = array();
-
-		if($users){
-			foreach($users as $r){
-				$edit_url = route('clients.edit',$r->id);
-				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="clients[]" value="'.$r->id.'"><span></span></label></td>';
-				$nestedData['name'] = $r->name;
-				$nestedData['user_type'] = $r->user_type;
-				$nestedData['email'] = $r->email;
-				if($r->active){
-					$nestedData['active'] = '<span class="label label-success label-inline mr-2">Active</span>';
-				}else{
-					$nestedData['active'] = '<span class="label label-danger label-inline mr-2">Inactive</span>';
-				}
-
-				$nestedData['created_at'] = date('d-m-Y',strtotime($r->created_at));
-				$nestedData['action'] = '
-                                <div>
-                                <td>
-                                    <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();del('.$r->id.');" title="Delete Client" href="javascript:void(0)">
-                                        <i class="icon-1x text-dark-50 flaticon-delete"></i>
-                                    </a>
-                                </td>
-                                </div>
-                            ';
-				$data[] = $nestedData;
-			}
-		}
-
-		$json_data = array(
-			"draw"			=> intval($request->input('draw')),
-			"recordsTotal"	=> intval($totalData),
-			"recordsFiltered" => intval($totalFiltered),
-			"data"			=> $data
-		);
-
-		echo json_encode($json_data);
-    }
 
     public function edit($id)
     {
 		$roles = Role::pluck('name','name')->all();
 	    $user = User::find($id);
-	    return view('admin.clients.edit', ['title' => 'Edit client details','roles' => $roles])->withUser($user);
+	    return view('admin.clients.edit', ['title' => 'Edit Staff ','roles' => $roles])->withUser($user);
     }
 
     public function update(Request $request, $id)
     {
+
 	    $user = User::find($id);
 	    $this->validate($request, [
 		    'name' => 'required|max:255',
 		    'email' => 'required|unique:users,email,'.$user->id,
-			'roles' => 'required',
+			// 'roles' => 'required',
 	    ]);
+
 	    $input = $request->all();
 
 	    $user->name = $input['name'];
@@ -331,9 +226,6 @@ class ClientController extends Controller
 	    }
 
 	    $user->save();
-		DB::table('model_has_roles')->where('model_id',$id)->delete();
-
-        $user->assignRole($request->input('roles'));
 
 	    Session::flash('success_message', 'Great! Client successfully updated!');
 	    return redirect()->back();

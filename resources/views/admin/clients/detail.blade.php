@@ -31,10 +31,7 @@ if(!empty(Session::get('locale')))
 				@endif
 			</td>
 		</tr>
-		<tr>
-			<td>Subscribe Plan</td>
-			<td>{{$user->order->plan_name}}</td>
-		</tr>
+
 		<tr>
 			<td>Status</td>
 			<td>

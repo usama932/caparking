@@ -1,9 +1,9 @@
-@php 
-if(!empty(Session::get('locale'))) 
+@php
+if(!empty(Session::get('locale')))
     {
         app()->setLocale(Session::get('locale'));
     }
-            
+
     else{
          app()->setLocale('en');
     }
@@ -25,10 +25,10 @@ if(!empty(Session::get('locale')))
             <!--begin::Breadcrumb-->
             <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
               <li class="breadcrumb-item text-muted">
-                <a href="" class="text-muted">{{trans('admin.manage')}} {{trans('admin.Company')}}</a>
+                <a href="" class="text-muted">{{trans('admin.manage')}} Staff</a>
               </li>
               <li class="breadcrumb-item text-muted">
-                <a href="" class="text-muted">{{trans('admin.add')}} {{trans('admin.Company')}}</a>
+                <a href="" class="text-muted">{{trans('admin.add')}} Staff</a>
               </li>
             </ul>
             <!--end::Breadcrumb-->
@@ -47,7 +47,7 @@ if(!empty(Session::get('locale')))
         <div class="card card-custom card-sticky" id="kt_page_sticky_card">
           <div class="card-header" style="">
             <div class="card-title">
-              <h3 class="card-label">{{trans('admin.Company')}} {{trans('admin.add')}} {{trans('admin.form')}}
+              <h3 class="card-label">Staff  {{trans('admin.add')}} {{trans('admin.form')}}
                 <i class="mr-2"></i>
                 <small class="">{{trans('admin.try_to_scroll_the_page')}}</small></h3>
 
@@ -93,20 +93,6 @@ if(!empty(Session::get('locale')))
                     </div>
                     <input name="roles" value="company" type="hidden">
                     <input name="user_type" value="company" type="hidden">
-                    <div class="form-group row {{ $errors->has('plans') ? 'has-error' : '' }}">
-                        <label class="col-3">{{trans('admin.select')}} {{trans('admin.plans')}}</label>
-                         <div class="col-9">
-                          <select class="form-control form-control-solid" name="plans">
-                            <option class="form-control form-control-solid" value="">--Select Plan--</option>
-                            @foreach($plans as $plan)
-                             <option class="form-control form-control-solid" value="{{$plan->id}}"> {{$plan->name}}</option>
-                            @endforeach
-                           
-                            
-                          </select>
-                           <span class="text-danger">{{ $errors->first('plans') }}</span>
-                        </div>
-                    </div>
                     <div class="form-group row {{ $errors->has('password') ? 'has-error' : '' }}">
                       <label class="col-3">{{trans('admin.password')}}</label>
                       <div class="col-9">

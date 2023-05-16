@@ -48,26 +48,16 @@ Route::group([
 ], function ()
 {
 
-
-    Route::resource('users', UserController::class);
     Route::get('/dashboard', 'AdminController@index')->name('admin.dashboard');
-    Route::get('/get_plans', 'AdminController@getPlan')->name('admin.plan');
     Route::get('/profile', 'AdminController@edit')->name('admin-profile');
     Route::post('/admin-update', 'AdminController@update')->name('admin-update');
     //Setting Routes
     Route::resource('setting','SettingController');
-    //Paypal
-    Route::get('handle-payment/{id}', 'PayPalPaymentController@handlePayment')->name('make.payment');
-    Route::get('cancel-payment', 'PayPalPaymentController@paymentCancel')->name('cancel.payment');
 
-    Route::post('/payment-success', 'PayPalPaymentController@paymentSuccess')->name('success.payment');
-
-
-	//Companies Routes
+	//Staff Routes
 	Route::resource('clients','ClientController');
 	Route::post('get-clients', 'ClientController@getClients')->name('admin.getClients');
 	Route::post('get-client', 'ClientController@clientDetail')->name('admin.getClient');
-    Route::post('get-reg_user', 'ClientController@reg_users')->name('admin.getRegUser');
 	Route::get('client/delete/{id}', 'ClientController@destroy');
 	Route::post('delete-selected-clients', 'ClientController@deleteSelectedClients')->name('admin.delete-selected-clients');
 
@@ -78,13 +68,6 @@ Route::group([
 	Route::post('get-user', 'UserController@userDetail')->name('admin.getUser');
 	Route::get('user/delete/{id}', 'UserController@destroy');
 	Route::post('delete-selected-users', 'UserController@deleteSelectedClients')->name('admin.delete-selected-users');
-
-    //Staff
-    Route::resource('staffs','StaffController');
-	Route::post('get-staffs', 'StaffController@getStaff')->name('admin.getStaffs');
-	Route::post('get-staff', 'StaffController@staffDetail')->name('admin.getStaff');
-	Route::get('staff/delete/{id}', 'StaffController@destroy');
-	Route::post('delete-selected-staffs', 'StaffController@deleteSelectedClients')->name('admin.delete-selected-staffs');
 
     //Roles
     Route::group(['middleware' => ['auth']], function() {
@@ -107,6 +90,13 @@ Route::group([
     Route::get('order/delete/{id}', 'OrderController@destroy');
     Route::post('delete-selected-orders', 'OrderController@deleteSelectedOrders')->name('admin.delete-selected-order');
 
+    //Rates
+    //Staff Routes
+	Route::resource('rates','RateController');
+	Route::post('get-rates', 'RateController@getrates')->name('admin.getrates');
+	Route::post('get-rate', 'RateController@rateDetail')->name('admin.getrate');
+	Route::get('rate/delete/{id}', 'RateController@destroy');
+	Route::post('delete-selected-rates', 'RateController@deleteSelectedrates')->name('admin.delete-selected-rates');
 
 });
 
