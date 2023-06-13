@@ -14,7 +14,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::select('id','name','age','mobile','city','country')->get();
+        $users = User::select('id','name','email','age','mobile','city','country')->get();
         $res = [
             'error' =>false,
             'user' => $users,
@@ -79,7 +79,17 @@ class UserController extends Controller
         //
     }
 
+    public function edit_user(string $id)
+    {
+        $user = User::find($id);
+        $res = [
+            'error' =>true,
+            'user' => $user,
+            'message' => 'User Get successfully'
+        ];
 
+        return response()->json($res, 200);
+    }
     public function edit(string $id)
     {
         //

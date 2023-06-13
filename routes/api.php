@@ -22,3 +22,4 @@ Route::resource('users',UserController::class);
 Route::post('update_user/{id}', 'UserController@update');
 Route::post('update_user/{id}', [UserController::class, 'update_user']);
 Route::post('delete_user/{id}', [UserController::class, 'delete_user']);
+Route::get('edit_user/{id}', [UserController::class, 'edit_user']);
