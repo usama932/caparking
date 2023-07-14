@@ -14,15 +14,23 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('username')->nullable();
             $table->string('email')->unique();
             $table->string('mobile')->nullable();
-            $table->string('city')->nullable();
-            $table->string('country')->nullable();
-            $table->string('age')->nullable();
+            $table->string('gender')->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
+            $table->string('avatar')->nullable()->default('img/default-avatar.jpg');
+            $table->tinyInteger('status')->default(1)->unsigned();
             $table->rememberToken();
+            $table->integer('created_by')->unsigned()->nullable();
+            $table->integer('updated_by')->unsigned()->nullable();
+            $table->integer('deleted_by')->unsigned()->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
